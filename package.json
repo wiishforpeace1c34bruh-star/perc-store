@@ -1,0 +1,17 @@
+{
+  "name": "perc-store",
+  "private": true,
+  "version": "1.0.0",
+  "description": "perc.store — OSINT Intelligence Framework marketplace",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.2"
+  }
+}

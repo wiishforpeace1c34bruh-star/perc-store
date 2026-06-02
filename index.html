@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" 
+    content="default-src 'self'; 
+             script-src 'self' 'unsafe-inline'; 
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data:;
+             connect-src 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- SEO -->
+  <title>perc.store</title>
+  <meta name="description" content="Professional OSINT intelligence tools. Username enumeration, email recon, phone lookup, IP geolocation, domain analysis, and Google dorking. Try before you buy with our live terminal.">
+  <meta property="og:title" content="perc.store">
+  <meta property="og:description" content="Professional OSINT intelligence tools. Try the live terminal demo.">
+  <meta property="og:site_name" content="perc.store">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://perc.store">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="perc.store — OSINT Intelligence Framework">
+  <meta name="twitter:description" content="Professional OSINT intelligence tools. Username enumeration, email recon, domain analysis, and more.">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PERC",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows, Linux, macOS",
+    "description": "OSINT Intelligence Framework for username enumeration, email recon, phone lookup, IP geolocation, domain analysis, and Google dorking.",
+    "url": "https://perc.store",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div id="page-loader" class="page-loader">
+    <span class="page-loader-text">perc.store</span>
+  </div>
+
+  <!-- ═══════════ Navigation ═══════════ -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">perc<span class="accent">.store</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#tools">tools</a></li>
+        <li><a href="#demo">demo</a></li>
+        <li><a href="#features">features</a></li>
+        <li><a href="#pricing">pricing</a></li>
+        <li><a href="#community">community</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-sm" id="btn-nav-login">login</button>
+        <a href="#demo" class="btn btn-outline btn-sm">try demo</a>
+        <a href="#pricing" class="btn btn-primary btn-sm">get perc</a>
+      </div>
+
+      <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="nav-mobile-menu" id="nav-mobile-menu">
+    <a href="#tools">tools</a>
+    <a href="#demo">demo</a>
+    <a href="#features">features</a>
+    <a href="#pricing">pricing</a>
+    <a href="#community">community</a>
+    <button class="btn btn-outline" id="btn-mobile-login" style="margin-top: 1rem; width: 100%;">login</button>
+    <a href="#pricing" class="btn btn-primary" style="margin-top: 0.5rem; text-align: center;">get perc</a>
+  </div>
+
+
+  <!-- ═══════════ Hero ═══════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <!-- Pill Widget Canvas -->
+      <canvas id="pill-canvas" class="hero-pill-canvas" width="400" height="400" style="width: 400px; height: 400px;"></canvas>
+
+      <!-- Tagline with typewriter -->
+      <h1 class="hero-tagline">
+        <span id="hero-tagline"></span><span class="typing-cursor"></span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Modular OSINT intelligence framework. Username enumeration across 31 platforms, email reconnaissance, phone lookup, IP geolocation, domain analysis, and automated Google dorking.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#demo" class="btn btn-primary btn-lg btn-magnetic" id="btn-try-demo">try live demo</a>
+        <a href="#tools" class="btn btn-outline btn-lg btn-magnetic" id="btn-explore">explore tools</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <span>scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ Stats Bar ═══════════ -->
+  <div class="stats-bar" data-animate="fade-up">
+    <div class="stat-item">
+      <div class="stat-value" data-count-to="31" data-count-suffix="+">0+</div>
+      <div class="stat-label">platforms scanned</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" data-count-to="106" data-count-suffix="">0</div>
+      <div class="stat-label">dork templates</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" data-count-to="6" data-count-suffix="">0</div>
+      <div class="stat-label">recon modules</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" data-count-to="10" data-count-suffix="">0</div>
+      <div class="stat-label">dork categories</div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ═══════════ Tools Section ═══════════ -->
+  <section class="section" id="tools">
+    <div data-animate="fade-up">
+      <div class="section-label">modules</div>
+      <h2 class="section-title">Built for real reconnaissance</h2>
+      <p class="section-subtitle">Each module is purpose-built for a specific intelligence target. Async scanning, structured output, and cross-platform support out of the box.</p>
+    </div>
+
+    <div class="tools-grid" data-stagger>
+      <!-- Username Search -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">@</div>
+        <div class="tool-card-title">Username Search</div>
+        <div class="tool-card-description">Async enumeration across 31 platforms. Checks GitHub, Twitter/X, Instagram, Reddit, TikTok, Steam, and more simultaneously.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">31</span>
+            <span class="tool-stat-label">platforms</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">10</span>
+            <span class="tool-stat-label">concurrent</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">&lt;5s</span>
+            <span class="tool-stat-label">avg scan</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc -u</span> johndoe
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+
+      <!-- Email Recon -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">&gt;</div>
+        <div class="tool-card-title">Email Recon</div>
+        <div class="tool-card-description">Validate addresses, identify providers, check breach databases via XposedOrNot API, resolve MX records, and detect Gravatar profiles.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">20+</span>
+            <span class="tool-stat-label">providers</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">MX</span>
+            <span class="tool-stat-label">dns checks</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">live</span>
+            <span class="tool-stat-label">breach data</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc -e</span> target@gmail.com
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+
+      <!-- Phone Lookup -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">#</div>
+        <div class="tool-card-title">Phone Lookup</div>
+        <div class="tool-card-description">Parse and validate international numbers, identify carrier and line type, detect location and timezone, generate reverse lookup URLs for major directories.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">intl</span>
+            <span class="tool-stat-label">coverage</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">6+</span>
+            <span class="tool-stat-label">directories</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc -p</span> +1234567890
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+
+      <!-- IP Geolocation -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">&lt;/&gt;</div>
+        <div class="tool-card-title">IP Geolocation</div>
+        <div class="tool-card-description">Query ip-api.com for geo data, reverse DNS, optional WHOIS. Generates links to Shodan, Censys, VirusTotal, AbuseIPDB, and GreyNoise.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">7+</span>
+            <span class="tool-stat-label">intel sources</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">WHOIS</span>
+            <span class="tool-stat-label">optional</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc -ip</span> 8.8.8.8
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+
+      <!-- Domain Recon -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">$</div>
+        <div class="tool-card-title">Domain Recon</div>
+        <div class="tool-card-description">Full WHOIS, DNS record resolution (A/AAAA/MX/NS/TXT/SOA), HTTP header analysis, tech stack detection, SSL cert info, and subdomain enumeration.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">15</span>
+            <span class="tool-stat-label">subdomains</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">SSL</span>
+            <span class="tool-stat-label">cert info</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">auto</span>
+            <span class="tool-stat-label">tech detect</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc -d</span> example.com
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+
+      <!-- Google Dorker -->
+      <div class="tool-card" data-glow data-stagger-child>
+        <div class="tool-card-icon">%</div>
+        <div class="tool-card-title">Google Dorker</div>
+        <div class="tool-card-description">106 dork templates across 10 categories — social media, documents, login pages, directories, databases, email, phone, personal, credentials, and subdomains.</div>
+        <div class="tool-card-stats">
+          <div class="tool-stat">
+            <span class="tool-stat-value">106</span>
+            <span class="tool-stat-label">templates</span>
+          </div>
+          <div class="tool-stat">
+            <span class="tool-stat-value">10</span>
+            <span class="tool-stat-label">categories</span>
+          </div>
+        </div>
+        <div class="tool-card-preview">
+          <span class="cmd">perc --dork</span> target.com <span class="cmd">-c</span> all
+        </div>
+        <div class="tool-card-actions">
+          <a href="#demo" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">try it</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ═══════════ Live Terminal Demo ═══════════ -->
+  <section class="section terminal-section" id="demo">
+    <div data-animate="fade-up">
+      <div class="section-label">live demo</div>
+      <h2 class="section-title">Try it before you buy</h2>
+      <p class="section-subtitle">Type real perc commands and see simulated results. Click an example below or type your own. No signup required.</p>
+    </div>
+
+    <div id="terminal-container" data-animate="scale-in" data-delay="200" style="margin-top: 2rem;">
+      <!-- Terminal will be injected here by terminal.js -->
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ═══════════ Features Bento Grid ═══════════ -->
+  <section class="section" id="features">
+    <div data-animate="fade-up">
+      <div class="section-label">why perc</div>
+      <h2 class="section-title">Engineered for investigators</h2>
+      <p class="section-subtitle">Purpose-built architecture. Every design decision is made with speed, reliability, and operational security in mind.</p>
+    </div>
+
+    <div class="features-grid" data-stagger>
+      <div class="feature-card wide" data-stagger-child>
+        <span class="feature-card-icon">::</span>
+        <div class="feature-card-title">Async Scanning</div>
+        <div class="feature-card-text">Concurrent platform checks with aiohttp and asyncio semaphores. Scan 31 platforms in under 5 seconds instead of 30+ sequential requests. Built-in concurrency limits prevent rate-limit bans.</div>
+      </div>
+
+      <div class="feature-card" data-stagger-child>
+        <span class="feature-card-icon">~/</span>
+        <div class="feature-card-title">Web Dashboard</div>
+        <div class="feature-card-text">Full Flask-powered interface with session auth, search history, favorites, and stats. Run investigations from any browser.</div>
+      </div>
+
+      <div class="feature-card" data-stagger-child>
+        <span class="feature-card-icon">{}</span>
+        <div class="feature-card-title">JSON Export</div>
+        <div class="feature-card-text">Every scan exports clean JSON for integration with other tools, databases, or custom pipelines. Use the -o flag to save results.</div>
+      </div>
+
+      <div class="feature-card wide" data-stagger-child>
+        <span class="feature-card-icon">++</span>
+        <div class="feature-card-title">Modular Architecture</div>
+        <div class="feature-card-text">Each OSINT module is independent and extensible. Add custom modules, fork existing ones, or integrate with your existing toolchain. Standard SearchResult dataclass ensures consistency across all modules.</div>
+      </div>
+
+      <div class="feature-card" data-stagger-child>
+        <span class="feature-card-icon">**</span>
+        <div class="feature-card-title">Secure by Default</div>
+        <div class="feature-card-text">PBKDF2 password hashing, WAL-mode SQLite, session-based auth. No telemetry, no tracking, no external dependencies at runtime.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ═══════════ Pricing ═══════════ -->
+  <section class="section" id="pricing">
+    <div data-animate="fade-up" style="text-align: center;">
+      <div class="section-label" style="justify-content: center;">pricing</div>
+      <h2 class="section-title">Simple, transparent pricing</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">No subscriptions. No hidden fees. One payment, full access.</p>
+    </div>
+
+    <div class="pricing-cards" style="display: flex; justify-content: center;" data-stagger>
+      <!-- Full Package -->
+      <div class="pricing-card featured" style="max-width: 440px; width: 100%;" data-stagger-child>
+        <div class="pricing-card-name">full package</div>
+        <div class="pricing-card-price">$49</div>
+        <div class="pricing-card-period">lifetime access</div>
+        <ul class="pricing-card-features">
+          <li style="color: var(--accent); font-weight: bold; justify-content: center; text-align: center; margin-bottom: 1rem;">PERC Open Source Intelligence Package</li>
+          <li>Username enumeration (31 platforms)</li>
+          <li>Email reconnaissance & breach data</li>
+          <li>Phone lookup & IP geolocation</li>
+          <li>Domain reconnaissance & WHOIS</li>
+          <li>Google Dorker (106 templates)</li>
+          <li>CLI & Web Dashboard access</li>
+          <li>JSON export capabilities</li>
+          <li>Lifetime updates & community support</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width: 100%;" id="btn-purchase">purchase</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ═══════════ Community ═══════════ -->
+  <section class="section community-section" id="community">
+    <div data-animate="fade-up">
+      <div class="section-label" style="justify-content: center;">community</div>
+      <h2 class="section-title">Join the network</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Connect with other investigators, share techniques, get help, and stay updated on new modules and features.</p>
+    </div>
+
+    <div class="community-card" data-animate="scale-in" data-delay="200">
+      <span class="community-icon" style="font-family: var(--font-mono); font-size: 2rem; color: var(--accent);">&gt;_</span>
+      <h3 class="community-title">Discord Community</h3>
+      <p class="community-text">Our Discord is where it happens. Module announcements, feature requests, bug reports, and real-time help from the team and community members.</p>
+      
+      <div class="community-stats">
+        <div class="stat-item">
+          <div class="stat-value" style="font-size: 1.5rem;" data-count-to="500" data-count-suffix="+">0+</div>
+          <div class="stat-label">members</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" style="font-size: 1.5rem;">24/7</div>
+          <div class="stat-label">support</div>
+        </div>
+      </div>
+
+      <a href="#" class="btn btn-primary btn-lg" id="btn-discord" rel="noopener noreferrer">join discord</a>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ Footer ═══════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">perc<span class="accent">.store</span></div>
+        <p class="footer-brand-text">OSINT intelligence framework. Built for investigators who need real results, not noise. Modular. Fast. No-nonsense.</p>
+      </div>
+
+      <div>
+        <div class="footer-column-title">product</div>
+        <ul class="footer-links">
+          <li><a href="#tools">tools</a></li>
+          <li><a href="#demo">live demo</a></li>
+          <li><a href="#pricing">pricing</a></li>
+          <li><a href="#features">features</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-column-title">resources</div>
+        <ul class="footer-links">
+          <li><a href="#">documentation</a></li>
+          <li><a href="#">changelog</a></li>
+          <li><a href="#">api reference</a></li>
+          <li><a href="#">status</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-column-title">legal</div>
+        <ul class="footer-links">
+          <li><a href="#">terms of service</a></li>
+          <li><a href="#">privacy policy</a></li>
+          <li><a href="#">acceptable use</a></li>
+          <li><a href="#">refund policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 perc.store — built with intent</span>
+      <span>osint intelligence framework</span>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════ Auth Modal ═══════════ -->
+  <div class="auth-overlay" id="auth-overlay"></div>
+  <div class="auth-modal" id="auth-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="btn-close-auth" aria-label="Close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    
+    <div class="auth-header">
+      <div class="auth-title" id="auth-title">Welcome back</div>
+      <div class="auth-subtitle" id="auth-subtitle">Sign in to access your dashboard</div>
+    </div>
+
+    <form class="auth-form" id="auth-form">
+      <!-- Honeypot field for basic bot protection -->
+      <div style="display: none;" aria-hidden="true">
+        <input type="text" id="bot-field" name="bot-field" tabindex="-1">
+      </div>
+
+      <div class="form-group">
+        <label for="auth-email" class="form-label">Email Address</label>
+        <input type="email" id="auth-email" class="form-input" required placeholder="investigator@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="auth-password" class="form-label">Password</label>
+        <input type="password" id="auth-password" class="form-input" required placeholder="••••••••">
+      </div>
+
+      <div class="auth-error" id="auth-error"></div>
+
+      <button type="submit" class="btn btn-primary" id="btn-auth-submit" style="width: 100%;">Sign In</button>
+    </form>
+
+    <div class="auth-toggle">
+      <span id="auth-toggle-text">Don't have an account?</span>
+      <button type="button" id="btn-auth-toggle">Sign up</button>
+    </div>
+  </div>
+
+
+  <!-- App Entry Point -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
