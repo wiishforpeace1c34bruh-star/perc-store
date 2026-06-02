@@ -67,6 +67,21 @@ export function initAuth() {
     });
   }
 
+  const btnExitDash = document.getElementById('btn-exit-dashboard');
+  if (btnExitDash) {
+    btnExitDash.addEventListener('click', hideDashboard);
+  }
+
+  const btnDashLogout = document.getElementById('btn-dashboard-logout');
+  if (btnDashLogout) {
+    btnDashLogout.addEventListener('click', async () => {
+      if (supabase) {
+        await supabase.auth.signOut();
+        window.location.reload();
+      }
+    });
+  }
+
   // --- Modal Visibility ---
 
   function openModal() {

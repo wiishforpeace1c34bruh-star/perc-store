@@ -1,12 +1,13 @@
 export async function initDashboard(supabase, session) {
   const profileForm = document.getElementById('profile-edit-form');
-  const bannerInput = document.getElementById('profile-banner-input');
-  const avatarInput = document.getElementById('profile-avatar-input');
   const bioInput = document.getElementById('profile-bio-input');
   const usernameInput = document.getElementById('profile-username-input');
   const bannerPreview = document.getElementById('profile-banner-preview');
   const avatarPreview = document.getElementById('profile-avatar-preview');
   const saveStatus = document.getElementById('profile-save-status');
+
+  const uploadBanner = document.getElementById('upload-banner');
+  const uploadAvatar = document.getElementById('upload-avatar');
 
   const chatForm = document.getElementById('chat-input-form');
   const chatInput = document.getElementById('chat-message-input');
@@ -27,17 +28,33 @@ export async function initDashboard(supabase, session) {
         return;
       }
 
-      if (data) {
+      if (!data) {
+        // Missing profile! Backfill it so chat works.
+        const defaultUsername = session.user.user_metadata?.username || session.user.email.split('@')[0];
+        const isAdmin = session.user.email === 'wiishforpeace1c34bruh@gmail.com';
+        
+        const { data: newProfile, error: insertError } = await supabase
+          .from('profiles')
+          .insert({
+            id: session.user.id,
+            username: defaultUsername,
+            is_admin: isAdmin
+          })
+          .select()
+          .single();
+          
+        if (insertError) throw insertError;
+        currentProfile = newProfile;
+      } else {
         currentProfile = data;
-        usernameInput.value = data.username || session.user.email;
-        bioInput.value = data.bio || '';
-        bannerInput.value = data.banner_url || '';
-        avatarInput.value = data.avatar_url || '';
-
-        updatePreviews(data);
       }
+
+      usernameInput.value = currentProfile.username || session.user.email;
+      bioInput.value = currentProfile.bio || '';
+      updatePreviews(currentProfile);
+      
     } catch (err) {
-      console.error(err);
+      console.error('Profile initialization failed:', err);
     }
   }
 
@@ -55,6 +72,7 @@ export async function initDashboard(supabase, session) {
     }
   }
 
+  // --- Profile Updating (Bio) ---
   if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -63,8 +81,6 @@ export async function initDashboard(supabase, session) {
       const updates = {
         id: session.user.id,
         bio: bioInput.value,
-        banner_url: bannerInput.value,
-        avatar_url: avatarInput.value,
         updated_at: new Date()
       };
 
@@ -73,7 +89,6 @@ export async function initDashboard(supabase, session) {
         if (error) throw error;
         
         saveStatus.textContent = 'Profile updated securely.';
-        updatePreviews(updates);
         setTimeout(() => saveStatus.textContent = '', 3000);
       } catch (err) {
         saveStatus.textContent = 'Error: ' + err.message;
@@ -82,8 +97,64 @@ export async function initDashboard(supabase, session) {
     });
   }
 
-  // --- Live Chatroom ---
+  // --- Image Uploading ---
+  async function handleImageUpload(file, type) {
+    if (!file) return;
+    saveStatus.textContent = `Uploading ${type}...`;
+    
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${session.user.id}-${type}-${Math.random()}.${fileExt}`;
+    const filePath = `${session.user.id}/${fileName}`;
 
+    try {
+      // 1. Upload to Storage
+      const { error: uploadError } = await supabase.storage
+        .from('profiles')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // 2. Get Public URL
+      const { data } = supabase.storage
+        .from('profiles')
+        .getPublicUrl(filePath);
+
+      const publicUrl = data.publicUrl;
+
+      // 3. Update Profile Database
+      const updates = { id: session.user.id };
+      if (type === 'banner') updates.banner_url = publicUrl;
+      if (type === 'avatar') updates.avatar_url = publicUrl;
+
+      const { error: updateError } = await supabase.from('profiles').upsert(updates);
+      if (updateError) throw updateError;
+
+      // 4. Update UI
+      currentProfile = { ...currentProfile, ...updates };
+      updatePreviews(currentProfile);
+      saveStatus.textContent = `${type} updated successfully.`;
+      setTimeout(() => saveStatus.textContent = '', 3000);
+
+    } catch (err) {
+      saveStatus.textContent = 'Upload failed: ' + err.message;
+      saveStatus.style.color = '#ff3366';
+    }
+  }
+
+  if (uploadBanner) {
+    uploadBanner.addEventListener('change', (e) => {
+      handleImageUpload(e.target.files[0], 'banner');
+    });
+  }
+
+  if (uploadAvatar) {
+    uploadAvatar.addEventListener('change', (e) => {
+      handleImageUpload(e.target.files[0], 'avatar');
+    });
+  }
+
+
+  // --- Live Chatroom ---
   const checkmarkSvg = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
 
   function renderMessage(msg) {
@@ -136,6 +207,7 @@ export async function initDashboard(supabase, session) {
       chatMessages.innerHTML = '<div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem; margin-top: 2rem;">Secure channel opened. No recent communications.</div>';
     } else {
       data.forEach(renderMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
   }
 
@@ -155,6 +227,7 @@ export async function initDashboard(supabase, session) {
         if (error) throw error;
       } catch (err) {
         console.error('Failed to send message:', err);
+        alert('Failed to send message. Make sure your profile is initialized.');
       }
     });
   }
