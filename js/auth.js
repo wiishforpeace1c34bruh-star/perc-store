@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import QRCode from 'qrcode';
 
 // Initialize Supabase Client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
@@ -136,15 +137,19 @@ export function initAuth() {
       subtitle.textContent = 'Mandatory 2FA Setup';
 
       const qrContainer = document.getElementById('qrcode-render');
-      qrContainer.innerHTML = '';
-      new QRCode(qrContainer, {
-        text: data.totp.uri,
-        width: 180,
-        height: 180,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.M
-      });
+      try {
+        const qrDataUrl = await QRCode.toDataURL(data.totp.uri, {
+          width: 180,
+          margin: 1,
+          color: {
+            dark: '#000000',
+            light: '#ffffff'
+          }
+        });
+        qrContainer.innerHTML = `<img src="${qrDataUrl}" alt="2FA QR Code" style="border-radius: 8px;">`;
+      } catch (err) {
+        console.error('Failed to generate QR code:', err);
+      }
 
       document.getElementById('auth-secret-code').textContent = data.totp.secret;
     } catch (err) {
