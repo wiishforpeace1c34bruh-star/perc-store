@@ -152,23 +152,27 @@
   <!-- DASHBOARD VIEW -->
   <main id="main-dashboard" class="hidden" style="display: none; padding-top: calc(var(--nav-height) + 2rem); min-height: 100vh;">
     
-    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-xl); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <!-- Dashboard Header -->
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <div class="dashboard-tabs" style="display: flex; gap: 1rem;">
+        <button class="btn btn-sm tab-btn active" data-tab="profile">Profile</button>
+        <button class="btn btn-sm tab-btn" data-tab="chat" style="background: transparent; color: var(--text-muted); border-color: transparent;">Chat</button>
+      </div>
       <button class="btn btn-outline btn-sm" id="btn-exit-dashboard">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: text-bottom;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Return to Terminal
       </button>
     </div>
 
-    <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-xl) var(--space-xl); display: grid; grid-template-columns: 320px 1fr; gap: var(--space-2xl);">
+    <!-- Tab Contents Container -->
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl) var(--space-xl);">
       
-      <!-- Profile Section (Glassmorphism) -->
-      <div class="glass-panel" style="display: flex; flex-direction: column;">
-        <h2 style="font-family: var(--font-mono); margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--text-primary); letter-spacing: 2px;">[ PROFILE ]</h2>
-        
-        <div class="profile-images" style="position: relative; margin-bottom: 2rem;">
+      <!-- Profile Tab -->
+      <div id="tab-profile" class="tab-content glass-panel" style="display: block;">
+        <div class="profile-images" style="position: relative; margin-bottom: 3rem;">
           
           <!-- Banner Upload -->
-          <div class="image-upload-wrapper" id="wrapper-banner" style="height: 120px; border-radius: var(--radius-md) var(--radius-md) 0 0; overflow: hidden; position: relative; background: #111;">
+          <div class="image-upload-wrapper" id="wrapper-banner" style="height: 160px; border-radius: var(--radius-md); overflow: hidden; position: relative; background: #111;">
             <div id="profile-banner-preview" style="width: 100%; height: 100%; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.05); transition: filter 0.3s ease;"></div>
             <div class="upload-overlay">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -177,7 +181,7 @@
           </div>
 
           <!-- Avatar Upload -->
-          <div class="image-upload-wrapper avatar-wrapper" id="wrapper-avatar" style="position: absolute; left: 20px; bottom: -30px; width: 80px; height: 80px; border-radius: 50%; z-index: 10;">
+          <div class="image-upload-wrapper avatar-wrapper" id="wrapper-avatar" style="position: absolute; left: 30px; bottom: -40px; width: 100px; height: 100px; border-radius: 50%; z-index: 10;">
             <img id="profile-avatar-preview" src="https://ui-avatars.com/api/?name=User&background=111&color=ec4899" style="width: 100%; height: 100%; border-radius: 50%; border: 4px solid #0c0c0c; background: #000; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.8); transition: filter 0.3s ease;">
             <div class="upload-overlay" style="border-radius: 50%;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -187,17 +191,17 @@
 
         </div>
 
-        <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 1rem; flex: 1;">
+        <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div class="form-group">
-            <label class="form-label" style="font-size: 0.65rem;">Username</label>
+            <label class="form-label" style="font-size: 0.75rem;">Username</label>
             <input type="text" id="profile-username-input" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed; background: rgba(0,0,0,0.3);">
           </div>
-          <div class="form-group" style="flex: 1;">
-            <label class="form-label" style="font-size: 0.65rem;">Bio</label>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.75rem;">Bio</label>
             <textarea id="profile-bio-input" class="form-input" rows="4" placeholder="Tell the network about yourself..." style="resize: vertical;"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-sm" id="btn-save-profile" style="width: 100%; margin-top: 0.5rem; border-radius: var(--radius-md);">Update Bio</button>
-          <div id="profile-save-status" style="color: var(--accent); font-size: 0.8rem; text-align: center; height: 1rem; margin-top: 0.5rem; font-family: var(--font-mono);"></div>
+          <button type="submit" class="btn btn-primary btn-sm" id="btn-save-profile" style="width: 100%; border-radius: var(--radius-md); padding: 0.75rem;">Save Profile Settings</button>
+          <div id="profile-save-status" style="color: var(--accent); font-size: 0.8rem; text-align: center; height: 1rem; font-family: var(--font-mono);"></div>
         </form>
 
         <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
@@ -207,20 +211,20 @@
         </div>
       </div>
 
-      <!-- Chatroom Section (Glassmorphism) -->
-      <div class="glass-panel" style="display: flex; flex-direction: column; height: 75vh; padding: 0; overflow: hidden;">
+      <!-- Chat Tab -->
+      <div id="tab-chat" class="tab-content glass-panel" style="display: none; flex-direction: column; height: 75vh; padding: 0; overflow: hidden;">
         <div style="padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.3);">
-          <h2 style="font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; font-size: 1.1rem; margin: 0; letter-spacing: 1px;">
-            <span style="color: #10b981; animation: pulse 2s infinite; text-shadow: 0 0 10px rgba(16,185,129,0.5);">●</span> Global Intel Chat
+          <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin: 0; color: var(--text-primary);">
+            Chat
           </h2>
         </div>
         
         <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: rgba(0,0,0,0.1);">
-          <div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem;">Initializing secure connection to the network...</div>
+          <div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem;">No recent messages.</div>
         </div>
 
         <form id="chat-input-form" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 1rem; background: rgba(0,0,0,0.4);">
-          <input type="text" id="chat-message-input" class="form-input" placeholder="Transmit message..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);" required autocomplete="off">
+          <input type="text" id="chat-message-input" class="form-input" placeholder="Type a message..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);" required autocomplete="off">
           <button type="submit" class="btn btn-primary btn-sm" id="btn-send-message" style="padding: 0 2rem; border-radius: var(--radius-md);">Send</button>
         </form>
       </div>

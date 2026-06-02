@@ -1,4 +1,30 @@
 export async function initDashboard(supabase, session) {
+  // --- Tab Switching Logic ---
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from all
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'transparent';
+        b.style.color = 'var(--text-muted)';
+        b.style.borderColor = 'transparent';
+      });
+      tabContents.forEach(c => c.style.display = 'none');
+
+      // Add active to clicked
+      btn.classList.add('active');
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      
+      const tabId = btn.getAttribute('data-tab');
+      document.getElementById(`tab-${tabId}`).style.display = tabId === 'chat' ? 'flex' : 'block';
+    });
+  });
+
   const profileForm = document.getElementById('profile-edit-form');
   const bioInput = document.getElementById('profile-bio-input');
   const usernameInput = document.getElementById('profile-username-input');
@@ -29,22 +55,8 @@ export async function initDashboard(supabase, session) {
       }
 
       if (!data) {
-        // Missing profile! Backfill it so chat works.
-        const defaultUsername = session.user.user_metadata?.username || session.user.email.split('@')[0];
-        const isAdmin = session.user.email === 'wiishforpeace1c34bruh@gmail.com';
-        
-        const { data: newProfile, error: insertError } = await supabase
-          .from('profiles')
-          .insert({
-            id: session.user.id,
-            username: defaultUsername,
-            is_admin: isAdmin
-          })
-          .select()
-          .single();
-          
-        if (insertError) throw insertError;
-        currentProfile = newProfile;
+        console.warn("Profile not found. User needs to run the SQL backfill script.");
+        currentProfile = {};
       } else {
         currentProfile = data;
       }

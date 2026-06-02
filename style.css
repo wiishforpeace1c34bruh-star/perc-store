@@ -1146,6 +1146,26 @@ body::before {
 
 
 /* ─── Dashboard Glassmorphism & UI ─── */
+.tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  padding: 0.5rem 1.5rem;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+}
+
+.tab-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
 .glass-panel {
   background: rgba(12, 12, 12, 0.6);
   backdrop-filter: blur(12px);
