@@ -199,34 +199,6 @@
       </div>
     </div>
 
-    <!-- State 2: 2FA Setup -->
-    <div id="auth-state-setup-2fa" style="display: none;">
-      <div class="auth-qr-container">
-        <div id="qrcode-render"></div>
-        <div class="auth-secret-code" id="auth-secret-code">Loading...</div>
-      </div>
-      <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">Scan the QR code with your authenticator app (Authy, Google Authenticator), then enter the 6-digit code below to verify.</p>
-      <form class="auth-form" id="setup-2fa-form">
-        <div class="form-group">
-          <input type="text" id="setup-2fa-code" class="form-input" required placeholder="123456" maxlength="6" style="text-align: center; font-size: 1.2rem; letter-spacing: 0.5rem;">
-        </div>
-        <div class="auth-error" id="setup-2fa-error"></div>
-        <button type="submit" class="btn btn-primary" id="btn-setup-2fa-submit" style="width: 100%;">Verify & Complete</button>
-      </form>
-    </div>
-
-    <!-- State 3: 2FA Challenge (Login) -->
-    <div id="auth-state-challenge-2fa" style="display: none;">
-      <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">Enter the 6-digit code from your authenticator app.</p>
-      <form class="auth-form" id="challenge-2fa-form">
-        <div class="form-group">
-          <input type="text" id="challenge-2fa-code" class="form-input" required placeholder="123456" maxlength="6" style="text-align: center; font-size: 1.2rem; letter-spacing: 0.5rem;">
-        </div>
-        <div class="auth-error" id="challenge-2fa-error"></div>
-        <button type="submit" class="btn btn-primary" id="btn-challenge-2fa-submit" style="width: 100%;">Authenticate</button>
-      </form>
-    </div>
-
   </div>
 
 
