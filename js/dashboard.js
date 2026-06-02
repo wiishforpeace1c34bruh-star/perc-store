@@ -64,6 +64,36 @@ export async function initDashboard(supabase, session) {
       usernameInput.value = currentProfile.username || 'Anonymous';
       bioInput.value = currentProfile.bio || '';
       updatePreviews(currentProfile);
+
+      // --- License Tab UI Update ---
+      const licenseContainer = document.getElementById('license-status-container');
+      const purchaseBtn = document.getElementById('btn-purchase-access');
+      
+      if (currentProfile.has_access) {
+        licenseContainer.innerHTML = `
+          <div style="background: rgba(46, 213, 115, 0.1); border: 1px solid rgba(46, 213, 115, 0.3); border-radius: var(--radius-md); padding: 1.5rem; display: inline-block;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2ed573" stroke-width="2" style="margin-bottom: 1rem;">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <h3 style="color: #2ed573; margin: 0 0 0.5rem 0;">Active License</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Your account has full access to the perc.store native framework.</p>
+          </div>
+        `;
+        purchaseBtn.style.display = 'none';
+      } else {
+        licenseContainer.innerHTML = `
+          <div style="background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.3); border-radius: var(--radius-md); padding: 1.5rem; display: inline-block;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff3366" stroke-width="2" style="margin-bottom: 1rem;">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <h3 style="color: #ff3366; margin: 0 0 0.5rem 0;">Access Restricted</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Purchase a lifetime license to unlock the native framework.</p>
+          </div>
+        `;
+        purchaseBtn.style.display = 'block';
+      }
       
     } catch (err) {
       console.error('Profile initialization failed:', err);
@@ -283,6 +313,36 @@ export async function initDashboard(supabase, session) {
       renderMessage(newMsg);
     })
     .subscribe();
+
+  // --- Purchase Access logic ---
+  const purchaseBtn = document.getElementById('btn-purchase-access');
+  if (purchaseBtn) {
+    purchaseBtn.addEventListener('click', async () => {
+      purchaseBtn.disabled = true;
+      purchaseBtn.textContent = 'Contacting Stripe...';
+      const errorLabel = document.getElementById('purchase-error');
+      errorLabel.style.display = 'none';
+
+      try {
+        const { data, error } = await supabase.functions.invoke('create-checkout', {
+          method: 'POST'
+        });
+
+        if (error) throw error;
+        if (data && data.url) {
+          window.location.href = data.url; // Redirect to Stripe
+        } else {
+          throw new Error('No checkout URL returned from server.');
+        }
+      } catch (err) {
+        console.error('Checkout error:', err);
+        errorLabel.textContent = err.message || 'Failed to initiate checkout.';
+        errorLabel.style.display = 'block';
+        purchaseBtn.disabled = false;
+        purchaseBtn.textContent = 'Purchase Lifetime Access';
+      }
+    });
+  }
 
   // Initialization
   await loadProfile();

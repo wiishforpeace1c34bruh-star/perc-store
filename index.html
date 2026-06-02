@@ -157,6 +157,7 @@
       <div class="dashboard-tabs" style="display: flex; gap: 1rem;">
         <button class="btn btn-sm tab-btn active" data-tab="profile">Profile</button>
         <button class="btn btn-sm tab-btn" data-tab="chat" style="background: transparent; color: var(--text-muted); border-color: transparent;">Chat</button>
+        <button class="btn btn-sm tab-btn" data-tab="license" style="background: transparent; color: var(--text-muted); border-color: transparent;">License</button>
       </div>
       <button class="btn btn-outline btn-sm" id="btn-exit-dashboard">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: text-bottom;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
@@ -229,6 +230,16 @@
         </form>
       </div>
 
+      <!-- License Tab -->
+      <div id="tab-license" class="tab-content glass-panel" style="display: none; padding: 3rem 1.5rem; text-align: center;">
+        <h2 style="font-family: var(--font-mono); color: var(--text-primary); margin-bottom: 1rem;">perc.store License</h2>
+        <div id="license-status-container" style="margin-bottom: 2rem;">
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">Checking license status...</p>
+        </div>
+        <button id="btn-purchase-access" class="btn btn-primary" style="display: none; margin: 0 auto;">Purchase Lifetime Access</button>
+        <p id="purchase-error" style="color: #ff3366; margin-top: 1rem; font-size: 0.85rem; display: none;"></p>
+      </div>
+
     </div>
   </main>
 
@@ -243,6 +254,7 @@
         <a href="#features">Features</a>
         <a href="#demo">Terminal</a>
         <a href="#pricing">Pricing</a>
+        <a href="/tos.html">Terms of Service</a>
       </div>
     </div>
     <div class="footer-bottom-elite">
