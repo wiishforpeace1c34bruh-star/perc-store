@@ -352,6 +352,18 @@ export function initAuth() {
         alert('Dashboard redirect goes here!');
       });
     }
+
+    const btnNavLogout = document.getElementById('btn-nav-logout');
+    if (btnNavLogout) {
+      btnNavLogout.style.display = 'inline-flex';
+      btnNavLogout.addEventListener('click', async () => {
+        if (supabase) {
+          await supabase.auth.signOut();
+          window.location.reload();
+        }
+      });
+    }
+
     if (btnMobileLogin) {
       btnMobileLogin.textContent = 'Dashboard';
     }
