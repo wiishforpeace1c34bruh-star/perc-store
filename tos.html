@@ -4,69 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service - perc.store</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --text: #e5e5e5;
-      --accent: #ec4899;
-      --muted: #888;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-      padding: 2rem;
+    .tos-container {
       max-width: 800px;
       margin: 0 auto;
+      padding: calc(var(--nav-height) + 4rem) var(--space-xl) var(--space-4xl);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
     }
-    h1 { color: var(--accent); }
-    h2 { margin-top: 2rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .back-btn { display: inline-block; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #333; border-radius: 4px; color: var(--text); }
-    .back-btn:hover { background: #1a1a1a; }
+    .tos-container h1 {
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      margin-bottom: 2rem;
+    }
+    .tos-container h2 {
+      color: var(--accent);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+    }
+    .tos-container p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body>
-  <a href="/" class="back-btn">&larr; Back to Home</a>
-  
-  <h1>Terms of Service</h1>
-  <p><em>Last Updated: June 2026</em></p>
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">perc<span class="accent">.store</span></a>
+      <div class="nav-actions">
+        <a href="/" class="btn btn-outline btn-sm">back to home</a>
+      </div>
+    </div>
+  </nav>
 
-  <h2>1. Acceptance of Terms</h2>
-  <p>By accessing or using the software, tools, and services provided by perc.store ("Company", "we", "us", or "our"), you agree to be bound by these Terms of Service. If you do not agree to these terms, you are prohibited from using our services.</p>
+  <main class="tos-container">
+    <h1>Terms of Service</h1>
+    <p><em>Last Updated: June 2026</em></p>
 
-  <h2>2. Nature of the Software</h2>
-  <p>perc.store provides advanced data analysis, open-source intelligence (OSINT), and cybersecurity research tools. Our software is designed <strong>strictly for lawful, authorized cybersecurity investigations, academic research, and defensive security testing</strong>.</p>
-  <p>You acknowledge that perc.store is an analytical framework. It does not contain, distribute, or facilitate malware, unauthorized access exploits, or illegal surveillance.</p>
+    <h2>1. The Deal</h2>
+    <p>By using perc.store, you agree to these terms. If you don't like them, don't use the tool.</p>
 
-  <h2>3. Acceptable Use Policy</h2>
-  <p>As a condition of your license, you agree that you will <strong>NOT</strong> use our software to:</p>
-  <ul>
-    <li>Gain unauthorized access to any computer system, network, or account.</li>
-    <li>Violate the privacy rights of any individual, including unlawful surveillance or stalking.</li>
-    <li>Harass, threaten, or intimidate any person or organization.</li>
-    <li>Violate any applicable local, state, national, or international law, including the Computer Fraud and Abuse Act (CFAA) or the General Data Protection Regulation (GDPR).</li>
-  </ul>
-  <p>We reserve the right to immediately terminate your license and ban your account without refund if we determine, in our sole discretion, that you have violated this Acceptable Use Policy.</p>
+    <h2>2. What This Is</h2>
+    <p>perc.store is an OSINT (Open Source Intelligence) tool. It's built for finding public info fast. It's not for hacking, it's not a virus, and it doesn't give you unauthorized access to anything. It just searches the web really, really well.</p>
 
-  <h2>4. Purchases and Licenses</h2>
-  <p>All purchases grant a non-transferable, revocable license to use the perc.store framework. Licenses are tied to your specific user account. Sharing of accounts or license keys is strictly prohibited and will result in instant termination.</p>
-  <p>Due to the digital nature of the software, all sales are final. Refunds are provided only at our discretion in the event of major technical failures that prevent the software from operating as described.</p>
+    <h2>3. Don't Do Stupid Stuff</h2>
+    <p>Do not use this to stalk people, harass anyone, or break the law. If you do, that's on you. We will ban your license immediately if we catch you doing weird illegal stuff with our framework.</p>
 
-  <h2>5. Limitation of Liability</h2>
-  <p>To the maximum extent permitted by law, perc.store and its creators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or use, arising out of or related to your use of the software.</p>
-  <p><strong>You are solely responsible for how you use the data and tools provided by our framework. We are not liable for any legal repercussions resulting from your misuse of the software.</strong></p>
+    <h2>4. Licenses</h2>
+    <p>You pay once, you get it forever. Do not share your account or license key. If you do, we'll permanently lock your access. No refunds unless the software literally stops working and we can't fix it.</p>
 
-  <h2>6. Disclaimer of Warranties</h2>
-  <p>The software is provided on an "AS IS" and "AS AVAILABLE" basis without any warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+    <h2>5. Liability</h2>
+    <p>We provide the tool; what you do with it is your responsibility. We are not liable for any trouble you get into.</p>
 
-  <h2>7. Modifications to Terms</h2>
-  <p>We reserve the right to modify these Terms at any time. We will notify users of any significant changes by posting the new Terms on this site. Your continued use of the service following the posting of changes constitutes your acceptance of such changes.</p>
+    <h2>6. Privacy</h2>
+    <p>We don't track your searches. We don't want to know who you're looking up. Everything happens on your machine.</p>
 
-  <h2>8. Contact Us</h2>
-  <p>If you have any questions regarding these Terms, or if you need to report abuse, please contact us via the secure chat channel in your dashboard.</p>
-
+  </main>
 </body>
 </html>
