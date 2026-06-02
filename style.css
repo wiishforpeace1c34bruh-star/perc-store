@@ -1145,6 +1145,68 @@ body::before {
 }
 
 
+/* ─── Admin Badges & Chatroom Styles ─── */
+.admin-username {
+  background: linear-gradient(270deg, #ec4899, #fff, #ec4899);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 3s linear infinite;
+  font-weight: 800 !important;
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background-color: #ec4899;
+  border-radius: 50%;
+  margin-left: 5px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+}
+
+.chat-message {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.chat-message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.chat-message-author {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chat-message-time {
+  color: var(--text-muted);
+}
+
+.chat-message-content {
+  color: #ddd;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 1024px) {
   .premium-grid {

@@ -2,6 +2,7 @@
  * auth.js — Authentication module for perc.store
  * Handles the Supabase auth flow, including mandatory TOTP MFA.
  */import { createClient } from '@supabase/supabase-js';
+import { initDashboard } from './dashboard.js';
 
 // Initialize Supabase Client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
@@ -37,6 +38,34 @@ export function initAuth() {
   const errorBox = document.getElementById('auth-error');
 
   let isSignUpMode = false;
+  let dashboardInitialized = false;
+
+  function showDashboard() {
+    document.getElementById('main-landing').style.display = 'none';
+    document.getElementById('main-dashboard').style.display = 'block';
+    
+    // Hide CTA button on dashboard
+    const cta = document.getElementById('btn-nav-cta');
+    if (cta) cta.style.display = 'none';
+  }
+
+  function hideDashboard() {
+    document.getElementById('main-landing').style.display = 'block';
+    document.getElementById('main-dashboard').style.display = 'none';
+    
+    const cta = document.getElementById('btn-nav-cta');
+    if (cta) cta.style.display = 'inline-block';
+  }
+
+  // Hook up logo to return to home
+  const logoLink = document.getElementById('nav-logo-link');
+  if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hideDashboard();
+      window.scrollTo(0,0);
+    });
+  }
 
   // --- Modal Visibility ---
 
@@ -133,6 +162,7 @@ export function initAuth() {
       submitBtn.textContent = 'Processing...';
 
       try {
+        let sessionData = null;
         if (isSignUpMode) {
           const result = await supabase.auth.signUp({
             email, password, options: { data: { username: username } }
@@ -146,17 +176,31 @@ export function initAuth() {
           if (!result.data.session) {
              const loginResult = await supabase.auth.signInWithPassword({ email, password });
              if (loginResult.error) throw loginResult.error;
+             sessionData = loginResult.data.session;
+          } else {
+             sessionData = result.data.session;
           }
 
           closeModal();
-          updateUIForLoggedInUser();
+          updateUIForLoggedInUser(sessionData);
+          showDashboard();
+          if (!dashboardInitialized) {
+            await initDashboard(supabase, sessionData);
+            dashboardInitialized = true;
+          }
 
         } else {
           const result = await supabase.auth.signInWithPassword({ email, password });
           if (result.error) throw result.error;
 
           closeModal();
-          updateUIForLoggedInUser();
+          sessionData = result.data.session;
+          updateUIForLoggedInUser(sessionData);
+          showDashboard();
+          if (!dashboardInitialized) {
+            await initDashboard(supabase, sessionData);
+            dashboardInitialized = true;
+          }
         }
       } catch (err) {
         errorBox.textContent = err.message || 'An error occurred during authentication.';
@@ -173,23 +217,35 @@ export function initAuth() {
     if (!supabase) return;
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
-      updateUIForLoggedInUser();
+      updateUIForLoggedInUser(session);
     }
   }
 
-  function updateUIForLoggedInUser() {
+  function updateUIForLoggedInUser(session) {
     if (btnNavLogin) {
       btnNavLogin.textContent = 'Dashboard';
-      btnNavLogin.removeEventListener('click', openModal);
-      btnNavLogin.addEventListener('click', () => {
-        alert('Dashboard redirect goes here!');
+      
+      // Remove old listeners to prevent duplicates
+      const newBtn = btnNavLogin.cloneNode(true);
+      btnNavLogin.parentNode.replaceChild(newBtn, btnNavLogin);
+      
+      newBtn.addEventListener('click', async () => {
+        showDashboard();
+        if (!dashboardInitialized && session) {
+          await initDashboard(supabase, session);
+          dashboardInitialized = true;
+        }
       });
     }
 
     const btnNavLogout = document.getElementById('btn-nav-logout');
     if (btnNavLogout) {
       btnNavLogout.style.display = 'inline-flex';
-      btnNavLogout.addEventListener('click', async () => {
+      
+      const newLogBtn = btnNavLogout.cloneNode(true);
+      btnNavLogout.parentNode.replaceChild(newLogBtn, btnNavLogout);
+      
+      newLogBtn.addEventListener('click', async () => {
         if (supabase) {
           await supabase.auth.signOut();
           window.location.reload();
@@ -197,8 +253,24 @@ export function initAuth() {
       });
     }
 
-    if (btnMobileLogin) {
-      btnMobileLogin.textContent = 'Dashboard';
+    const mobileBtn = document.getElementById('btn-mobile-login');
+    if (mobileBtn) {
+      mobileBtn.textContent = 'Dashboard';
+      const newMobBtn = mobileBtn.cloneNode(true);
+      mobileBtn.parentNode.replaceChild(newMobBtn, mobileBtn);
+      
+      newMobBtn.addEventListener('click', async () => {
+        const mobileMenu = document.getElementById('nav-mobile-menu');
+        const mobileToggle = document.getElementById('nav-mobile-toggle');
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
+        
+        showDashboard();
+        if (!dashboardInitialized && session) {
+          await initDashboard(supabase, session);
+          dashboardInitialized = true;
+        }
+      });
     }
   }
 
