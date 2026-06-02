@@ -1179,3 +1179,37 @@ body::before {
     padding: var(--space-2xl);
   }
 }
+
+/* ─── 2FA Modal Styles ─── */
+.auth-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin: 1rem auto;
+  width: max-content;
+}
+
+.auth-qr-container img {
+  border-radius: 4px;
+}
+
+.auth-secret-code {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #000;
+  background: #f0f0f0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  user-select: all;
+}
+
+/* Ensure modal is tall enough */
+.auth-modal {
+  max-height: 90vh;
+  overflow-y: auto;
+}

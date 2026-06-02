@@ -1,6 +1,6 @@
 /**
  * auth.js — Authentication module for perc.store
- * Handles the Supabase auth flow and modal UI
+ * Handles the Supabase auth flow, including mandatory TOTP MFA.
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -24,7 +24,16 @@ export function initAuth() {
   const btnMobileLogin = document.getElementById('btn-mobile-login');
   const btnClose = document.getElementById('btn-close-auth');
   
+  // States
+  const stateLogin = document.getElementById('auth-state-login');
+  const stateSetup2fa = document.getElementById('auth-state-setup-2fa');
+  const stateChallenge2fa = document.getElementById('auth-state-challenge-2fa');
+
+  // Forms
   const form = document.getElementById('auth-form');
+  const formSetup2fa = document.getElementById('setup-2fa-form');
+  const formChallenge2fa = document.getElementById('challenge-2fa-form');
+
   const toggleBtn = document.getElementById('btn-auth-toggle');
   
   const title = document.getElementById('auth-title');
@@ -34,6 +43,7 @@ export function initAuth() {
   const errorBox = document.getElementById('auth-error');
 
   let isSignUpMode = false;
+  let currentFactorId = null;
 
   // --- Modal Visibility ---
 
@@ -52,7 +62,6 @@ export function initAuth() {
 
   if (btnNavLogin) btnNavLogin.addEventListener('click', openModal);
   if (btnMobileLogin) btnMobileLogin.addEventListener('click', () => {
-    // Also close mobile menu if it's open
     const mobileMenu = document.getElementById('nav-mobile-menu');
     const mobileToggle = document.getElementById('nav-mobile-toggle');
     if (mobileMenu) mobileMenu.classList.remove('active');
@@ -63,7 +72,6 @@ export function initAuth() {
   if (btnClose) btnClose.addEventListener('click', closeModal);
   if (overlay) overlay.addEventListener('click', closeModal);
   
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
       closeModal();
@@ -101,23 +109,153 @@ export function initAuth() {
   if (toggleBtn) toggleBtn.addEventListener('click', toggleMode);
 
   function resetForm() {
+    stateLogin.style.display = 'block';
+    stateSetup2fa.style.display = 'none';
+    stateChallenge2fa.style.display = 'none';
+
     form.reset();
+    if(formSetup2fa) formSetup2fa.reset();
+    if(formChallenge2fa) formChallenge2fa.reset();
+
     errorBox.textContent = '';
     submitBtn.disabled = false;
   }
 
-  // --- Form Submission ---
+  // --- 2FA Flows ---
+
+  async function init2FASetup() {
+    try {
+      const { data, error } = await supabase.auth.mfa.enroll({ factorType: 'totp' });
+      if (error) throw error;
+
+      currentFactorId = data.id;
+
+      stateLogin.style.display = 'none';
+      stateSetup2fa.style.display = 'block';
+      title.textContent = 'Secure Account';
+      subtitle.textContent = 'Mandatory 2FA Setup';
+
+      const qrContainer = document.getElementById('qrcode-render');
+      qrContainer.innerHTML = '';
+      new QRCode(qrContainer, {
+        text: data.totp.uri,
+        width: 180,
+        height: 180,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.M
+      });
+
+      document.getElementById('auth-secret-code').textContent = data.totp.secret;
+    } catch (err) {
+      errorBox.textContent = "Failed to initialize 2FA setup: " + err.message;
+      stateLogin.style.display = 'block';
+      stateSetup2fa.style.display = 'none';
+    }
+  }
+
+  async function init2FAChallenge() {
+    try {
+      const { data: factors, error } = await supabase.auth.mfa.listFactors();
+      if (error) throw error;
+
+      const totpFactor = factors.totp.find(factor => factor.status === 'verified');
+      
+      if (!totpFactor) {
+        // User created account but didn't finish 2FA setup. Force setup.
+        init2FASetup();
+        return;
+      }
+
+      currentFactorId = totpFactor.id;
+
+      stateLogin.style.display = 'none';
+      stateChallenge2fa.style.display = 'block';
+      title.textContent = 'Authentication Required';
+      subtitle.textContent = 'Your account is protected by 2FA';
+
+    } catch (err) {
+      errorBox.textContent = "Failed to load 2FA factors: " + err.message;
+    }
+  }
+
+  if (formSetup2fa) {
+    formSetup2fa.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('setup-2fa-code').value;
+      const errorEl = document.getElementById('setup-2fa-error');
+      const btn = document.getElementById('btn-setup-2fa-submit');
+      
+      errorEl.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+
+      try {
+        const challenge = await supabase.auth.mfa.challenge({ factorId: currentFactorId });
+        if (challenge.error) throw challenge.error;
+
+        const verify = await supabase.auth.mfa.verify({
+          factorId: currentFactorId,
+          challengeId: challenge.data.id,
+          code
+        });
+
+        if (verify.error) throw verify.error;
+
+        alert('2FA Setup Complete! Welcome to PERC.');
+        closeModal();
+        updateUIForLoggedInUser();
+      } catch (err) {
+        errorEl.textContent = err.message || 'Invalid code.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Verify & Complete';
+      }
+    });
+  }
+
+  if (formChallenge2fa) {
+    formChallenge2fa.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('challenge-2fa-code').value;
+      const errorEl = document.getElementById('challenge-2fa-error');
+      const btn = document.getElementById('btn-challenge-2fa-submit');
+      
+      errorEl.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Authenticating...';
+
+      try {
+        const challenge = await supabase.auth.mfa.challenge({ factorId: currentFactorId });
+        if (challenge.error) throw challenge.error;
+
+        const verify = await supabase.auth.mfa.verify({
+          factorId: currentFactorId,
+          challengeId: challenge.data.id,
+          code
+        });
+
+        if (verify.error) throw verify.error;
+
+        closeModal();
+        updateUIForLoggedInUser();
+      } catch (err) {
+        errorEl.textContent = err.message || 'Invalid authenticator code.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Authenticate';
+      }
+    });
+  }
+
+  // --- Form Submission (Login/Signup) ---
 
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Honeypot check for bots
       const honeypot = document.getElementById('bot-field');
-      if (honeypot && honeypot.value !== '') {
-        console.warn('Bot detected.');
-        return; // silently fail
-      }
+      if (honeypot && honeypot.value !== '') return;
 
       if (!supabase) {
         errorBox.textContent = 'Authentication service is not configured yet.';
@@ -133,40 +271,41 @@ export function initAuth() {
       submitBtn.textContent = 'Processing...';
 
       try {
-        let result;
         if (isSignUpMode) {
-          result = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              data: {
-                username: username
-              }
-            }
+          const result = await supabase.auth.signUp({
+            email, password, options: { data: { username: username } }
           });
           
           if (result.error) throw result.error;
-          
           if (result.data.user && result.data.user.identities && result.data.user.identities.length === 0) {
-            errorBox.textContent = 'This email is already registered. Please sign in.';
-          } else {
-            // Success
-            alert('Account created successfully! Welcome to PERC.');
-            closeModal();
-            updateUIForLoggedInUser();
+            throw new Error('This email is already registered. Please sign in.');
           }
+          
+          // Successful signup, force 2FA setup
+          await init2FASetup();
 
         } else {
-          result = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
+          const result = await supabase.auth.signInWithPassword({ email, password });
           if (result.error) throw result.error;
 
-          // Success
-          closeModal();
-          updateUIForLoggedInUser();
+          // Check if MFA is required
+          const { data: aalInfo, error: aalError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+          if (aalError) throw aalError;
+
+          if (aalInfo.nextLevel === 'aal2') {
+            await init2FAChallenge();
+          } else {
+            // No 2FA required (or not enrolled, force enrollment)
+            const { data: factors } = await supabase.auth.mfa.listFactors();
+            const hasVerified = factors && factors.totp && factors.totp.some(f => f.status === 'verified');
+            
+            if (!hasVerified) {
+               await init2FASetup();
+            } else {
+               closeModal();
+               updateUIForLoggedInUser();
+            }
+          }
         }
       } catch (err) {
         errorBox.textContent = err.message || 'An error occurred during authentication.';
@@ -183,14 +322,21 @@ export function initAuth() {
     if (!supabase) return;
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
-      updateUIForLoggedInUser();
+      // If they have an active session, ensure AAL is met
+      const { data: aalInfo } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (aalInfo && aalInfo.nextLevel === 'aal2' && aalInfo.currentLevel !== 'aal2') {
+        // They need to complete 2FA to be fully logged in
+        openModal();
+        await init2FAChallenge();
+      } else {
+        updateUIForLoggedInUser();
+      }
     }
   }
 
   function updateUIForLoggedInUser() {
     if (btnNavLogin) {
       btnNavLogin.textContent = 'Dashboard';
-      // Here you would redirect to the actual dashboard app
       btnNavLogin.removeEventListener('click', openModal);
       btnNavLogin.addEventListener('click', () => {
         alert('Dashboard redirect goes here!');
