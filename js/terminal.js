@@ -56,8 +56,6 @@ const BANNER_ART = [
   '  <span class="pink">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>',
   '',
   '  <span class="dim">PERC — OSINT Intelligence Framework</span>',
-  '',
-  '  <span class="dim">Type "help" for available commands, or click an example above.</span>',
   ''
 ];
 
@@ -692,8 +690,8 @@ export function initTerminal(containerElement) {
   appendLine('  Type "help" for available commands, or click an example above.', 'dim');
   appendLine('', '');
 
-  // Auto‑focus the input
-  requestAnimationFrame(() => inputEl.focus());
+  // Removed auto-focus to prevent page scrolling on load
+  // requestAnimationFrame(() => inputEl.focus());
 
   // ----- Cleanup handle -----
 

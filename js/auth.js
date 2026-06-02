@@ -76,18 +76,25 @@ export function initAuth() {
     isSignUpMode = !isSignUpMode;
     resetForm();
 
+    const usernameGroup = document.getElementById('auth-username-group');
+    const usernameInput = document.getElementById('auth-username');
+
     if (isSignUpMode) {
       title.textContent = 'Create Account';
       subtitle.textContent = 'Join the intelligence network';
       submitBtn.textContent = 'Sign Up';
       toggleText.textContent = 'Already have an account?';
       toggleBtn.textContent = 'Sign in';
+      if (usernameGroup) usernameGroup.style.display = 'block';
+      if (usernameInput) usernameInput.required = true;
     } else {
       title.textContent = 'Welcome back';
       subtitle.textContent = 'Sign in to access your dashboard';
       submitBtn.textContent = 'Sign In';
       toggleText.textContent = "Don't have an account?";
       toggleBtn.textContent = 'Sign up';
+      if (usernameGroup) usernameGroup.style.display = 'none';
+      if (usernameInput) usernameInput.required = false;
     }
   }
 
@@ -119,6 +126,7 @@ export function initAuth() {
 
       const email = document.getElementById('auth-email').value;
       const password = document.getElementById('auth-password').value;
+      const username = document.getElementById('auth-username') ? document.getElementById('auth-username').value : '';
 
       errorBox.textContent = '';
       submitBtn.disabled = true;
@@ -130,6 +138,11 @@ export function initAuth() {
           result = await supabase.auth.signUp({
             email,
             password,
+            options: {
+              data: {
+                username: username
+              }
+            }
           });
           
           if (result.error) throw result.error;
@@ -137,7 +150,7 @@ export function initAuth() {
           if (result.data.user && result.data.user.identities && result.data.user.identities.length === 0) {
             errorBox.textContent = 'This email is already registered. Please sign in.';
           } else {
-            // Success (might require email confirmation depending on Supabase settings)
+            // Success
             alert('Account created successfully! Welcome to PERC.');
             closeModal();
             updateUIForLoggedInUser();

@@ -3,7 +3,7 @@
  * Initializes all modules and orchestrates the page
  */
 
-import { initPillWidget } from './pill-widget.js';
+import { initAsciiWidget } from './ascii-widget.js';
 import { initTerminal } from './terminal.js';
 import { initAnimations, typewriter } from './animations.js';
 import { initSecurity } from './security.js';
@@ -13,24 +13,41 @@ import { initAuth } from './auth.js';
 
 function hideLoader() {
   const loader = document.getElementById('page-loader');
-  if (!loader) return;
-
-  // Minimum display time so it doesn't just flash
-  const minDisplay = 800;
-  const elapsed = performance.now();
-
-  const doHide = () => {
-    loader.classList.add('hidden');
-    setTimeout(() => {
-      if (loader.parentNode) loader.remove();
-    }, 700);
-  };
-
-  if (elapsed < minDisplay) {
-    setTimeout(doHide, minDisplay - elapsed);
-  } else {
-    doHide();
+  const fill = document.getElementById('loader-fill');
+  const status = document.getElementById('loader-status');
+  if (!loader || !fill || !status) {
+    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 600); }
+    return;
   }
+
+  const steps = [
+    { at: 30, text: 'loading assets' },
+    { at: 60, text: 'building interface' },
+    { at: 90, text: 'almost ready' },
+    { at: 100, text: 'done' },
+  ];
+
+  let progress = 0;
+  let step = 0;
+
+  const interval = setInterval(() => {
+    progress += 1.5 + Math.random() * 2;
+    if (progress > 100) progress = 100;
+    fill.style.width = progress + '%';
+
+    if (step < steps.length && progress >= steps[step].at) {
+      status.textContent = steps[step].text;
+      step++;
+    }
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        setTimeout(() => { if (loader.parentNode) loader.remove(); }, 600);
+      }, 300);
+    }
+  }, 20);
 }
 
 // ─── Hero Particles ───
@@ -165,6 +182,12 @@ function initNavScroll() {
 // ─── Initialize Everything ───
 
 function init() {
+  // Force scroll to top on reload to prevent annoying scroll anchors
+  window.scrollTo(0, 0);
+  if (window.location.hash) {
+    window.history.replaceState(null, null, window.location.pathname);
+  }
+
   // Hide loader first — never let a downstream error trap users on the splash
   hideLoader();
 
@@ -179,10 +202,10 @@ function init() {
   createParticles();
   initHeroTypewriter();
 
-  // Pill widget
-  const pillCanvas = document.getElementById('pill-canvas');
-  if (pillCanvas) {
-    initPillWidget(pillCanvas);
+  // ASCII Matrix Hero
+  const asciiHero = document.getElementById('ascii-hero');
+  if (asciiHero) {
+    initAsciiWidget(asciiHero);
   }
 
   // Terminal
