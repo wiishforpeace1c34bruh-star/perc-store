@@ -157,8 +157,10 @@
     <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
       <div class="dashboard-tabs" style="display: flex; gap: 1rem;">
         <button class="btn btn-sm tab-btn active" data-tab="profile">Profile</button>
+        <button class="btn btn-sm tab-btn" data-tab="friends" style="background: transparent; color: var(--text-muted); border-color: transparent;">Friends</button>
         <button class="btn btn-sm tab-btn" data-tab="chat" style="background: transparent; color: var(--text-muted); border-color: transparent;">Chat</button>
         <button class="btn btn-sm tab-btn" data-tab="license" style="background: transparent; color: var(--text-muted); border-color: transparent;">License</button>
+        <button class="btn btn-sm tab-btn" id="tab-btn-admin" data-tab="admin" style="display: none; background: transparent; color: #ff3366; border-color: transparent;">Admin Panel</button>
       </div>
       <button class="btn btn-outline btn-sm" id="btn-exit-dashboard">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: text-bottom;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
@@ -213,22 +215,64 @@
         </div>
       </div>
 
-      <!-- Chat Tab -->
-      <div id="tab-chat" class="tab-content glass-panel" style="display: none; flex-direction: column; height: 75vh; padding: 0; overflow: hidden;">
-        <div style="padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.3);">
-          <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin: 0; color: var(--text-primary);">
-            Chat
-          </h2>
-        </div>
+      <!-- Friends Tab -->
+      <div id="tab-friends" class="tab-content glass-panel" style="display: none; padding: 2rem;">
+        <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 0; color: var(--text-primary);">Network Connections</h2>
         
-        <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: rgba(0,0,0,0.1);">
-          <div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem;">No recent messages.</div>
+        <form id="friend-request-form" style="display: flex; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2rem;">
+          <input type="text" id="friend-username-input" class="form-input" placeholder="Enter exact username to add..." style="flex: 1;" required>
+          <button type="submit" class="btn btn-primary btn-sm" id="btn-send-friend-req">Send Request</button>
+        </form>
+        <div id="friend-status-msg" style="color: var(--accent); font-size: 0.8rem; font-family: var(--font-mono); margin-bottom: 1rem;"></div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">Pending Requests</h3>
+            <div id="friends-pending-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">Active Friends</h3>
+            <div id="friends-active-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Tab -->
+      <div id="tab-chat" class="tab-content glass-panel" style="display: none; flex-direction: row; height: 75vh; padding: 0; overflow: hidden;">
+        
+        <!-- Channels Sidebar -->
+        <div style="width: 200px; border-right: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.5); display: flex; flex-direction: column;">
+          <div style="padding: 1.5rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin: 0; text-transform: uppercase; letter-spacing: 2px;">Channels</h3>
+          </div>
+          <div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem;" id="channel-list">
+            <button class="channel-btn active" data-channel="general"># general</button>
+            <button class="channel-btn" data-channel="support"># support</button>
+          </div>
         </div>
 
-        <form id="chat-input-form" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 1rem; background: rgba(0,0,0,0.4);">
-          <input type="text" id="chat-message-input" class="form-input" placeholder="Type a message..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);" required autocomplete="off">
-          <button type="submit" class="btn btn-primary btn-sm" id="btn-send-message" style="padding: 0 2rem; border-radius: var(--radius-md);">Send</button>
-        </form>
+        <!-- Chat Area -->
+        <div style="flex: 1; display: flex; flex-direction: column; position: relative;">
+          <div style="padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="chat-channel-title" style="font-family: var(--font-mono); font-size: 1.1rem; margin: 0; color: var(--text-primary);">
+              # general
+            </h2>
+          </div>
+          
+          <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 0; background: rgba(0,0,0,0.1);">
+            <div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem;">Secure channel opened. No recent communications.</div>
+          </div>
+
+          <div id="chat-reply-preview" style="display: none; padding: 0.5rem 1.5rem; background: rgba(236, 72, 153, 0.1); border-top: 1px solid var(--border-accent); font-size: 0.8rem; color: var(--text-secondary); align-items: center; justify-content: space-between;">
+            <div>Replying to <strong id="reply-preview-author" style="color: var(--accent);"></strong>: <span id="reply-preview-text" style="font-style: italic;"></span></div>
+            <button id="btn-cancel-reply" style="color: #ff3366; cursor: pointer;">✕</button>
+          </div>
+
+          <form id="chat-input-form" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 1rem; background: rgba(0,0,0,0.4);">
+            <input type="text" id="chat-message-input" class="form-input" placeholder="Message #general..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);" required autocomplete="off">
+            <button type="submit" class="btn btn-primary btn-sm" id="btn-send-message" style="padding: 0 2rem; border-radius: var(--radius-md);">Send</button>
+          </form>
+        </div>
       </div>
 
       <!-- License Tab -->
@@ -241,6 +285,47 @@
         <p id="purchase-error" style="color: #ff3366; margin-top: 1rem; font-size: 0.85rem; display: none;"></p>
       </div>
 
+      <!-- Admin Tab -->
+      <div id="tab-admin" class="tab-content glass-panel" style="display: none; padding: 2rem;">
+        <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 0; color: #ff3366;">Admin Control Panel</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Network user management. Authorized access only.</p>
+
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); font-family: var(--font-mono);">
+                <th style="padding: 0.5rem;">User</th>
+                <th style="padding: 0.5rem;">Access</th>
+                <th style="padding: 0.5rem;">Banned</th>
+                <th style="padding: 0.5rem;">Timeout Until</th>
+                <th style="padding: 0.5rem;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-table">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- User Profile Modal -->
+    <div class="auth-overlay" id="user-modal-overlay" style="z-index: 10000; display: none;"></div>
+    <div class="auth-modal" id="user-modal" style="z-index: 10001; display: none;">
+      <button class="modal-close" id="btn-close-user-modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div id="user-modal-banner" style="height: 120px; width: 100%; background: #111; background-size: cover; background-position: center; border-radius: 6px 6px 0 0; margin: -2rem -2rem 0 -2rem; position: relative;">
+        <img id="user-modal-avatar" src="" style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000; position: absolute; bottom: -40px; left: 2rem; background: #111; object-fit: cover;">
+      </div>
+      
+      <div style="margin-top: 3rem;">
+        <h3 id="user-modal-username" style="font-family: var(--font-mono); color: var(--text-primary); font-size: 1.2rem; margin: 0;"></h3>
+        <p id="user-modal-bio" style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem; line-height: 1.6;"></p>
+        <button id="btn-modal-add-friend" class="btn btn-primary btn-sm" style="margin-top: 1.5rem; width: 100%;">Add Friend</button>
+      </div>
     </div>
   </main>
 

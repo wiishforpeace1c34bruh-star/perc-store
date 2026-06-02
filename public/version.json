@@ -1,0 +1,5 @@
+{
+  "version": "2.0.0",
+  "download_url": "https://knlydfmovffoxtnynevy.supabase.co/storage/v1/object/public/updates/payload.zip",
+  "patchnotes": "MAJOR UPDATE (v2.0.0)\n\n- Advanced Chat System: Added #general and #support channels, inline replying, and emoji reactions.\n- Friends System: You can now send requests and build a friend list.\n- Admin Controls: Powerful moderation tools deployed.\n- Cross-Platform Sync: The Desktop loader UI is now 100% unified with the Web Dashboard."
+}
