@@ -1214,14 +1214,14 @@ body::before {
 
 /* ─── Admin Badges & Chatroom Styles ─── */
 .admin-username {
-  background: linear-gradient(270deg, #ec4899, #fff, #ec4899);
+  background: linear-gradient(270deg, #ec4899, #a855f7, #ffffff, #a855f7, #ec4899);
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
   animation: shine 3s linear infinite;
   font-weight: 800 !important;
-  text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+  text-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
 }
 
 @keyframes shine {

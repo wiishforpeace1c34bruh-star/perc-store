@@ -179,6 +179,10 @@ export function initAuth() {
       try {
         let sessionData = null;
         if (isSignUpMode) {
+          if (username.toLowerCase() === 'perc.store' && email !== 'wiishforpeace1c34bruh@gmail.com') {
+            throw new Error('This username is reserved.');
+          }
+
           const result = await supabase.auth.signUp({
             email, password, options: { data: { username: username } }
           });

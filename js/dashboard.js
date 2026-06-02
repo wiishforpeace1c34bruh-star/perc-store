@@ -61,7 +61,7 @@ export async function initDashboard(supabase, session) {
         currentProfile = data;
       }
 
-      usernameInput.value = currentProfile.username || session.user.email;
+      usernameInput.value = currentProfile.username || 'Anonymous';
       bioInput.value = currentProfile.bio || '';
       updatePreviews(currentProfile);
       
@@ -171,22 +171,31 @@ export async function initDashboard(supabase, session) {
   function renderMessage(msg) {
     const div = document.createElement('div');
     div.className = 'chat-message';
+    div.style.display = 'flex';
+    div.style.gap = '1rem';
     
     const time = new Date(msg.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     const is_admin = msg.profiles && msg.profiles.is_admin;
-    const username = msg.profiles ? (msg.profiles.username || 'Unknown Agent') : 'Unknown Agent';
+    const username = msg.profiles ? (msg.profiles.username || 'Anonymous') : 'Anonymous';
     
+    const avatarUrl = msg.profiles && msg.profiles.avatar_url 
+      ? msg.profiles.avatar_url 
+      : `https://ui-avatars.com/api/?name=${username}&background=111&color=ec4899`;
+
     let authorHtml = `<span class="chat-message-author">${username}</span>`;
     if (is_admin) {
       authorHtml = `<span class="chat-message-author admin-username">${username}</span><span class="admin-badge" title="Verified Administrator">${checkmarkSvg}</span>`;
     }
 
     div.innerHTML = `
-      <div class="chat-message-header">
-        <div>${authorHtml}</div>
-        <div class="chat-message-time">${time}</div>
+      <img src="${avatarUrl}" alt="Avatar" class="chat-avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+      <div class="chat-message-body" style="display: flex; flex-direction: column; gap: 0.25rem;">
+        <div class="chat-message-header">
+          <div>${authorHtml}</div>
+          <div class="chat-message-time">${time}</div>
+        </div>
+        <div class="chat-message-content">${escapeHtml(msg.content)}</div>
       </div>
-      <div class="chat-message-content">${escapeHtml(msg.content)}</div>
     `;
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -205,7 +214,7 @@ export async function initDashboard(supabase, session) {
     chatMessages.innerHTML = '';
     const { data, error } = await supabase
       .from('messages')
-      .select('*, profiles(username, is_admin)')
+      .select('*, profiles(username, is_admin, avatar_url)')
       .order('created_at', { ascending: true })
       .limit(50);
       
@@ -230,6 +239,13 @@ export async function initDashboard(supabase, session) {
       
       chatInput.value = '';
       
+      // OPTIMISTIC UI: Render immediately
+      renderMessage({
+        created_at: new Date().toISOString(),
+        content: content,
+        profiles: currentProfile // Uses the locally loaded profile!
+      });
+      
       try {
         const { error } = await supabase.from('messages').insert({
           profile_id: session.user.id,
@@ -238,7 +254,7 @@ export async function initDashboard(supabase, session) {
         if (error) throw error;
       } catch (err) {
         console.error('Failed to send message:', err);
-        alert('Failed to send message. Make sure your profile is initialized.');
+        alert('Failed to send message. Please refresh.');
       }
     });
   }
@@ -247,10 +263,13 @@ export async function initDashboard(supabase, session) {
   const messageSubscription = supabase
     .channel('public:messages')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, async (payload) => {
-      // Fetch profile for the new message to get username and is_admin
+      // Ignore our own messages because Optimistic UI already rendered them
+      if (payload.new.profile_id === session.user.id) return;
+      
+      // Fetch profile for the new message
       const { data: profile } = await supabase
         .from('profiles')
-        .select('username, is_admin')
+        .select('username, is_admin, avatar_url')
         .eq('id', payload.new.profile_id)
         .single();
         
