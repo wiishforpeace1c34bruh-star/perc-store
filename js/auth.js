@@ -281,6 +281,11 @@ export function initAuth() {
             throw new Error('This email is already registered. Please sign in.');
           }
           
+          if (!result.data.session) {
+             const loginResult = await supabase.auth.signInWithPassword({ email, password });
+             if (loginResult.error) throw loginResult.error;
+          }
+
           // Successful signup, force 2FA setup
           await init2FASetup();
 
