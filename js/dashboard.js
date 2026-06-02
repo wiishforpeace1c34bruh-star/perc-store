@@ -91,13 +91,12 @@ export async function initDashboard(supabase, session) {
       saveStatus.textContent = 'Saving...';
       
       const updates = {
-        id: session.user.id,
         bio: bioInput.value,
         updated_at: new Date()
       };
 
       try {
-        const { error } = await supabase.from('profiles').upsert(updates);
+        const { error } = await supabase.from('profiles').update(updates).eq('id', session.user.id);
         if (error) throw error;
         
         saveStatus.textContent = 'Profile updated securely.';
@@ -134,11 +133,11 @@ export async function initDashboard(supabase, session) {
       const publicUrl = data.publicUrl;
 
       // 3. Update Profile Database
-      const updates = { id: session.user.id };
+      const updates = {};
       if (type === 'banner') updates.banner_url = publicUrl;
       if (type === 'avatar') updates.avatar_url = publicUrl;
 
-      const { error: updateError } = await supabase.from('profiles').upsert(updates);
+      const { error: updateError } = await supabase.from('profiles').update(updates).eq('id', session.user.id);
       if (updateError) throw updateError;
 
       // 4. Update UI
