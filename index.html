@@ -6,12 +6,15 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <title>perc.store</title>
-  <meta name="description" content="Professional OSINT intelligence tools. Try the live terminal demo.">
+  <title>perc.store - Advanced Cybersecurity Suite</title>
+  <meta name="description" content="Professional penetration testing, red teaming, and OSINT tools. Try the live terminal demo.">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
+  <!-- Ambient particle canvas -->
+  <canvas id="ambient-canvas"></canvas>
 
   <!-- Page Loader -->
   <div id="page-loader" class="page-loader">
@@ -60,12 +63,12 @@
   <main id="main-landing">
     <!-- Hero -->
     <section class="hero" id="hero">
-    <div class="hero-bg" style="background-image: radial-gradient(rgba(236, 72, 153, 0.08) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="hero-bg"></div>
 
     <div class="hero-content">
       <div id="ascii-hero" class="ascii-hero-widget"></div>
       <h1 class="hero-tagline"><span id="hero-tagline"></span><span class="typing-cursor"></span></h1>
-      <p class="hero-subtitle">Find out everything about anyone. We check 31 platforms instantly. Get emails, phone numbers, IPs, and hidden info with zero hassle.</p>
+      <p class="hero-subtitle">The ultimate toolkit for penetration testers, bug bounty hunters, and OSINT investigators. One powerful terminal framework covering everything from deep web reconnaissance to automated adversary simulation.</p>
 
       <div class="hero-actions">
         <a href="#demo" class="btn btn-primary btn-lg btn-magnetic" id="btn-try-demo">try live demo</a>
@@ -103,8 +106,8 @@
     <div class="premium-grid" data-stagger>
       <div class="premium-card" data-stagger-child data-glow>
         <div class="p-card-icon">01</div>
-        <div class="p-card-title">Crazy Fast</div>
-        <div class="p-card-text">We scan 31 sites in under 5 seconds without getting blocked. It just works.</div>
+        <div class="p-card-title">Automated Recon</div>
+        <div class="p-card-text">Scan 31 platforms, extract GEOINT, reverse-search faces, and pull live breach data locally in seconds.</div>
       </div>
       <div class="premium-card" data-stagger-child data-glow>
         <div class="p-card-icon">02</div>
@@ -113,8 +116,8 @@
       </div>
       <div class="premium-card" data-stagger-child data-glow>
         <div class="p-card-icon">03</div>
-        <div class="p-card-title">No Tracking</div>
-        <div class="p-card-text">We don't collect your data or track who you search. Your info stays yours. We literally see nothing.</div>
+        <div class="p-card-title">Adversary Simulation</div>
+        <div class="p-card-text">Generate weaponized payloads, automated vulnerability scanners, and customized macros for professional red-teaming.</div>
       </div>
     </div>
   </section>
@@ -123,28 +126,65 @@
   <section class="section" id="pricing">
     <div class="section-header" data-animate="fade-up">
       <div class="section-label">access</div>
-      <h2 class="section-title">Unrestricted power.</h2>
+      <h2 class="section-title">Choose your weapon.</h2>
+      <p class="section-subtitle">Each tool is sold individually. Or save $5 and grab the full arsenal.</p>
     </div>
 
-    <div class="pricing-container" data-animate="scale-in">
-      <div class="pricing-glow-bg"></div>
-      <div class="pricing-card-elite">
-        <div class="pricing-header">
-          <h3>Lifetime License</h3>
-          <div class="price-box"><span class="currency">$</span><span class="amount">5</span><span class="period">/once</span></div>
+    <div class="pricing-grid">
+      
+      <!-- OSINT -->
+      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
+        <div class="card-top">
+          <div class="card-number">01</div>
+          <h3 class="card-name">OSINT Framework</h3>
+          <div class="price-box"><span class="currency">$</span><span class="amount">10</span></div>
         </div>
         <div class="pricing-body">
-          <ul class="elite-features">
-            <li><span class="chk">✓</span> Search across 31 platforms instantly</li>
-            <li><span class="chk">✓</span> Find emails, passwords, and breaches</li>
-            <li><span class="chk">✓</span> Track phones & locate IPs</li>
-            <li><span class="chk">✓</span> Uncover hidden Google info automatically</li>
-            <li><span class="chk">✓</span> Desktop app + Web access</li>
-            <li><span class="chk">✓</span> One-time payment, lifetime updates</li>
-          </ul>
-          <a href="#" class="btn btn-primary btn-massive">Initialize Purchase</a>
+          <p class="card-desc">Deep-web reconnaissance engine. Scan usernames across 31 platforms, trace phones, geolocate IPs, and reverse-search faces.</p>
+          <a href="#" class="btn btn-outline card-btn">Purchase</a>
         </div>
       </div>
+
+      <!-- Payload Builder -->
+      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
+        <div class="card-top">
+          <div class="card-number">02</div>
+          <h3 class="card-name">Payload Builder</h3>
+          <div class="price-box"><span class="currency">$</span><span class="amount">15</span></div>
+        </div>
+        <div class="pricing-body">
+          <p class="card-desc">Generate obfuscated reverse shells and macros for professional red-teaming. Python, PowerShell, and C# output.</p>
+          <a href="#" class="btn btn-outline card-btn">Purchase</a>
+        </div>
+      </div>
+
+      <!-- Breach Engine -->
+      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
+        <div class="card-top">
+          <div class="card-number">03</div>
+          <h3 class="card-name">Breach Engine</h3>
+          <div class="price-box"><span class="currency">$</span><span class="amount">20</span></div>
+        </div>
+        <div class="pricing-body">
+          <p class="card-desc">Offline credential search engine. Query billions of leaked records locally. Zero rate limits. Zero API dependencies.</p>
+          <a href="#" class="btn btn-outline card-btn">Purchase</a>
+        </div>
+      </div>
+
+      <!-- Full Suite -->
+      <div class="pricing-card-elite interactive-card suite-card" data-tilt data-stagger-child data-glow>
+        <div class="card-top">
+          <div class="card-number" style="color: var(--accent);">★</div>
+          <h3 class="card-name" style="color: var(--accent);">The Full Suite</h3>
+          <div class="card-save">SAVE $5</div>
+          <div class="price-box"><span class="currency">$</span><span class="amount">40</span></div>
+        </div>
+        <div class="pricing-body">
+          <p class="card-desc">Every tool. Every update. One payment. Includes the <strong>OSINT Framework</strong>, <strong>Payload Builder</strong>, and <strong>Breach Engine</strong> forever.</p>
+          <a href="#" class="btn btn-primary card-btn">Purchase Full Suite</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -388,5 +428,130 @@
   </div>
 
   <script type="module" src="/js/app.js"></script>
+  <script>
+    // ─── Ambient floating particles ───
+    (function() {
+      const canvas = document.getElementById('ambient-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      const particles = [];
+      const count = 60;
+      const linkDist = 120;
+      
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      
+      // Seed particles
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: -Math.random() * 0.25 - 0.05,
+          r: Math.random() * 1.5 + 0.5,
+          a: Math.random() * 0.4 + 0.1,
+        });
+      }
+      
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        
+        // Draw connection lines
+        for (let i = 0; i < count; i++) {
+          for (let j = i + 1; j < count; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < linkDist) {
+              const alpha = (1 - dist / linkDist) * 0.06;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(236, 72, 153, ${alpha})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        
+        // Draw and update particles
+        for (const p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(236, 72, 153, ${p.a})`;
+          ctx.fill();
+          
+          p.x += p.vx;
+          p.y += p.vy;
+          
+          // Wrap around
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+          if (p.y > h + 10) { p.y = -10; p.x = Math.random() * w; }
+        }
+        
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ─── Premium 3D tilt with interpolation ───
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
+      let animating = false;
+      
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      
+      function animate() {
+        currentX = lerp(currentX, targetX, 0.08);
+        currentY = lerp(currentY, targetY, 0.08);
+        
+        card.style.transform = `perspective(800px) rotateX(${currentY}deg) rotateY(${currentX}deg) translateZ(8px)`;
+        
+        if (Math.abs(currentX - targetX) > 0.01 || Math.abs(currentY - targetY) > 0.01) {
+          requestAnimationFrame(animate);
+        } else {
+          animating = false;
+        }
+      }
+      
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) / rect.width - 0.5;
+        const my = (e.clientY - rect.top) / rect.height - 0.5;
+        targetX = mx * 8;
+        targetY = my * -8;
+        if (!animating) { animating = true; animate(); }
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        targetX = 0; targetY = 0;
+        if (!animating) { animating = true; animate(); }
+      });
+    });
+
+    // ─── Stagger pricing cards into view ───
+    const pricingGrid = document.querySelector('.pricing-grid');
+    if (pricingGrid) {
+      const sobs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll('[data-stagger-child]');
+            cards.forEach((card, i) => {
+              setTimeout(() => card.classList.add('revealed'), i * 150);
+            });
+            sobs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      sobs.observe(pricingGrid);
+    }
+  </script>
 </body>
 </html>
