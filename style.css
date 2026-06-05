@@ -202,9 +202,9 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 }
 /* Animated gradient mesh background */
 .hero-bg {
-  position: absolute; inset: 0; z-index: 0;
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
   background:
-    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(236,72,153,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 90% at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(236,72,153,0.12) 0%, transparent 50%),
     radial-gradient(ellipse 50% 50% at 50% 0%, rgba(236,72,153,0.03) 0%, transparent 50%);
 }
 .hero-bg::before {
@@ -400,7 +400,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 .pricing-card {
   background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-xl);
   padding: 2rem; display: flex; flex-direction: column;
-  transition: border-color var(--t-slow), transform var(--t-slow), box-shadow var(--t-slow);
+  transition: border-color var(--t-slow), box-shadow var(--t-slow);
   position: relative; overflow: hidden; cursor: default;
   transform-style: preserve-3d; will-change: transform;
 }
@@ -766,4 +766,57 @@ body.loaded .hero-stats { animation: floatUp 0.9s var(--ease) 0.55s both; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .cta-band { padding: 2.5rem 1.5rem; }
   .profile-info-row { flex-direction: column; align-items: flex-start; }
+}
+/* -----------------------------------
+   CARD GLINT & SPOTLIGHT EFFECTS
+----------------------------------- */
+.card-glint {
+  position: relative;
+}
+.card-glint::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    600px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+    rgba(236,72,153, 0.6),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+  z-index: 10;
+}
+.card-glint:hover::before {
+  opacity: 1;
+}
+.card-glint::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+    rgba(236,72,153, 0.04),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+  z-index: 0;
+}
+.card-glint:hover::after {
+  opacity: 1;
+}
+
+.panel.card-glint {
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }

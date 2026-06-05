@@ -212,7 +212,7 @@
             <a href="#" class="btn btn-outline" style="width:100%">Purchase</a>
           </div>
 
-          <div class="pricing-card featured" data-reveal data-delay="2">
+          <div class="pricing-card card-glint highlighted" data-reveal data-delay="2">
             <div class="featured-pill">Most popular</div>
             <div class="p-name pink">Payload Builder</div>
             <div class="p-price"><span class="p-dollar">$</span><span class="p-amount">15</span></div>
@@ -228,7 +228,7 @@
             <a href="#" class="btn btn-primary" style="width:100%">Purchase</a>
           </div>
 
-          <div class="pricing-card" data-reveal data-delay="3">
+          <div class="pricing-card card-glint" data-reveal data-delay="3">
             <div class="p-name">Breach Engine</div>
             <div class="p-price"><span class="p-dollar">$</span><span class="p-amount">20</span></div>
             <div class="p-desc">Offline credential search across leaked databases. Zero API calls. No rate limits. Stays on your machine.</div>
@@ -337,7 +337,7 @@
       <div id="panels-area" style="min-width:0">
 
         <!-- Profile -->
-        <div class="panel active" id="panel-profile">
+        <div class="panel active card-glint" id="panel-profile">
           <!-- Banner + Avatar (no panel-head, visually integrated) -->
           <div class="profile-banner" id="banner-area">
             <div class="upload-hint">
@@ -378,7 +378,7 @@
         </div><!-- /panel-profile -->
 
         <!-- License -->
-        <div class="panel" id="panel-license">
+        <div class="panel card-glint" id="panel-license">
           <div class="panel-head">
             <div class="panel-title">License</div>
             <div class="panel-sub">Your active modules and access status</div>
@@ -389,7 +389,7 @@
         </div>
 
         <!-- Friends -->
-        <div class="panel" id="panel-friends">
+        <div class="panel card-glint" id="panel-friends">
           <div class="panel-head">
             <div class="panel-title">Friends</div>
             <div class="panel-sub">Connect with other perc users</div>
@@ -414,7 +414,7 @@
         </div>
 
         <!-- Chat -->
-        <div class="panel" id="panel-chat" style="padding:0;overflow:hidden">
+        <div class="panel card-glint" id="panel-chat" style="padding:0;overflow:hidden">
           <div class="chat-layout">
             <div class="chat-sidebar">
               <div class="chat-sidebar-head">Channels</div>
@@ -443,7 +443,7 @@
         </div>
 
         <!-- Admin -->
-        <div class="panel" id="panel-admin">
+        <div class="panel card-glint" id="panel-admin">
           <div class="panel-head">
             <div class="panel-title" style="color:var(--pink)">Admin</div>
             <div class="panel-sub">User management — authorized only</div>
@@ -640,8 +640,13 @@
     function initScrollReveal() {
       const revealObs = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.01, rootMargin: '0px 0px 50px 0px' });
       document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+      
+      // Fallback: force show everything after 2.5s in case intersection observer misses
+      setTimeout(() => {
+        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('visible'));
+      }, 2500);
     }
 
     // ─── 3D Tilt on pricing cards ───
@@ -650,7 +655,7 @@
         let cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
         function lerp(a, b, t) { return a + (b - a) * t; }
         function tick() {
-          cx = lerp(cx, tx, 0.1); cy = lerp(cy, ty, 0.1);
+          cx = lerp(cx, tx, 0.3); cy = lerp(cy, ty, 0.3);
           card.style.transform = `perspective(900px) rotateX(${cy}deg) rotateY(${cx}deg) translateZ(4px)`;
           if (Math.abs(cx - tx) > 0.01 || Math.abs(cy - ty) > 0.01) raf = requestAnimationFrame(tick);
           else raf = null;
@@ -667,7 +672,6 @@
         });
       });
     }
-    initTilt();
 
     // ─── Proof card subtle tilt ───
     document.querySelectorAll('.proof-card').forEach(card => {
@@ -722,6 +726,21 @@
       document.getElementById('user-modal').classList.remove('open');
       document.getElementById('user-modal-bg').classList.remove('open');
     });
+
+    // ─── Global Interactive Mouse Tracking ───
+    document.addEventListener('mousemove', e => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+      
+      // Spotlight logic for cards
+      document.querySelectorAll('.card-glint').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--card-mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--card-mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    initTilt();
   </script>
 </body>
 </html>
