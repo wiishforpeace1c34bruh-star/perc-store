@@ -660,23 +660,16 @@
     // ─── 3D Tilt on pricing cards ───
     function initTilt() {
       document.querySelectorAll('.pricing-card').forEach(card => {
-        let cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
-        function lerp(a, b, t) { return a + (b - a) * t; }
-        function tick() {
-          cx = lerp(cx, tx, 0.3); cy = lerp(cy, ty, 0.3);
-          card.style.transform = `perspective(900px) rotateX(${cy}deg) rotateY(${cx}deg) translateZ(4px)`;
-          if (Math.abs(cx - tx) > 0.01 || Math.abs(cy - ty) > 0.01) raf = requestAnimationFrame(tick);
-          else raf = null;
-        }
         card.addEventListener('mousemove', e => {
-          const r = card.getBoundingClientRect();
-          tx = ((e.clientX - r.left) / r.width - 0.5) * 12;
-          ty = ((e.clientY - r.top) / r.height - 0.5) * -12;
-          if (!raf) raf = requestAnimationFrame(tick);
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const tx = (x - rect.width / 2) / 10;
+          const ty = -(y - rect.height / 2) / 10;
+          card.style.transform = `perspective(900px) rotateX(${ty}deg) rotateY(${tx}deg) translateZ(4px)`;
         });
         card.addEventListener('mouseleave', () => {
-          tx = 0; ty = 0;
-          if (!raf) raf = requestAnimationFrame(tick);
+          card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(4px)';
         });
       });
     }
