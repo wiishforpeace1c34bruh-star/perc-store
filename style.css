@@ -735,11 +735,11 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
 
 /* Hero content staged animations */
-.hero-eyebrow { animation: floatUp 0.8s var(--ease) 0.2s both; }
-.hero-h1 { animation: floatUp 0.9s var(--ease) 0.35s both; }
-.hero-sub { animation: floatUp 0.9s var(--ease) 0.5s both; }
-.hero-actions { animation: floatUp 0.9s var(--ease) 0.6s both; }
-.hero-stats { animation: floatUp 0.9s var(--ease) 0.75s both; }
+body.loaded .hero-eyebrow { animation: floatUp 0.8s var(--ease) 0.2s both; }
+body.loaded .hero-h1 { animation: floatUp 0.9s var(--ease) 0.35s both; }
+body.loaded .hero-sub { animation: floatUp 0.9s var(--ease) 0.5s both; }
+body.loaded .hero-actions { animation: floatUp 0.9s var(--ease) 0.6s both; }
+body.loaded .hero-stats { animation: floatUp 0.9s var(--ease) 0.75s both; }
 
 /* Cursor blink */
 .cursor { display: inline-block; width: 2px; height: 0.9em; background: var(--pink); margin-left: 2px; vertical-align: middle; animation: cursorBlink 1.1s step-end infinite; }

@@ -558,7 +558,14 @@
         fill.style.width = p + '%';
         const ni = Math.floor((p / 100) * (labels.length - 1));
         if (ni !== li) { li = ni; label.textContent = labels[li]; }
-        if (p >= 100) { clearInterval(iv); setTimeout(() => loader.classList.add('out'), 350); }
+        if (p >= 100) { 
+          clearInterval(iv); 
+          setTimeout(() => {
+            loader.classList.add('out');
+            document.body.classList.add('loaded');
+            initScrollReveal();
+          }, 350); 
+        }
       }, 60);
     })();
 
@@ -579,6 +586,7 @@
       document.getElementById('main-dashboard').style.display = 'none';
       document.getElementById('main-dashboard').classList.add('hidden');
       document.getElementById('main-footer').style.display = '';
+      document.getElementById('main-nav').style.display = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function showDashboard() {
@@ -587,6 +595,7 @@
       document.getElementById('main-dashboard').style.display = 'block';
       document.getElementById('main-dashboard').classList.remove('hidden');
       document.getElementById('main-footer').style.display = 'none';
+      document.getElementById('main-nav').style.display = 'none';
       window.scrollTo({ top: 0 });
     }
     window.showLanding = showLanding;
@@ -626,10 +635,12 @@
     window.closeMobile = closeMobile;
 
     // ─── Scroll reveal ───
-    const revealObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+    function initScrollReveal() {
+      const revealObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+    }
 
     // ─── 3D Tilt on pricing cards ───
     function initTilt() {

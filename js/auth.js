@@ -139,7 +139,6 @@ export function initAuth() {
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
       updateNavForAuth(session);
-      window.showDashboard?.();
       if (!dashInit) { await initDashboard(supabase, session); dashInit = true; }
     }
   }
