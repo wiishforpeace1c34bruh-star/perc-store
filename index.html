@@ -562,9 +562,11 @@
           clearInterval(iv); 
           setTimeout(() => {
             loader.classList.add('out');
-            document.body.classList.add('loaded');
-            initScrollReveal();
-          }, 350); 
+            setTimeout(() => {
+              document.body.classList.add('loaded');
+              initScrollReveal();
+            }, 300);
+          }, 200); 
         }
       }, 60);
     })();

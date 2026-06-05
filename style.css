@@ -87,7 +87,7 @@ input, textarea, select { font-family: inherit; }
   background: #000;
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 1.5rem;
-  transition: opacity 0.6s var(--ease), visibility 0.6s;
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
 }
 .page-loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-brand { font-family: var(--mono); font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; }
@@ -204,19 +204,16 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse 90% 70% at 0% 100%, rgba(236,72,153,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 100% 0%, rgba(236,72,153,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(236,72,153,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 0%, rgba(236,72,153,0.03) 0%, transparent 50%);
 }
 .hero-bg::before {
   content: '';
   position: absolute; inset: 0;
   background: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.012) 80px),
               repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.012) 80px);
-  mask: radial-gradient(ellipse 80% 80% at 30% 70%, black, transparent);
-}
-.hero-bg::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent 5%, var(--border) 30%, rgba(236,72,153,0.2) 50%, var(--border) 70%, transparent 95%);
+  mask: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  -webkit-mask: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
 }
 /* Slow-breathing glow orb */
 .hero-orb {
@@ -302,14 +299,14 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   padding: 1.25rem 1.5rem; min-height: 300px; max-height: 420px;
   overflow-y: auto; font-family: var(--mono); font-size: 0.825rem; line-height: 1.75;
 }
-.terminal-output-line { color: #d4d4d4; word-break: break-all; }
+.terminal-output-line { color: #d4d4d4; word-break: break-word; white-space: pre-wrap; }
 .terminal-output-line.dim { color: var(--text-3); }
 .terminal-output-line.pink { color: var(--pink); }
 .terminal-output-line.success { color: var(--green); }
 .terminal-output-line.error { color: var(--red); }
 .terminal-output-line .pink { color: var(--pink); }
 .terminal-output-line .dim { color: var(--text-3); }
-.terminal-banner-line { color: #d4d4d4; }
+.terminal-banner-line { color: #d4d4d4; word-break: normal; white-space: pre; }
 .terminal-spinner { color: var(--yellow); }
 .terminal-input-line {
   display: flex; align-items: center; gap: 0.5rem;
@@ -735,11 +732,11 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
 
 /* Hero content staged animations */
-body.loaded .hero-eyebrow { animation: floatUp 0.8s var(--ease) 0.2s both; }
-body.loaded .hero-h1 { animation: floatUp 0.9s var(--ease) 0.35s both; }
-body.loaded .hero-sub { animation: floatUp 0.9s var(--ease) 0.5s both; }
-body.loaded .hero-actions { animation: floatUp 0.9s var(--ease) 0.6s both; }
-body.loaded .hero-stats { animation: floatUp 0.9s var(--ease) 0.75s both; }
+body.loaded .hero-eyebrow { animation: floatUp 0.8s var(--ease) 0.1s both; }
+body.loaded .hero-h1 { animation: floatUp 0.9s var(--ease) 0.2s both; }
+body.loaded .hero-sub { animation: floatUp 0.9s var(--ease) 0.3s both; }
+body.loaded .hero-actions { animation: floatUp 0.9s var(--ease) 0.4s both; }
+body.loaded .hero-stats { animation: floatUp 0.9s var(--ease) 0.55s both; }
 
 /* Cursor blink */
 .cursor { display: inline-block; width: 2px; height: 0.9em; background: var(--pink); margin-left: 2px; vertical-align: middle; animation: cursorBlink 1.1s step-end infinite; }

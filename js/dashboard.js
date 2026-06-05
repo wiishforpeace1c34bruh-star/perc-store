@@ -146,7 +146,8 @@ export async function initDashboard(supabase, session) {
     const tbody = document.getElementById('admin-users-table');
     if (!tbody) return;
     const { data: users, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
-    if (error) { tbody.innerHTML = `<tr><td colspan="5" style="color:var(--red)">Failed to load.</td></tr>`; return; }
+    if (error) { console.error('Admin panel load error:', error); tbody.innerHTML = `<tr><td colspan="5" style="color:var(--red)">Failed to load.</td></tr>`; return; }
+    if (!users) { tbody.innerHTML = `<tr><td colspan="5" style="color:var(--text-3)">No users found.</td></tr>`; return; }
     tbody.innerHTML = '';
     users.forEach(u => {
       const tr = document.createElement('tr');
