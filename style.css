@@ -820,3 +820,20 @@ body.loaded .hero-stats { animation: floatUp 0.9s var(--ease) 0.55s both; }
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
+/* -----------------------------------
+   DASHBOARD BENTO BOX
+----------------------------------- */
+.dash-bento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.dash-card {
+  background: rgba(15, 15, 15, 0.4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
