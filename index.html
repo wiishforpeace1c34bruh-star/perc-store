@@ -198,7 +198,7 @@
         </div>
         <div class="pricing-grid" id="pricing-grid">
 
-          <div class="pricing-card" data-reveal data-delay="1">
+          <div class="pricing-card card-glint" data-reveal="scale">
             <div class="p-name">OSINT Framework</div>
             <div class="p-price"><span class="p-dollar">$</span><span class="p-amount">10</span></div>
             <div class="p-desc">Username lookups, phone tracing, IP geolocation, domain recon, and facial image analysis across 31+ platforms.</div>
@@ -669,16 +669,25 @@
     // ─── 3D Tilt on pricing cards ───
     function initTilt() {
       document.querySelectorAll('.pricing-card').forEach(card => {
+        let cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function tick() {
+          cx = lerp(cx, tx, 0.25); cy = lerp(cy, ty, 0.25);
+          card.style.transform = `perspective(900px) rotateX(${cy}deg) rotateY(${cx}deg) translateZ(4px)`;
+          if (Math.abs(cx - tx) > 0.01 || Math.abs(cy - ty) > 0.01) raf = requestAnimationFrame(tick);
+          else { raf = null; if (tx === 0 && ty === 0) card.style.transform = 'none'; }
+        }
         card.addEventListener('mousemove', e => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          const tx = (x - rect.width / 2) / 25;
-          const ty = -(y - rect.height / 2) / 25;
-          card.style.transform = `perspective(900px) rotateX(${ty}deg) rotateY(${tx}deg) translateZ(4px)`;
+          tx = (x - rect.width / 2) / 20;
+          ty = -(y - rect.height / 2) / 20;
+          if (!raf) raf = requestAnimationFrame(tick);
         });
         card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(4px)';
+          tx = 0; ty = 0;
+          if (!raf) raf = requestAnimationFrame(tick);
         });
       });
     }
