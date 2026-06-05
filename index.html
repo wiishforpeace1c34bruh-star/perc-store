@@ -647,13 +647,22 @@
     // ─── Scroll reveal ───
     function initScrollReveal() {
       const revealObs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            setTimeout(() => e.target.removeAttribute('data-reveal'), 1000);
+            revealObs.unobserve(e.target);
+          }
+        });
       }, { threshold: 0.01, rootMargin: '0px 0px 50px 0px' });
       document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
       
       // Fallback: force show everything after 2.5s in case intersection observer misses
       setTimeout(() => {
-        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('[data-reveal]').forEach(el => {
+          el.classList.add('visible');
+          setTimeout(() => el.removeAttribute('data-reveal'), 1000);
+        });
       }, 2500);
     }
 
@@ -664,8 +673,8 @@
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          const tx = (x - rect.width / 2) / 10;
-          const ty = -(y - rect.height / 2) / 10;
+          const tx = (x - rect.width / 2) / 25;
+          const ty = -(y - rect.height / 2) / 25;
           card.style.transform = `perspective(900px) rotateX(${ty}deg) rotateY(${tx}deg) translateZ(4px)`;
         });
         card.addEventListener('mouseleave', () => {
