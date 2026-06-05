@@ -3,48 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-
-  <title>perc.store - Advanced Cybersecurity Suite</title>
-  <meta name="description" content="Professional penetration testing, red teaming, and OSINT tools. Try the live terminal demo.">
+  <meta name="description" content="perc is a desktop intelligence toolkit for security researchers, investigators, and red teamers. OSINT, payload generation, and breach search — all offline, all private.">
+  <title>perc.store — Professional Security Research Toolkit</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- Ambient particle canvas -->
-  <canvas id="ambient-canvas"></canvas>
-
   <!-- Page Loader -->
   <div id="page-loader" class="page-loader">
-    <div class="loader-inner">
-      <div class="loader-brand">perc<span class="accent">.store</span></div>
-      <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
-      <div class="loader-status" id="loader-status">initializing</div>
-    </div>
+    <div class="loader-brand">perc<span class="accent">.store</span></div>
+    <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+    <div class="loader-status" id="loader-status">loading</div>
   </div>
 
   <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">perc<span class="accent">.store</span></a>
-
+      <a href="/" class="nav-logo">perc<span class="accent">.store</span></a>
       <ul class="nav-links">
-        <li><a href="#features">features</a></li>
-        <li><a href="#demo">terminal</a></li>
-        <li><a href="#pricing">pricing</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
       </ul>
-
       <div class="nav-actions">
-        <button class="btn btn-outline btn-sm" id="btn-nav-login">login</button>
-        <button class="btn btn-outline btn-sm" id="btn-nav-logout" style="display: none; border-color: rgba(255,255,255,0.1); color: var(--text-muted);">logout</button>
-        <a href="#pricing" class="btn btn-primary btn-sm">get access</a>
+        <button class="btn btn-ghost btn-sm" id="btn-nav-login">Log in</button>
+        <button class="btn btn-ghost btn-sm" id="btn-nav-logout" style="display:none">Log out</button>
+        <a href="#pricing" class="btn btn-primary btn-sm">Get access</a>
       </div>
-
-      <button class="nav-mobile-toggle" id="nav-mobile-toggle">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>
+      <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
@@ -52,339 +41,510 @@
 
   <!-- Mobile Menu -->
   <div class="nav-mobile-menu" id="nav-mobile-menu">
-    <a href="#features">features</a>
-    <a href="#demo">terminal</a>
-    <a href="#pricing">pricing</a>
-    <button class="btn btn-outline" id="btn-mobile-login" style="margin-top: 1rem; width: 100%;">login</button>
-    <a href="#pricing" class="btn btn-primary" style="margin-top: 0.5rem; text-align: center;">get access</a>
+    <a href="#tools">Tools</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <button class="btn btn-outline" id="btn-mobile-login" style="margin-top: 0.5rem;">Log in</button>
+    <a href="#pricing" class="btn btn-primary" style="text-align:center">Get access</a>
   </div>
 
-  <!-- MAIN LANDING PAGE -->
+  <!-- LANDING PAGE -->
   <main id="main-landing">
+
     <!-- Hero -->
     <section class="hero" id="hero">
-    <div class="hero-bg"></div>
-
-    <div class="hero-content">
-      <div id="ascii-hero" class="ascii-hero-widget"></div>
-      <h1 class="hero-tagline"><span id="hero-tagline"></span><span class="typing-cursor"></span></h1>
-      <p class="hero-subtitle">The ultimate toolkit for penetration testers, bug bounty hunters, and OSINT investigators. One powerful terminal framework covering everything from deep web reconnaissance to automated adversary simulation.</p>
-
-      <div class="hero-actions">
-        <a href="#demo" class="btn btn-primary btn-lg btn-magnetic" id="btn-try-demo">try live demo</a>
-        <a href="/perc.zip" class="btn btn-outline btn-lg btn-magnetic" download>download loader (free)</a>
-        <a href="#pricing" class="btn btn-outline btn-lg btn-magnetic" id="btn-explore">get access</a>
-      </div>
-    </div>
-    <div class="hero-scroll-indicator">
-      <span>scroll</span>
-      <div class="scroll-arrow"></div>
-    </div>
-  </section>
-
-  <!-- Live Terminal Demo -->
-  <section class="section" id="demo">
-    <div class="section-header" data-animate="fade-up">
-      <div class="section-label">live terminal</div>
-      <h2 class="section-title">Zero friction.</h2>
-      <p class="section-subtitle">Execute recon directly from your browser. Try the engine before you commit.</p>
-    </div>
-    
-    <div class="glass-container" data-animate="scale-in" data-delay="200">
-      <div class="glass-glow"></div>
-      <div id="terminal-container"></div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="section" id="features">
-    <div class="section-header" data-animate="fade-up">
-      <div class="section-label">architecture</div>
-      <h2 class="section-title">Engineered for speed.</h2>
-    </div>
-
-    <div class="premium-grid" data-stagger>
-      <div class="premium-card" data-stagger-child data-glow>
-        <div class="p-card-icon">01</div>
-        <div class="p-card-title">Automated Recon</div>
-        <div class="p-card-text">Scan 31 platforms, extract GEOINT, reverse-search faces, and pull live breach data locally in seconds.</div>
-      </div>
-      <div class="premium-card" data-stagger-child data-glow>
-        <div class="p-card-icon">02</div>
-        <div class="p-card-title">Use Anywhere</div>
-        <div class="p-card-text">Run it on your desktop or through our web dashboard. Clean interface, no confusing setups.</div>
-      </div>
-      <div class="premium-card" data-stagger-child data-glow>
-        <div class="p-card-icon">03</div>
-        <div class="p-card-title">Adversary Simulation</div>
-        <div class="p-card-text">Generate weaponized payloads, automated vulnerability scanners, and customized macros for professional red-teaming.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Elite Pricing -->
-  <section class="section" id="pricing">
-    <div class="section-header" data-animate="fade-up">
-      <div class="section-label">access</div>
-      <h2 class="section-title">Choose your weapon.</h2>
-      <p class="section-subtitle">Each tool is sold individually. Or save $5 and grab the full arsenal.</p>
-    </div>
-
-    <div class="pricing-grid">
-      
-      <!-- OSINT -->
-      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
-        <div class="card-top">
-          <div class="card-number">01</div>
-          <h3 class="card-name">OSINT Framework</h3>
-          <div class="price-box"><span class="currency">$</span><span class="amount">10</span></div>
+      <div class="hero-bg"></div>
+      <div class="hero-content container">
+        <div class="hero-eyebrow">Desktop-first · Offline · No subscriptions</div>
+        <h1 class="hero-h1 fade-up">Serious tools for<br><em>serious investigators.</em></h1>
+        <p class="hero-sub fade-up d1">perc is a downloadable intelligence suite built for security professionals. OSINT across 31+ platforms, payload generation, and credential breach search — running locally on your machine.</p>
+        <div class="hero-actions fade-up d2">
+          <a href="/perc.zip" class="btn btn-primary btn-xl" download>Download perc — Free</a>
+          <a href="#demo" class="btn btn-outline btn-xl">Try live demo</a>
         </div>
-        <div class="pricing-body">
-          <p class="card-desc">Deep-web reconnaissance engine. Scan usernames across 31 platforms, trace phones, geolocate IPs, and reverse-search faces.</p>
-          <a href="#" class="btn btn-outline card-btn">Purchase</a>
+        <div class="hero-stat-row fade-up d3">
+          <div>
+            <div class="hero-stat-num">31+</div>
+            <div class="hero-stat-label">Platforms scanned</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">3</div>
+            <div class="hero-stat-label">Active modules</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label">Local & offline</div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Payload Builder -->
-      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
-        <div class="card-top">
-          <div class="card-number">02</div>
-          <h3 class="card-name">Payload Builder</h3>
-          <div class="price-box"><span class="currency">$</span><span class="amount">15</span></div>
+    <!-- Live Terminal Demo -->
+    <section class="section" id="demo">
+      <div class="container">
+        <div style="max-width: 560px; margin-bottom: 2.5rem;" data-reveal>
+          <div class="section-eyebrow">Live demo</div>
+          <h2 class="section-title">Try it before you buy it.</h2>
+          <p class="section-sub">Run a real username lookup or IP geolocation right in your browser. No account needed.</p>
         </div>
-        <div class="pricing-body">
-          <p class="card-desc">Generate obfuscated reverse shells and macros for professional red-teaming. Python, PowerShell, and C# output.</p>
-          <a href="#" class="btn btn-outline card-btn">Purchase</a>
+        <div class="demo-wrap" data-reveal>
+          <div class="demo-bar">
+            <div class="demo-dot"></div>
+            <div class="demo-dot"></div>
+            <div class="demo-dot"></div>
+            <div class="demo-title">perc — interactive terminal</div>
+          </div>
+          <div id="terminal-container"></div>
         </div>
       </div>
+    </section>
 
-      <!-- Breach Engine -->
-      <div class="pricing-card-elite interactive-card" data-tilt data-stagger-child data-glow>
-        <div class="card-top">
-          <div class="card-number">03</div>
-          <h3 class="card-name">Breach Engine</h3>
-          <div class="price-box"><span class="currency">$</span><span class="amount">20</span></div>
+    <!-- Tools -->
+    <section class="section" id="tools">
+      <div class="container">
+        <div style="max-width: 560px; margin-bottom: 3rem;" data-reveal>
+          <div class="section-eyebrow">What's included</div>
+          <h2 class="section-title">Three focused modules.</h2>
+          <p class="section-sub">No bloat, no feature creep. Each module does one thing and does it well.</p>
         </div>
-        <div class="pricing-body">
-          <p class="card-desc">Offline credential search engine. Query billions of leaked records locally. Zero rate limits. Zero API dependencies.</p>
-          <a href="#" class="btn btn-outline card-btn">Purchase</a>
+        <div class="features-grid" data-reveal>
+          <div class="feature-cell">
+            <div class="feature-num">01 — OSINT Framework</div>
+            <div class="feature-title">Search anyone, anywhere.</div>
+            <div class="feature-desc">Look up a username across 31 platforms simultaneously. Trace phone numbers, geolocate IP addresses, run domain reconnaissance, and reverse-search facial images — all from the command line.</div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-num">02 — Payload Builder</div>
+            <div class="feature-title">Generate shells in seconds.</div>
+            <div class="feature-desc">Create obfuscated reverse shells for PowerShell, Bash, and Python. Generate VBA macros for Microsoft Office. Designed for authorized penetration testing and red team operations.</div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-num">03 — Breach Engine</div>
+            <div class="feature-title">Search offline breach data.</div>
+            <div class="feature-desc">Query billions of leaked credentials locally with zero API calls and zero rate limits. Search by email, username, or phone number. Everything stays on your machine.</div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Full Suite -->
-      <div class="pricing-card-elite interactive-card suite-card" data-tilt data-stagger-child data-glow>
-        <div class="card-top">
-          <div class="card-number" style="color: var(--accent);">★</div>
-          <h3 class="card-name" style="color: var(--accent);">The Full Suite</h3>
-          <div class="card-save">SAVE $5</div>
-          <div class="price-box"><span class="currency">$</span><span class="amount">40</span></div>
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div style="max-width: 560px; margin-bottom: 3rem;" data-reveal>
+          <div class="section-eyebrow">How it works</div>
+          <h2 class="section-title">Up in under three minutes.</h2>
         </div>
-        <div class="pricing-body">
-          <p class="card-desc">Every tool. Every update. One payment. Includes the <strong>OSINT Framework</strong>, <strong>Payload Builder</strong>, and <strong>Breach Engine</strong> forever.</p>
-          <a href="#" class="btn btn-primary card-btn">Purchase Full Suite</a>
+        <div class="steps-grid" data-reveal>
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-title">Download and extract</div>
+            <div class="step-desc">Download <code style="font-family:var(--mono);color:var(--pink);font-size:0.85em">perc.zip</code> and extract it anywhere on your Windows machine. No installation wizard, no system changes.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-title">Sign in to the loader</div>
+            <div class="step-desc">Run <code style="font-family:var(--mono);color:var(--pink);font-size:0.85em">perc.exe</code>. The loader authenticates your license and lists the modules you have access to. Guest access is available for the OSINT module.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-title">Select a module and go</div>
+            <div class="step-desc">Click any module to launch it in a dedicated terminal window. Each module walks you through what it needs and shows results immediately.</div>
+          </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Proof / Reviews -->
+    <section class="section" style="padding-top: 0" id="reviews">
+      <div class="container">
+        <div style="max-width: 560px; margin-bottom: 2.5rem;" data-reveal>
+          <div class="section-eyebrow">Community</div>
+          <h2 class="section-title">From the community.</h2>
+        </div>
+        <div class="proof-row" data-reveal>
+          <div class="proof-card">
+            <p class="proof-text">"The username lookup is genuinely fast. Pulled results from every major platform in about 8 seconds. Way quicker than doing it manually across tabs."</p>
+            <div class="proof-author">
+              <div class="proof-avatar">JR</div>
+              <div>
+                <div class="proof-name">j_recon</div>
+                <div class="proof-role">Bug bounty hunter</div>
+              </div>
+            </div>
+          </div>
+          <div class="proof-card">
+            <p class="proof-text">"The fact that it runs offline is what sold me. I do work where I can't have search queries going out over the network. This fits that perfectly."</p>
+            <div class="proof-author">
+              <div class="proof-avatar">SK</div>
+              <div>
+                <div class="proof-name">s_kell</div>
+                <div class="proof-role">Penetration tester</div>
+              </div>
+            </div>
+          </div>
+          <div class="proof-card">
+            <p class="proof-text">"Solid foundation. The breach engine is especially useful for pre-engagement reconnaissance. Looking forward to seeing more modules added over time."</p>
+            <div class="proof-author">
+              <div class="proof-avatar">MV</div>
+              <div>
+                <div class="proof-name">m_vance</div>
+                <div class="proof-role">Red team operator</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section" id="pricing">
+      <div class="container">
+        <div style="max-width: 560px; margin-bottom: 3rem;" data-reveal>
+          <div class="section-eyebrow">Pricing</div>
+          <h2 class="section-title">Pay once. Keep it forever.</h2>
+          <p class="section-sub">No monthly fees, no subscriptions. You buy a module, you own it. Every future update to that module is included.</p>
+        </div>
+        <div class="pricing-grid" data-reveal>
+
+          <!-- OSINT -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-name">OSINT Framework</div>
+              <div class="pricing-price">
+                <span class="pricing-dollar">$</span>
+                <span class="pricing-amount">10</span>
+              </div>
+              <div class="pricing-desc">Username lookups, phone tracing, IP geolocation, domain recon, and facial image analysis.</div>
+            </div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature check">31-platform username scan</div>
+              <div class="pricing-feature check">IP geolocation</div>
+              <div class="pricing-feature check">Phone number lookup</div>
+              <div class="pricing-feature check">Domain reconnaissance</div>
+              <div class="pricing-feature check">GEOINT & facial recognition</div>
+              <div class="pricing-feature check">Google dork generation</div>
+            </div>
+            <a href="#" class="btn btn-outline" style="width:100%" id="btn-purchase-osint">Purchase</a>
+          </div>
+
+          <!-- Payload Builder -->
+          <div class="pricing-card featured">
+            <div class="pricing-card-header">
+              <div class="pricing-name" style="color:var(--pink)">Payload Builder</div>
+              <div class="pricing-price">
+                <span class="pricing-dollar">$</span>
+                <span class="pricing-amount">15</span>
+              </div>
+              <div class="pricing-desc">Generate obfuscated shells and macros for authorized red team and penetration testing engagements.</div>
+            </div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature check">PowerShell reverse shells</div>
+              <div class="pricing-feature check">Bash & Python shells</div>
+              <div class="pricing-feature check">VBA Office macros</div>
+              <div class="pricing-feature check">Base64 obfuscation</div>
+              <div class="pricing-feature check">Interactive guided setup</div>
+            </div>
+            <a href="#" class="btn btn-primary" style="width:100%" id="btn-purchase-payload">Purchase</a>
+          </div>
+
+          <!-- Breach Engine -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-name">Breach Engine</div>
+              <div class="pricing-price">
+                <span class="pricing-dollar">$</span>
+                <span class="pricing-amount">20</span>
+              </div>
+              <div class="pricing-desc">Search offline breach databases for leaked credentials. Zero API calls. Fully local. No rate limits.</div>
+            </div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature check">Search by email, username, phone</div>
+              <div class="pricing-feature check">Fully offline operation</div>
+              <div class="pricing-feature check">SQLite database support</div>
+              <div class="pricing-feature check">Unlimited searches</div>
+              <div class="pricing-feature check">Custom DB integration</div>
+            </div>
+            <a href="#" class="btn btn-outline" style="width:100%" id="btn-purchase-breach">Purchase</a>
+          </div>
+
+        </div>
+
+        <!-- Full suite CTA -->
+        <div class="cta-banner" style="margin-top: 1.25rem;" data-reveal>
+          <div class="cta-title">Get the full suite for <span style="color:var(--pink)">$40</span></div>
+          <p class="cta-sub">All three modules, every update, one payment. Saves $5 compared to buying individually.</p>
+          <a href="#" class="btn btn-primary btn-lg" id="btn-purchase-suite">Purchase Full Suite — $40</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" style="padding-top:0" id="faq">
+      <div class="container" style="max-width: 720px;">
+        <div style="margin-bottom: 2.5rem;" data-reveal>
+          <div class="section-eyebrow">FAQ</div>
+          <h2 class="section-title">Common questions.</h2>
+        </div>
+        <div data-reveal>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              What OS does perc run on?
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Currently Windows only. The loader (<code style="font-family:var(--mono);color:var(--pink);font-size:0.9em">perc.exe</code>) is a Windows desktop app built with .NET and WebView2. The Python framework inside can technically run on other platforms but the loader UI itself requires Windows.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do I need an internet connection to use it?
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">The loader authenticates your license on startup, which requires an internet connection. The OSINT module makes external API requests to gather data. However, the Breach Engine and Payload Builder run entirely offline once activated.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Is this legal to use?
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">perc is built for authorized security research, penetration testing, and investigative work. Using it against systems or individuals without explicit permission is illegal. You are responsible for how you use it. See our Terms of Service.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              What's included in future updates?
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">Buying a module gives you all future updates to that module at no extra cost. Updates are pushed over-the-air through the loader automatically on login.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Can I share my license?
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a">No. Licenses are tied to your account. Sharing your credentials will result in permanent account termination with no refund.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- DASHBOARD VIEW -->
-  <main id="main-dashboard" class="hidden" style="display: none; padding-top: calc(var(--nav-height) + 2rem); min-height: 100vh;">
-    
-    <!-- Dashboard Header -->
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-      <div class="dashboard-tabs" style="display: flex; gap: 1rem;">
-        <button class="btn btn-sm tab-btn active" data-tab="profile">Profile</button>
-        <button class="btn btn-sm tab-btn" data-tab="friends" style="background: transparent; color: var(--text-muted); border-color: transparent;">Friends</button>
-        <button class="btn btn-sm tab-btn" data-tab="chat" style="background: transparent; color: var(--text-muted); border-color: transparent;">Chat</button>
-        <button class="btn btn-sm tab-btn" data-tab="license" style="background: transparent; color: var(--text-muted); border-color: transparent;">License</button>
-        <button class="btn btn-sm tab-btn" id="tab-btn-admin" data-tab="admin" style="display: none; background: transparent; color: #ff3366; border-color: transparent;">Admin Panel</button>
-      </div>
-      <button class="btn btn-outline btn-sm" id="btn-exit-dashboard">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: text-bottom;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Return to Terminal
-      </button>
-    </div>
+  <!-- DASHBOARD -->
+  <main id="main-dashboard" class="hidden" style="display:none">
+    <div class="dashboard-layout">
 
-    <!-- Tab Contents Container -->
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl) var(--space-xl);">
-      
-      <!-- Profile Tab -->
-      <div id="tab-profile" class="tab-content glass-panel" style="display: block;">
-        <div class="profile-images" style="position: relative; margin-bottom: 3rem;">
-          
-          <!-- Banner Upload -->
-          <div class="image-upload-wrapper" id="wrapper-banner" style="height: 160px; border-radius: var(--radius-md); overflow: hidden; position: relative; background: #111;">
-            <div id="profile-banner-preview" style="width: 100%; height: 100%; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.05); transition: filter 0.3s ease;"></div>
-            <div class="upload-overlay">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-logo">perc<span class="accent">.store</span></div>
+        <button class="nav-item active" data-tab="profile" onclick="switchTab('profile', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </button>
+        <button class="nav-item" data-tab="license" onclick="switchTab('license', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          License
+        </button>
+        <button class="nav-item" data-tab="friends" onclick="switchTab('friends', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Friends
+        </button>
+        <button class="nav-item" data-tab="chat" onclick="switchTab('chat', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Community
+        </button>
+        <div class="sidebar-divider"></div>
+        <button class="nav-item admin-item" data-tab="admin" id="tab-btn-admin" style="display:none" onclick="switchTab('admin', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Admin
+        </button>
+        <div class="sidebar-divider"></div>
+        <button class="nav-item" onclick="showLanding()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Back to Site
+        </button>
+        <button class="nav-item" id="btn-dashboard-logout" style="color:var(--red)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Log Out
+        </button>
+      </aside>
+
+      <!-- Panels -->
+      <div style="min-width:0">
+
+        <!-- Profile -->
+        <div class="panel active" id="panel-profile">
+          <div style="border-radius:var(--r-lg);overflow:hidden;">
+            <div class="banner-area" id="banner-area" title="Click to change banner">
+              <div class="upload-overlay">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="avatar-area" id="avatar-area" title="Click to change avatar">
+                <img id="profile-avatar-preview" src="" alt="avatar">
+                <div class="upload-overlay">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+              </div>
+              <input type="file" id="upload-banner" accept="image/*" style="display:none">
             </div>
-            <input type="file" id="upload-banner" accept="image/png, image/jpeg, image/gif, image/webp" class="hidden-upload">
+            <input type="file" id="upload-avatar" accept="image/*" style="display:none">
           </div>
+          <div class="profile-name-row">
+            <div class="profile-username" id="display-username">—</div>
+            <div class="profile-joined" id="display-joined">Member since —</div>
+          </div>
+          <div style="padding: 0 2rem 2rem">
+            <form id="profile-edit-form" style="display:flex;flex-direction:column;gap:1.25rem">
+              <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" id="profile-username-input" class="form-input" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Bio</label>
+                <textarea id="profile-bio-input" class="form-input" rows="4" placeholder="Tell the community about yourself..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-save-profile">Save changes</button>
+            </form>
+          </div>
+        </div>
 
-          <!-- Avatar Upload -->
-          <div class="image-upload-wrapper avatar-wrapper" id="wrapper-avatar" style="position: absolute; left: 30px; bottom: -40px; width: 100px; height: 100px; border-radius: 50%; z-index: 10;">
-            <img id="profile-avatar-preview" src="https://ui-avatars.com/api/?name=User&background=111&color=ec4899" style="width: 100%; height: 100%; border-radius: 50%; border: 4px solid #0c0c0c; background: #000; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.8); transition: filter 0.3s ease;">
-            <div class="upload-overlay" style="border-radius: 50%;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <!-- License -->
+        <div class="panel" id="panel-license">
+          <div class="panel-header">
+            <div class="panel-title">License</div>
+            <div class="panel-sub">Your active modules and access status</div>
+          </div>
+          <div class="panel-body" id="license-status-container">
+            <p style="color:var(--text-3);font-size:0.875rem">Checking license status...</p>
+          </div>
+        </div>
+
+        <!-- Friends -->
+        <div class="panel" id="panel-friends">
+          <div class="panel-header">
+            <div class="panel-title">Friends</div>
+            <div class="panel-sub">Connect with other perc users</div>
+          </div>
+          <div class="panel-body">
+            <form id="friend-request-form" style="display:flex;gap:0.75rem;margin-bottom:1.5rem">
+              <input type="text" id="friend-username-input" class="form-input" placeholder="Username to add..." required>
+              <button type="submit" class="btn btn-primary" id="btn-send-friend-req" style="white-space:nowrap">Send Request</button>
+            </form>
+            <div id="friend-status-msg" style="font-size:0.8rem;color:var(--pink);font-family:var(--mono);margin-bottom:1rem;min-height:1rem"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+              <div>
+                <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)">Pending</div>
+                <div id="friends-pending-list" style="display:flex;flex-direction:column;gap:0.35rem"></div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)">Friends</div>
+                <div id="friends-active-list" style="display:flex;flex-direction:column;gap:0.35rem"></div>
+              </div>
             </div>
-            <input type="file" id="upload-avatar" accept="image/png, image/jpeg, image/gif, image/webp" class="hidden-upload">
           </div>
-
         </div>
 
-        <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.75rem;">Username</label>
-            <input type="text" id="profile-username-input" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed; background: rgba(0,0,0,0.3);">
+        <!-- Chat -->
+        <div class="panel" id="panel-chat" style="padding:0">
+          <div class="chat-layout">
+            <div class="chat-sidebar">
+              <div class="chat-sidebar-head">Channels</div>
+              <div class="chat-channels" id="channel-list">
+                <button class="channel-btn active" data-channel="general"># general</button>
+                <button class="channel-btn" data-channel="support"># support</button>
+              </div>
+            </div>
+            <div class="chat-main">
+              <div class="chat-head">
+                <div class="chat-head-title" id="chat-channel-title"># general</div>
+              </div>
+              <div class="chat-messages" id="chat-messages">
+                <div style="color:var(--text-3);text-align:center;font-size:0.8rem;margin-top:2rem;font-family:var(--mono)">Channel opened. Start the conversation.</div>
+              </div>
+              <div class="reply-preview" id="chat-reply-preview">
+                <div>Replying to <strong id="reply-preview-author" style="color:var(--pink)"></strong>: <span id="reply-preview-text" style="font-style:italic;color:var(--text-2)"></span></div>
+                <button id="btn-cancel-reply" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;line-height:1">×</button>
+              </div>
+              <form class="chat-footer" id="chat-input-form">
+                <input type="text" id="chat-message-input" class="form-input" placeholder="Message #general..." autocomplete="off" required>
+                <button type="submit" class="btn btn-primary btn-sm" id="btn-send-message">Send</button>
+              </form>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.75rem;">Bio</label>
-            <textarea id="profile-bio-input" class="form-input" rows="4" placeholder="Tell the network about yourself..." style="resize: vertical;"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-sm" id="btn-save-profile" style="width: 100%; border-radius: var(--radius-md); padding: 0.75rem;">Save Profile Settings</button>
-          <div id="profile-save-status" style="color: var(--accent); font-size: 0.8rem; text-align: center; height: 1rem; font-family: var(--font-mono);"></div>
-        </form>
-
-        <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
-          <button id="btn-dashboard-logout" class="btn btn-outline btn-sm" style="width: 100%; border-color: rgba(255,51,102,0.3); color: #ff3366;">
-            Log Out
-          </button>
         </div>
+
+        <!-- Admin -->
+        <div class="panel" id="panel-admin">
+          <div class="panel-header">
+            <div class="panel-title" style="color:var(--pink)">Admin</div>
+            <div class="panel-sub">User management — authorized access only</div>
+          </div>
+          <div class="panel-body" style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Access</th>
+                  <th>Status</th>
+                  <th>Timeout</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-table">
+                <tr><td colspan="5" style="color:var(--text-3);padding:1.5rem 0;font-size:0.85rem">Loading users...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Friends Tab -->
-      <div id="tab-friends" class="tab-content glass-panel" style="display: none; padding: 2rem;">
-        <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 0; color: var(--text-primary);">Network Connections</h2>
-        
-        <form id="friend-request-form" style="display: flex; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2rem;">
-          <input type="text" id="friend-username-input" class="form-input" placeholder="Enter exact username to add..." style="flex: 1;" required>
-          <button type="submit" class="btn btn-primary btn-sm" id="btn-send-friend-req">Send Request</button>
-        </form>
-        <div id="friend-status-msg" style="color: var(--accent); font-size: 0.8rem; font-family: var(--font-mono); margin-bottom: 1rem;"></div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">Pending Requests</h3>
-            <div id="friends-pending-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
-          </div>
-          <div>
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">Active Friends</h3>
-            <div id="friends-active-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chat Tab -->
-      <div id="tab-chat" class="tab-content glass-panel" style="display: none; flex-direction: row; height: 75vh; padding: 0; overflow: hidden;">
-        
-        <!-- Channels Sidebar -->
-        <div style="width: 200px; border-right: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.5); display: flex; flex-direction: column;">
-          <div style="padding: 1.5rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin: 0; text-transform: uppercase; letter-spacing: 2px;">Channels</h3>
-          </div>
-          <div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem;" id="channel-list">
-            <button class="channel-btn active" data-channel="general"># general</button>
-            <button class="channel-btn" data-channel="support"># support</button>
-          </div>
-        </div>
-
-        <!-- Chat Area -->
-        <div style="flex: 1; display: flex; flex-direction: column; position: relative;">
-          <div style="padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="chat-channel-title" style="font-family: var(--font-mono); font-size: 1.1rem; margin: 0; color: var(--text-primary);">
-              # general
-            </h2>
-          </div>
-          
-          <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 0; background: rgba(0,0,0,0.1);">
-            <div style="color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: 0.8rem;">Secure channel opened. No recent communications.</div>
-          </div>
-
-          <div id="chat-reply-preview" style="display: none; padding: 0.5rem 1.5rem; background: rgba(236, 72, 153, 0.1); border-top: 1px solid var(--border-accent); font-size: 0.8rem; color: var(--text-secondary); align-items: center; justify-content: space-between;">
-            <div>Replying to <strong id="reply-preview-author" style="color: var(--accent);"></strong>: <span id="reply-preview-text" style="font-style: italic;"></span></div>
-            <button id="btn-cancel-reply" style="color: #ff3366; cursor: pointer;">✕</button>
-          </div>
-
-          <form id="chat-input-form" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 1rem; background: rgba(0,0,0,0.4);">
-            <input type="text" id="chat-message-input" class="form-input" placeholder="Message #general..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);" required autocomplete="off">
-            <button type="submit" class="btn btn-primary btn-sm" id="btn-send-message" style="padding: 0 2rem; border-radius: var(--radius-md);">Send</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- License Tab -->
-      <div id="tab-license" class="tab-content glass-panel" style="display: none; padding: 3rem 1.5rem; text-align: center;">
-        <h2 style="font-family: var(--font-mono); color: var(--text-primary); margin-bottom: 1rem;">perc.store License</h2>
-        <div id="license-status-container" style="margin-bottom: 2rem;">
-          <p style="color: var(--text-muted); margin-bottom: 1rem;">Checking license status...</p>
-        </div>
-        <button id="btn-purchase-access" class="btn btn-primary" style="display: none; margin: 0 auto;">Purchase Lifetime Access</button>
-        <p id="purchase-error" style="color: #ff3366; margin-top: 1rem; font-size: 0.85rem; display: none;"></p>
-      </div>
-
-      <!-- Admin Tab -->
-      <div id="tab-admin" class="tab-content glass-panel" style="display: none; padding: 2rem;">
-        <h2 style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 0; color: #ff3366;">Admin Control Panel</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Network user management. Authorized access only.</p>
-
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.85rem;">
-            <thead>
-              <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); font-family: var(--font-mono);">
-                <th style="padding: 0.5rem;">User</th>
-                <th style="padding: 0.5rem;">Access</th>
-                <th style="padding: 0.5rem;">Banned</th>
-                <th style="padding: 0.5rem;">Timeout Until</th>
-                <th style="padding: 0.5rem;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="admin-users-table">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
 
     <!-- User Profile Modal -->
-    <div class="auth-overlay" id="user-modal-overlay" style="z-index: 10000; display: none;"></div>
-    <div class="auth-modal" id="user-modal" style="z-index: 10001; display: none;">
-      <button class="modal-close" id="btn-close-user-modal">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </button>
-      
-      <div id="user-modal-banner" style="height: 120px; width: 100%; background: #111; background-size: cover; background-position: center; border-radius: 6px 6px 0 0; margin: -2rem -2rem 0 -2rem; position: relative;">
-        <img id="user-modal-avatar" src="" style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000; position: absolute; bottom: -40px; left: 2rem; background: #111; object-fit: cover;">
+    <div class="user-modal-overlay" id="user-modal-overlay"></div>
+    <div class="user-modal" id="user-modal">
+      <div class="user-modal-banner" id="user-modal-banner">
+        <div class="user-modal-avatar-wrap">
+          <img id="user-modal-avatar" src="" alt="">
+        </div>
+        <button class="user-modal-close" id="btn-close-user-modal">×</button>
       </div>
-      
-      <div style="margin-top: 3rem;">
-        <h3 id="user-modal-username" style="font-family: var(--font-mono); color: var(--text-primary); font-size: 1.2rem; margin: 0;"></h3>
-        <p id="user-modal-bio" style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem; line-height: 1.6;"></p>
-        <button id="btn-modal-add-friend" class="btn btn-primary btn-sm" style="margin-top: 1.5rem; width: 100%;">Add Friend</button>
+      <div class="user-modal-body">
+        <div class="user-modal-username" id="user-modal-username"></div>
+        <div class="user-modal-bio" id="user-modal-bio"></div>
+        <button class="btn btn-primary btn-sm" id="btn-modal-add-friend" style="width:100%">Add Friend</button>
       </div>
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="footer-elite">
-    <div class="footer-content">
-      <div class="footer-left">
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
         <div class="footer-logo">perc<span class="accent">.store</span></div>
-        <div class="footer-desc">The ultimate lookup tool.<br>Built to find the truth fast.</div>
+        <div class="footer-tagline">Professional security research toolkit. Run locally, stay private.</div>
       </div>
-      <div class="footer-right">
-        <a href="#features">Features</a>
-        <a href="#demo">Terminal</a>
-        <a href="#pricing">Pricing</a>
-        <a href="/tos.html">Terms of Service</a>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#tools">Tools</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#pricing">Pricing</a>
+          <a href="/perc.zip" download>Download</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/tos.html">Terms of Service</a>
+          <a href="#faq">FAQ</a>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom-elite">
-      <p>© 2026 perc.store — System Online</p>
+    <div class="footer-bottom">
+      <span>© 2026 perc.store</span>
+      <div class="footer-status">
+        <div class="status-dot"></div>
+        <span>All systems operational</span>
+      </div>
     </div>
   </footer>
 
@@ -392,166 +552,158 @@
   <div class="auth-overlay" id="auth-overlay"></div>
   <div class="auth-modal" id="auth-modal" role="dialog" aria-modal="true">
     <button class="modal-close" id="btn-close-auth" aria-label="Close">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    
-    <div class="auth-header">
-      <div class="auth-title" id="auth-title">Welcome back</div>
-      <div class="auth-subtitle" id="auth-subtitle">Sign in to access your dashboard</div>
-    </div>
-
-    <!-- State 1: Login / Signup -->
+    <div class="auth-title" id="auth-title">Welcome back</div>
+    <div class="auth-subtitle" id="auth-subtitle">Sign in to access your dashboard</div>
     <div id="auth-state-login">
       <form class="auth-form" id="auth-form">
-        <div style="display: none;" aria-hidden="true"><input type="text" id="bot-field" name="bot-field" tabindex="-1"></div>
-        <div class="form-group" id="auth-username-group" style="display: none;">
+        <div style="display:none" aria-hidden="true"><input type="text" id="bot-field" name="bot-field" tabindex="-1"></div>
+        <div class="form-group" id="auth-username-group" style="display:none">
           <label for="auth-username" class="form-label">Username</label>
-          <input type="text" id="auth-username" class="form-input" placeholder="agent_smith">
+          <input type="text" id="auth-username" class="form-input" placeholder="your_handle">
         </div>
         <div class="form-group">
-          <label for="auth-email" class="form-label">Email Address</label>
-          <input type="email" id="auth-email" class="form-input" required placeholder="investigator@example.com">
+          <label for="auth-email" class="form-label">Email address</label>
+          <input type="email" id="auth-email" class="form-input" required placeholder="you@example.com">
         </div>
         <div class="form-group">
           <label for="auth-password" class="form-label">Password</label>
           <input type="password" id="auth-password" class="form-input" required placeholder="••••••••">
         </div>
         <div class="auth-error" id="auth-error"></div>
-        <button type="submit" class="btn btn-primary" id="btn-auth-submit" style="width: 100%;">Sign In</button>
+        <button type="submit" class="btn btn-primary" id="btn-auth-submit" style="width:100%">Sign In</button>
       </form>
-      <div class="auth-toggle" id="auth-toggle-container">
+      <div class="auth-toggle">
         <span id="auth-toggle-text">Don't have an account?</span>
         <button type="button" id="btn-auth-toggle">Sign up</button>
       </div>
     </div>
-
   </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-dot"></div>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- FAQ styles -->
+  <style>
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.25rem 0; background: none; border: none;
+      color: var(--text); font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      text-align: left; font-family: var(--sans);
+      transition: color var(--t-fast);
+    }
+    .faq-q:hover { color: var(--text-2); }
+    .faq-icon { flex-shrink: 0; color: var(--text-3); transition: transform var(--t-base); }
+    .faq-q.open .faq-icon { transform: rotate(180deg); }
+    .faq-a {
+      overflow: hidden; max-height: 0;
+      transition: max-height var(--t-slow), padding var(--t-base);
+      font-size: 0.9rem; color: var(--text-2); line-height: 1.7;
+      padding: 0;
+    }
+    .faq-a.open { max-height: 200px; padding-bottom: 1.25rem; }
+    code { background: var(--bg-3); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.9em; }
+  </style>
 
   <script type="module" src="/js/app.js"></script>
   <script>
-    // ─── Ambient floating particles ───
-    (function() {
-      const canvas = document.getElementById('ambient-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      const particles = [];
-      const count = 60;
-      const linkDist = 120;
-      
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-      
-      // Seed particles
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: -Math.random() * 0.25 - 0.05,
-          r: Math.random() * 1.5 + 0.5,
-          a: Math.random() * 0.4 + 0.1,
-        });
-      }
-      
-      function draw() {
-        ctx.clearRect(0, 0, w, h);
-        
-        // Draw connection lines
-        for (let i = 0; i < count; i++) {
-          for (let j = i + 1; j < count; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < linkDist) {
-              const alpha = (1 - dist / linkDist) * 0.06;
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(236, 72, 153, ${alpha})`;
-              ctx.lineWidth = 0.5;
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
-            }
-          }
-        }
-        
-        // Draw and update particles
-        for (const p of particles) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(236, 72, 153, ${p.a})`;
-          ctx.fill();
-          
-          p.x += p.vx;
-          p.y += p.vy;
-          
-          // Wrap around
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
-          if (p.y > h + 10) { p.y = -10; p.x = Math.random() * w; }
-        }
-        
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
+    // Tab switching
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      const panel = document.getElementById('panel-' + tab);
+      if(panel) panel.classList.add('active');
+    }
+    window.switchTab = switchTab;
 
-    // ─── Premium 3D tilt with interpolation ───
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-      let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
-      let animating = false;
-      
-      function lerp(a, b, t) { return a + (b - a) * t; }
-      
-      function animate() {
-        currentX = lerp(currentX, targetX, 0.08);
-        currentY = lerp(currentY, targetY, 0.08);
-        
-        card.style.transform = `perspective(800px) rotateX(${currentY}deg) rotateY(${currentX}deg) translateZ(8px)`;
-        
-        if (Math.abs(currentX - targetX) > 0.01 || Math.abs(currentY - targetY) > 0.01) {
-          requestAnimationFrame(animate);
-        } else {
-          animating = false;
-        }
-      }
-      
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const mx = (e.clientX - rect.left) / rect.width - 0.5;
-        const my = (e.clientY - rect.top) / rect.height - 0.5;
-        targetX = mx * 8;
-        targetY = my * -8;
-        if (!animating) { animating = true; animate(); }
+    function showLanding() {
+      document.getElementById('main-landing').style.display = '';
+      document.getElementById('main-landing').classList.remove('hidden');
+      document.getElementById('main-dashboard').style.display = 'none';
+      document.getElementById('main-dashboard').classList.add('hidden');
+    }
+    window.showLanding = showLanding;
+
+    // Toast
+    window.showToast = function(msg, type='info') {
+      const t = document.getElementById('toast');
+      const m = document.getElementById('toast-msg');
+      t.className = 'toast ' + type;
+      m.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    };
+
+    // FAQ toggle
+    function toggleFaq(btn) {
+      const a = btn.nextElementSibling;
+      const open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(q => {
+        q.classList.remove('open');
+        q.nextElementSibling.classList.remove('open');
       });
-      
-      card.addEventListener('mouseleave', () => {
-        targetX = 0; targetY = 0;
-        if (!animating) { animating = true; animate(); }
-      });
+      if (!open) { btn.classList.add('open'); a.classList.add('open'); }
+    }
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    // ─── Stagger pricing cards into view ───
-    const pricingGrid = document.querySelector('.pricing-grid');
-    if (pricingGrid) {
-      const sobs = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const cards = entry.target.querySelectorAll('[data-stagger-child]');
-            cards.forEach((card, i) => {
-              setTimeout(() => card.classList.add('revealed'), i * 150);
-            });
-            sobs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      sobs.observe(pricingGrid);
-    }
+    // Mobile menu
+    document.getElementById('nav-mobile-toggle').addEventListener('click', () => {
+      document.getElementById('nav-mobile-menu').classList.toggle('open');
+    });
+
+    // Page loader
+    (function() {
+      const fill = document.getElementById('loader-fill');
+      const status = document.getElementById('loader-status');
+      const loader = document.getElementById('page-loader');
+      const steps = ['loading', 'connecting', 'ready'];
+      let p = 0, step = 0;
+      const iv = setInterval(() => {
+        p = Math.min(p + Math.random() * 15 + 5, 100);
+        fill.style.width = p + '%';
+        if (step < steps.length - 1 && p > (step + 1) * 33) { step++; status.textContent = steps[step]; }
+        if (p >= 100) {
+          clearInterval(iv);
+          setTimeout(() => loader.classList.add('hidden'), 400);
+        }
+      }, 80);
+    })();
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+    // Avatar click
+    document.getElementById('avatar-area')?.addEventListener('click', e => {
+      e.stopPropagation();
+      document.getElementById('upload-avatar').click();
+    });
+    document.getElementById('banner-area')?.addEventListener('click', () => {
+      document.getElementById('upload-banner').click();
+    });
+
+    // User modal close
+    document.getElementById('btn-close-user-modal')?.addEventListener('click', () => {
+      document.getElementById('user-modal').classList.remove('open');
+      document.getElementById('user-modal-overlay').classList.remove('open');
+    });
+    document.getElementById('user-modal-overlay')?.addEventListener('click', () => {
+      document.getElementById('user-modal').classList.remove('open');
+      document.getElementById('user-modal-overlay').classList.remove('open');
+    });
   </script>
 </body>
 </html>

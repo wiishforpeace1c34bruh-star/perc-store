@@ -3,67 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service - perc.store</title>
+  <title>Terms of Service — perc.store</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/style.css">
   <style>
-    .tos-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: calc(var(--nav-height) + 4rem) var(--space-xl) var(--space-4xl);
-      color: var(--text-secondary);
-      font-family: var(--font-sans);
+    .tos-page {
+      max-width: 720px; margin: 0 auto;
+      padding: calc(var(--nav-h) + 5rem) 2rem 6rem;
     }
-    .tos-container h1 {
-      color: var(--text-primary);
-      font-family: var(--font-mono);
-      margin-bottom: 2rem;
-    }
-    .tos-container h2 {
-      color: var(--accent);
-      margin-top: 2rem;
+    .tos-eyebrow {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      color: var(--pink); letter-spacing: 0.12em; text-transform: uppercase;
       margin-bottom: 1rem;
-      font-family: var(--font-mono);
     }
-    .tos-container p {
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
+    .tos-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+    .tos-updated { font-size: 0.8rem; color: var(--text-3); margin-bottom: 3rem; font-family: var(--mono); }
+    .tos-section { margin-top: 3rem; }
+    .tos-section h2 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .tos-section p, .tos-section ul { font-size: 0.9rem; color: var(--text-2); line-height: 1.8; }
+    .tos-section ul { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tos-divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav" id="main-nav">
+  <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-logo">perc<span class="accent">.store</span></a>
       <div class="nav-actions">
-        <a href="/" class="btn btn-outline btn-sm">back to home</a>
+        <a href="/" class="btn btn-outline btn-sm">← Back to home</a>
       </div>
     </div>
   </nav>
 
-  <main class="tos-container">
-    <h1>Terms of Service</h1>
-    <p><em>Last Updated: June 2026</em></p>
+  <main class="tos-page">
+    <div class="tos-eyebrow">Legal</div>
+    <h1 class="tos-title">Terms of Service</h1>
+    <div class="tos-updated">Last updated: June 2026</div>
 
-    <h2>1. The Deal</h2>
-    <p>By using perc.store, you agree to these terms. If you don't like them, don't use the tool.</p>
+    <p style="font-size:0.9rem;color:var(--text-2);line-height:1.8">
+      These terms govern your use of perc.store and the perc software suite. Please read them before using the service. By downloading, installing, or using perc, you agree to these terms.
+    </p>
 
-    <h2>2. What This Is</h2>
-    <p>perc.store is an OSINT (Open Source Intelligence) tool. It's built for finding public info fast. It's not for hacking, it's not a virus, and it doesn't give you unauthorized access to anything. It just searches the web really, really well.</p>
+    <div class="tos-divider"></div>
 
-    <h2>3. Don't Do Stupid Stuff</h2>
-    <p>Do not use this to stalk people, harass anyone, or break the law. If you do, that's on you. We will ban your license immediately if we catch you doing weird illegal stuff with our framework.</p>
+    <div class="tos-section">
+      <h2>1. What perc is</h2>
+      <p>perc is a downloadable software toolkit for security research and investigation. It includes tools for open-source intelligence gathering, penetration testing, and credential breach research. It is designed for use by security professionals, researchers, and investigators operating within the law.</p>
+    </div>
 
-    <h2>4. Licenses</h2>
-    <p>You pay once, you get it forever. Do not share your account or license key. If you do, we'll permanently lock your access. No refunds unless the software literally stops working and we can't fix it.</p>
+    <div class="tos-section">
+      <h2>2. Permitted use</h2>
+      <p>You may use perc for:</p>
+      <ul>
+        <li>Authorized penetration testing engagements</li>
+        <li>Security research on systems you own or have explicit written permission to test</li>
+        <li>OSINT investigations involving publicly available information</li>
+        <li>Educational purposes within a controlled, legal environment</li>
+      </ul>
+    </div>
 
-    <h2>5. Liability</h2>
-    <p>We provide the tool; what you do with it is your responsibility. We are not liable for any trouble you get into.</p>
+    <div class="tos-section">
+      <h2>3. Prohibited use</h2>
+      <p>You may not use perc for any of the following:</p>
+      <ul>
+        <li>Unauthorized access to systems, networks, or accounts you do not own</li>
+        <li>Stalking, harassment, or surveillance of individuals without their consent</li>
+        <li>Any activity that violates local, national, or international law</li>
+        <li>Generating or deploying payloads against targets without explicit authorization</li>
+      </ul>
+      <p style="margin-top:0.75rem">Violations of this section will result in immediate and permanent license termination. We cooperate with law enforcement when legally required.</p>
+    </div>
 
-    <h2>6. Privacy</h2>
-    <p>We don't track your searches. We don't want to know who you're looking up. Everything happens on your machine.</p>
+    <div class="tos-section">
+      <h2>4. Licenses and payments</h2>
+      <ul>
+        <li>Licenses are non-transferable and tied to your account.</li>
+        <li>All purchases are one-time payments. There are no subscriptions.</li>
+        <li>Sharing your account or license credentials will result in permanent termination with no refund.</li>
+        <li>Refunds are only issued if the software is fundamentally non-functional and we are unable to fix the issue within a reasonable time.</li>
+      </ul>
+    </div>
 
+    <div class="tos-section">
+      <h2>5. Liability</h2>
+      <p>perc.store provides this software as-is. We are not liable for any damage, legal trouble, or consequence resulting from how you choose to use it. You are entirely responsible for your actions.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>6. Privacy</h2>
+      <p>We do not log, collect, or transmit the targets of your searches or the results of any module. Your searches stay on your machine. We do collect your account email for authentication purposes, and standard server logs may be retained for up to 30 days for security purposes.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>7. Updates and availability</h2>
+      <p>We reserve the right to modify or discontinue any feature at any time. Software updates are delivered over-the-air and are included with your license. We do not guarantee uninterrupted access or specific uptime.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>8. Changes to these terms</h2>
+      <p>We may update these terms. Continued use of perc after changes are posted constitutes acceptance of the updated terms. We will make reasonable efforts to notify active users of material changes.</p>
+    </div>
+
+    <div class="tos-divider"></div>
+    <p style="font-size:0.8rem;color:var(--text-3)">© 2026 perc.store — All rights reserved.</p>
   </main>
 </body>
 </html>

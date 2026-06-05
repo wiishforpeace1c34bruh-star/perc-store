@@ -3,9 +3,7 @@
  * Initializes all modules and orchestrates the page
  */
 
-import { initAsciiWidget } from './ascii-widget.js';
 import { initTerminal } from './terminal.js';
-import { initAnimations, typewriter } from './animations.js';
 import { initSecurity } from './security.js';
 import { initAuth } from './auth.js';
 
@@ -50,76 +48,7 @@ function hideLoader() {
   }, 20);
 }
 
-// ─── Hero Particles ───
-
-function createParticles() {
-  const container = document.querySelector('.hero-bg');
-  if (!container) return;
-
-  const count = 25;
-  for (let i = 0; i < count; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'hero-particle';
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.top = `${60 + Math.random() * 40}%`;
-    particle.style.animationDuration = `${6 + Math.random() * 10}s`;
-    particle.style.animationDelay = `${Math.random() * 8}s`;
-    particle.style.width = `${2 + Math.random() * 3}px`;
-    particle.style.height = particle.style.width;
-    particle.style.opacity = `${0.1 + Math.random() * 0.2}`;
-    container.appendChild(particle);
-  }
-}
-
-// ─── Hero Typewriter ───
-
-async function initHeroTypewriter() {
-  const tagline = document.getElementById('hero-tagline');
-  if (!tagline) return;
-
-  const texts = [
-    'osint intelligence framework',
-    'open source intelligence',
-    'username enumeration',
-    'email reconnaissance',
-    'domain analysis',
-    'perc.store'
-  ];
-
-  let current = 0;
-
-  async function cycle() {
-    // Type out current text
-    await typewriter(tagline, texts[current], 45);
-    // Wait, then erase
-    await delay(2500);
-    await erase(tagline, 30);
-    await delay(400);
-    // Next
-    current = (current + 1) % texts.length;
-    cycle();
-  }
-
-  cycle();
-}
-
-function delay(ms) {
-  return new Promise(r => setTimeout(r, ms));
-}
-
-function erase(el, speed = 30) {
-  return new Promise(resolve => {
-    function tick() {
-      if (el.textContent.length > 0) {
-        el.textContent = el.textContent.slice(0, -1);
-        setTimeout(tick, speed);
-      } else {
-        resolve();
-      }
-    }
-    tick();
-  });
-}
+// (Hero particles and typewriter removed — handled in HTML inline scripts)
 
 // ─── Mobile Nav Toggle ───
 
@@ -182,42 +111,16 @@ function initNavScroll() {
 // ─── Initialize Everything ───
 
 function init() {
-  // Force scroll to top on reload to prevent annoying scroll anchors
   window.scrollTo(0, 0);
-  if (window.location.hash) {
-    window.history.replaceState(null, null, window.location.pathname);
-  }
+  if (window.location.hash) window.history.replaceState(null, null, window.location.pathname);
 
-  // Hide loader first — never let a downstream error trap users on the splash
-  hideLoader();
-
-  // Security
   initSecurity();
 
-  // Navigation
-  initMobileNav();
-  initNavScroll();
-
-  // Hero
-  createParticles();
-  initHeroTypewriter();
-
-  // ASCII Matrix Hero
-  const asciiHero = document.getElementById('ascii-hero');
-  if (asciiHero) {
-    initAsciiWidget(asciiHero);
-  }
-
-  // Terminal
+  // Terminal demo
   const terminalContainer = document.getElementById('terminal-container');
-  if (terminalContainer) {
-    initTerminal(terminalContainer);
-  }
+  if (terminalContainer) initTerminal(terminalContainer);
 
-  // Animations (scroll reveal, counters, cursor glow, etc.)
-  initAnimations();
-
-  // Authentication & Modals
+  // Authentication
   initAuth();
 }
 
