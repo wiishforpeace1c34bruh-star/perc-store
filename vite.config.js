@@ -7,6 +7,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
+        fisch: './fisch.html',
+        toolkit: './toolkit.html',
+        why_us: './why-us.html',
         tos: './tos.html'
       }
     }

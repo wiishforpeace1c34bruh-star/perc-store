@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="perc.store — Fisch Macro. An honest, plug-and-play automation tool for Roblox. No confusing settings, just press start.">
+  <title>Fisch Macro — perc.store</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">perc<span class="a">.store</span></a>
+      <ul class="nav-links">
+        <li><a href="/fisch.html" class="active">Fisch Macro</a></li>
+        <li><a href="/toolkit.html">OSINT Toolkit</a></li>
+        <li><a href="/why-us.html">Why Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#pricing" class="btn btn-primary btn-sm">Get the Macro</a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile-menu" id="nav-mobile-menu">
+    <a href="/fisch.html" class="active">Fisch Macro</a>
+    <a href="/toolkit.html">OSINT Toolkit</a>
+    <a href="/why-us.html">Why Us</a>
+    <a href="#pricing" class="btn btn-primary" style="text-align:center">Get the Macro</a>
+  </div>
+
+  <main>
+    <!-- Product Hero -->
+    <section class="hero" style="padding-top:140px; padding-bottom:80px">
+      <div class="hero-bg">
+        <canvas id="bg-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:-1;"></canvas>
+      </div>
+      <div class="container" style="text-align:center; max-width:800px; margin:0 auto; position:relative; z-index:2;">
+        <h1 class="hero-h1 animated-text">
+          The only Fisch macro<br>
+          <em>you'll ever need.</em>
+        </h1>
+        <p class="hero-sub" style="max-width: 600px; margin: 1.5rem auto;">
+          We built this macro because we were tired of tools that required a PhD to configure. Our software uses lightweight computer vision to look at your screen and play the fishing minigame exactly like a human would. You press start, and it just works.
+        </p>
+        <div class="hero-actions" style="justify-content:center">
+          <a href="#pricing" class="btn btn-primary btn-xl">View Pricing</a>
+          <a href="#features" class="btn btn-outline btn-xl">See how it works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <div class="container">
+        <div style="text-align:center; max-width:600px; margin:0 auto 4rem auto;">
+          <h2 class="sec-title">What it actually does.</h2>
+          <p class="sec-sub">We don't use confusing buzzwords. Here is exactly what our macro handles for you automatically.</p>
+        </div>
+
+        <div class="feature-list" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:2rem;">
+          <div class="product-card">
+            <h3 style="margin-bottom:1rem; font-size:1.2rem; color:#fff">Autonomous Reeling</h3>
+            <p style="color:#a0a0a0; line-height:1.6; font-size:0.95rem;">
+              The macro reads the screen 60 times a second. It calculates exactly how far the fish is from the bar, and automatically clicks your mouse to keep the bar perfectly balanced. No setup required.
+            </p>
+          </div>
+          <div class="product-card">
+            <h3 style="margin-bottom:1rem; font-size:1.2rem; color:#fff">Auto Cast & Shake</h3>
+            <p style="color:#a0a0a0; line-height:1.6; font-size:0.95rem;">
+              It equips your rod, holds the cast button down to perfectly hit your desired cast power, and automatically completes the shake minigame the instant a fish bites.
+            </p>
+          </div>
+          <div class="product-card">
+            <h3 style="margin-bottom:1rem; font-size:1.2rem; color:#fff">Discord Notifications</h3>
+            <p style="color:#a0a0a0; line-height:1.6; font-size:0.95rem;">
+              Go to sleep, go to work, or go to school. The macro runs completely minimized and can send a rich embed to your personal Discord server every time a rare or mutated fish is caught.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section" id="pricing" style="background:rgba(236,72,153,0.03); border-top:1px solid rgba(236,72,153,0.1)">
+      <div class="container">
+        <div style="text-align:center; max-width:600px; margin:0 auto 4rem auto;">
+          <h2 class="sec-title">Honest Pricing.</h2>
+          <p class="sec-sub">No hidden fees, no shady auto-renewals. We are loyal to our customers.</p>
+        </div>
+
+        <div class="pricing-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem; max-width:800px; margin:0 auto;">
+          <!-- Monthly -->
+          <div class="product-card" style="text-align:center; padding:3rem 2rem;">
+            <h3 style="font-size:1.5rem; color:#fff; margin-bottom:0.5rem">Monthly Access</h3>
+            <div style="font-size:3rem; font-weight:700; color:#ec4899; margin-bottom:1.5rem">$3<span style="font-size:1rem; color:#666">/mo</span></div>
+            <p style="color:#a0a0a0; margin-bottom:2rem; font-size:0.95rem;">Perfect for casual players or those who just want to try the software out for a weekend event.</p>
+            <ul style="list-style:none; padding:0; margin:0 0 2rem 0; text-align:left; color:#ccc;">
+              <li style="margin-bottom:0.75rem">✔ Full access to the macro engine</li>
+              <li style="margin-bottom:0.75rem">✔ All future updates included</li>
+              <li style="margin-bottom:0.75rem">✔ Premium customer support</li>
+            </ul>
+            <button class="btn btn-outline" style="width:100%; justify-content:center">Subscribe for $3</button>
+          </div>
+
+          <!-- Lifetime -->
+          <div class="product-card" style="text-align:center; padding:3rem 2rem; border-color:rgba(236,72,153,0.4); box-shadow:0 0 30px rgba(236,72,153,0.1); position:relative;">
+            <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#ec4899; color:#fff; padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px">Most Popular</div>
+            <h3 style="font-size:1.5rem; color:#fff; margin-bottom:0.5rem">Lifetime License</h3>
+            <div style="font-size:3rem; font-weight:700; color:#ec4899; margin-bottom:1.5rem">$20<span style="font-size:1rem; color:#666">/once</span></div>
+            <p style="color:#a0a0a0; margin-bottom:2rem; font-size:0.95rem;">Pay once, own it forever. Our way of rewarding our most loyal customers.</p>
+            <ul style="list-style:none; padding:0; margin:0 0 2rem 0; text-align:left; color:#ccc;">
+              <li style="margin-bottom:0.75rem">✔ Everything in Monthly</li>
+              <li style="margin-bottom:0.75rem">✔ Pay once, never pay again</li>
+              <li style="margin-bottom:0.75rem">✔ Early access to beta features</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%; justify-content:center">Buy Lifetime ($20)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="nav-logo" style="margin-bottom:1rem;display:inline-block">perc<span class="a">.store</span></a>
+          <p style="color:#666;font-size:0.875rem;max-width:250px">Premium, honest software tools built on loyalty and raw truth.</p>
+        </div>
+        <div>
+          <h4>Products</h4>
+          <ul>
+            <li><a href="/fisch.html">Fisch Macro</a></li>
+            <li><a href="/toolkit.html">Security Toolkit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/why-us.html">Why Us</a></li>
+            <li><a href="/tos.html">Terms of Service</a></li>
+            <li><a href="mailto:support@perc.store">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 perc.store. Built with loyalty.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
