@@ -4,159 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="perc.store — The ultimate plug-and-play autonomous macro for Roblox Fisch. No complex setups, just press start.">
-  <title>Fisch Macro — perc.store</title>
+  <title>perc.store</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- ─── Navigation ─── -->
-  <nav class="nav" id="main-nav" style="border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(0,0,0,0.8);">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">perc<span class="a">.store</span></a>
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="/tos.html">Terms</a></li>
-      </ul>
-      <div class="nav-actions">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="navbar-logo font-mono">perc<span class="accent">.store</span></a>
+      <div class="navbar-links font-mono">
+        <a href="/" class="active">Store</a>
+        <a href="#">Discord</a>
+        <a href="/status.html">Status</a>
+        <a href="/media.html">Media</a>
+      </div>
+      <div class="navbar-actions">
         <a href="#pricing" class="btn btn-primary btn-sm">Get Access</a>
       </div>
-      <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
     </div>
   </nav>
-  <div class="nav-mobile-menu" id="nav-mobile-menu">
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="/tos.html">Terms</a>
-    <a href="#pricing" class="btn btn-primary" style="text-align:center">Get Access</a>
-  </div>
 
-  <main>
-    <!-- Product Hero -->
-    <section class="hero" style="padding-top:160px; padding-bottom:100px">
-      <div class="hero-bg">
-        <canvas id="bg-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:-1; opacity:0.3;"></canvas>
-      </div>
-      <div class="container" style="text-align:center; max-width:800px; margin:0 auto; position:relative; z-index:2;">
-        <h1 class="hero-h1" style="font-size:4.5rem; line-height:1.1; font-weight:800; letter-spacing:-1px;">
+  <main class="main-content">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>
           Autonomous Roblox fishing.<br>
-          <em style="color:#ec4899; font-style:normal;">Plug and play.</em>
+          <span class="accent">Plug and play.</span>
         </h1>
-        <p class="hero-sub" style="max-width: 600px; margin: 2rem auto; font-size:1.15rem; color:#888;">
+        <p>
           We stripped away the confusing sliders and complex setups. Our lightweight computer vision engine automatically tracks the bar and plays the minigame perfectly. Just press start.
         </p>
-        <div class="hero-actions" style="justify-content:center; margin-top:2.5rem;">
-          <a href="#pricing" class="btn btn-primary btn-xl" style="padding: 0 32px; height: 56px; font-size: 1rem;">View Pricing</a>
-          <a href="#features" class="btn btn-outline btn-xl" style="padding: 0 32px; height: 56px; font-size: 1rem; border-color:rgba(255,255,255,0.1);">Explore Features</a>
+        <div class="mb-16">
+          <a href="#pricing" class="btn btn-primary btn-lg">View Pricing</a>
         </div>
       </div>
     </section>
 
     <!-- Features -->
-    <section class="section" id="features" style="padding: 100px 0;">
-      <div class="container">
-        <div style="text-align:center; max-width:600px; margin:0 auto 5rem auto;">
-          <h2 class="sec-title" style="font-size:2.5rem;">Intelligent Automation</h2>
-          <p class="sec-sub" style="color:#888; font-size:1.1rem;">A flawless, human-like experience powered by real-time screen analysis.</p>
-        </div>
+    <section class="container mb-16">
+      <div class="text-center max-w-xl mb-8">
+        <h2>Intelligent Automation</h2>
+        <p>A flawless, human-like experience powered by real-time screen analysis.</p>
+      </div>
 
-        <div class="feature-list product-grid" style="grid-template-columns: 1fr 1fr 1fr; gap:2rem;">
-          <div class="product-card">
-            <div style="width:40px; height:40px; border-radius:8px; background:rgba(236,72,153,0.1); color:#ec4899; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            </div>
-            <h3 style="margin-bottom:1rem; font-size:1.25rem; color:#fff">Autonomous Reeling</h3>
-            <p style="color:#888; line-height:1.6; font-size:0.95rem;">
-              The engine reads your screen 60 times a second, calculating the exact distance between the fish and the bar to dynamically click your mouse, keeping the bar perfectly balanced.
-            </p>
+      <div class="grid grid-cols-3">
+        <div class="card">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
           </div>
-          <div class="product-card">
-            <div style="width:40px; height:40px; border-radius:8px; background:rgba(236,72,153,0.1); color:#ec4899; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <h3 style="margin-bottom:1rem; font-size:1.25rem; color:#fff">Auto Cast & Shake</h3>
-            <p style="color:#888; line-height:1.6; font-size:0.95rem;">
-              Automatically equips your rod, holds the cast button down to perfectly hit your desired cast power, and flawlessly completes the shake minigame the instant a fish bites.
-            </p>
+          <h3 class="card-title">Autonomous Reeling</h3>
+          <p>The engine reads your screen 60 times a second, calculating the exact distance between the fish and the bar to dynamically click your mouse, keeping the bar perfectly balanced.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           </div>
-          <div class="product-card">
-            <div style="width:40px; height:40px; border-radius:8px; background:rgba(236,72,153,0.1); color:#ec4899; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3 style="margin-bottom:1rem; font-size:1.25rem; color:#fff">Discord Notifications</h3>
-            <p style="color:#888; line-height:1.6; font-size:0.95rem;">
-              Let the macro run minimized while you sleep. It automatically sends a rich embed to your Discord server the moment a rare or mutated fish is caught.
-            </p>
+          <h3 class="card-title">Auto Cast & Shake</h3>
+          <p>Automatically equips your rod, holds the cast button down to perfectly hit your desired cast power, and flawlessly completes the shake minigame the instant a fish bites.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
+          <h3 class="card-title">Discord Webhooks</h3>
+          <p>Let the macro run minimized while you sleep. It automatically sends a rich embed to your Discord server the moment a rare or mutated fish is caught.</p>
         </div>
       </div>
     </section>
 
     <!-- Pricing -->
-    <section class="section" id="pricing" style="padding: 100px 0; background:linear-gradient(180deg, rgba(255,255,255,0.01) 0%, transparent 100%); border-top:1px solid rgba(255,255,255,0.03)">
-      <div class="container">
-        <div style="text-align:center; max-width:600px; margin:0 auto 5rem auto;">
-          <h2 class="sec-title" style="font-size:2.5rem;">Transparent Pricing</h2>
-          <p class="sec-sub" style="color:#888; font-size:1.1rem;">No hidden fees. No forced auto-renewals.</p>
+    <section id="pricing" class="container" style="border-top:1px solid var(--border-color); padding-top: 4rem;">
+      <div class="text-center max-w-xl mb-8">
+        <h2>Transparent Pricing</h2>
+        <p>No hidden fees. No forced auto-renewals.</p>
+      </div>
+
+      <div class="grid grid-cols-2" style="max-width: 800px; margin: 0 auto;">
+        <!-- Monthly -->
+        <div class="card text-center">
+          <h3 class="card-title">Monthly</h3>
+          <div style="font-size:3.5rem; font-weight:700; margin:1rem 0; letter-spacing:-0.05em;">$3<span style="font-size:1rem; color:var(--text-secondary); font-weight:500;">/mo</span></div>
+          <p class="mb-8">Perfect for casual players looking to try the software out for a weekend event.</p>
+          <ul style="list-style:none; text-align:left; color:var(--text-secondary); font-size:0.875rem; margin-bottom:2rem;">
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> Full access to the macro engine</li>
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> All future updates included</li>
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> Premium customer support</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%; height: 2.5rem;">Subscribe for $3</button>
         </div>
 
-        <div class="product-grid" style="grid-template-columns: 1fr 1fr; gap:2rem; max-width:800px; margin:0 auto;">
-          <!-- Monthly -->
-          <div class="product-card" style="text-align:center; padding:3.5rem 2.5rem; border-color:rgba(255,255,255,0.05); background:rgba(10,10,10,0.8);">
-            <h3 style="font-size:1.25rem; color:#fff; margin-bottom:0.5rem; font-weight:600;">Monthly</h3>
-            <div style="font-size:3.5rem; font-weight:800; color:#fff; margin-bottom:1.5rem; letter-spacing:-1px;">$3<span style="font-size:1rem; color:#666; font-weight:500; letter-spacing:0;">/mo</span></div>
-            <p style="color:#888; margin-bottom:2.5rem; font-size:0.95rem; line-height:1.6;">Perfect for casual players looking to try the software out for a weekend event.</p>
-            <ul style="list-style:none; padding:0; margin:0 0 2.5rem 0; text-align:left; color:#a0a0a0; font-size:0.9rem;">
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> Full access to the macro engine</li>
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> All future updates included</li>
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> Premium customer support</li>
-            </ul>
-            <button class="btn btn-outline" style="width:100%; justify-content:center; height:48px;">Subscribe for $3</button>
-          </div>
-
-          <!-- Lifetime -->
-          <div class="product-card" style="text-align:center; padding:3.5rem 2.5rem; border-color:rgba(236,72,153,0.3); background:rgba(10,10,10,0.8); position:relative;">
-            <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#ec4899; color:#fff; padding:4px 16px; border-radius:999px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 12px rgba(236,72,153,0.3)">Lifetime</div>
-            <h3 style="font-size:1.25rem; color:#fff; margin-bottom:0.5rem; font-weight:600;">One-Time</h3>
-            <div style="font-size:3.5rem; font-weight:800; color:#fff; margin-bottom:1.5rem; letter-spacing:-1px;">$20<span style="font-size:1rem; color:#666; font-weight:500; letter-spacing:0;">/once</span></div>
-            <p style="color:#888; margin-bottom:2.5rem; font-size:0.95rem; line-height:1.6;">Pay once, own it forever. The ultimate value for our most dedicated users.</p>
-            <ul style="list-style:none; padding:0; margin:0 0 2.5rem 0; text-align:left; color:#a0a0a0; font-size:0.9rem;">
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> Everything in Monthly</li>
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> Pay once, never pay again</li>
-              <li style="margin-bottom:1rem; display:flex; align-items:center; gap:12px;"><span style="color:#ec4899">✔</span> Early access to beta features</li>
-            </ul>
-            <button class="btn btn-primary" style="width:100%; justify-content:center; height:48px;">Buy Lifetime</button>
-          </div>
+        <!-- Lifetime -->
+        <div class="card text-center" style="border-color: rgba(219, 39, 119, 0.4);">
+          <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; padding:2px 12px; border-radius:999px; font-size:0.75rem; font-weight:600; text-transform:uppercase;">Lifetime</div>
+          <h3 class="card-title">One-Time</h3>
+          <div style="font-size:3.5rem; font-weight:700; margin:1rem 0; letter-spacing:-0.05em;">$20<span style="font-size:1rem; color:var(--text-secondary); font-weight:500;">/once</span></div>
+          <p class="mb-8">Pay once, own it forever. The ultimate value for our most dedicated users.</p>
+          <ul style="list-style:none; text-align:left; color:var(--text-secondary); font-size:0.875rem; margin-bottom:2rem;">
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> Everything in Monthly</li>
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> Pay once, never pay again</li>
+            <li class="mb-2"><span class="accent" style="margin-right:8px">✔</span> Early access to beta features</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%; height: 2.5rem;">Buy Lifetime</button>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer" style="border-top:1px solid rgba(255,255,255,0.03); padding-top:4rem; padding-bottom:4rem;">
+  <footer>
     <div class="container">
-      <div class="footer-grid" style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div>
-          <a href="/" class="nav-logo" style="margin-bottom:1rem;display:inline-block; font-size:1.5rem;">perc<span class="a">.store</span></a>
-          <p style="color:#666;font-size:0.875rem;max-width:250px">The ultimate autonomous fishing macro for Roblox.</p>
-        </div>
-        <div style="display:flex; gap:4rem;">
-          <div>
-            <h4 style="color:#fff; margin-bottom:1rem; font-size:0.9rem;">Legal</h4>
-            <ul style="list-style:none; padding:0; margin:0;">
-              <li style="margin-bottom:0.5rem"><a href="/tos.html" style="color:#888; text-decoration:none; font-size:0.9rem;">Terms of Service</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 style="color:#fff; margin-bottom:1rem; font-size:0.9rem;">Support</h4>
-            <ul style="list-style:none; padding:0; margin:0;">
-              <li style="margin-bottom:0.5rem"><a href="mailto:support@perc.store" style="color:#888; text-decoration:none; font-size:0.9rem;">Contact Us</a></li>
-            </ul>
-          </div>
-        </div>
+      <div style="margin-bottom: 1rem;"><a href="/" class="font-mono" style="font-weight:700; color:#fff;">perc<span class="accent">.store</span></a></div>
+      <div style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
+        <a href="/tos.html">Terms of Service</a>
+        <a href="#">Discord</a>
+        <a href="mailto:support@perc.store">Contact</a>
       </div>
+      <p>&copy; 2026 perc.store. All rights reserved.</p>
     </div>
   </footer>
 

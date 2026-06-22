@@ -7,6 +7,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
+        status: './status.html',
+        media: './media.html',
         tos: './tos.html'
       }
     }
