@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
+        purchase: './purchase.html',
         status: './status.html',
         media: './media.html',
         tos: './tos.html'

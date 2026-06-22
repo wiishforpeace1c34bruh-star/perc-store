@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisch Macro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ambient"></div>
+    <div class="error-bar" id="error-bar"></div>
+
+    <!-- ═══ AUTH SCREEN ═══ -->
+    <div class="screen" id="screen-auth">
+        <div class="auth-box">
+            <div class="label" style="margin-bottom:10px">LICENSE KEY</div>
+            <input class="input" id="auth-key" type="text" placeholder="PERC-XXXX-XXXX-XXXX" spellcheck="false" autocomplete="off">
+            <div class="auth-hwid" id="auth-hwid">HWID: --------</div>
+            <button class="btn btn-main" id="auth-btn">AUTHENTICATE</button>
+            <div class="auth-error" id="auth-error"></div>
+        </div>
+    </div>
+
+    <!-- ═══ LOADING SCREEN ═══ -->
+    <div id="screen-loading" class="screen hidden">
+        <div class="loader-ring"></div>
+        <div id="loader-text" class="loader-text">AUTHENTICATING...</div>
+    </div>
+
+    <!-- ═══ DASHBOARD SCREEN ═══ -->
+    <div class="screen hidden" id="screen-dashboard">
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="profile">
+                    <div class="profile-avatar" id="profile-avatar">?</div>
+                    <div class="profile-name" id="profile-name">User</div>
+                    <div class="profile-key" id="profile-key">PERC-····-····-····</div>
+                </div>
+                <div class="divider"></div>
+                <button class="macro-btn idle" id="macro-btn">START</button>
+                <div class="macro-hint">Press F3</div>
+                <div class="divider"></div>
+                <div class="sidebar-status">
+                    <div class="status-row">
+                        <div class="status-dot" id="status-dot"></div>
+                        <span class="status-label" id="status-label">Idle</span>
+                    </div>
+                    <div class="uptime-row">
+                        UPTIME <span class="uptime-val" id="uptime-val">0:00:00</span>
+                    </div>
+                </div>
+                <div class="sidebar-spacer"></div>
+                <div class="sidebar-version">v1.0.0</div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="section-label">MODULES</div>
+                <div class="modules-list">
+
+                    <!-- Auto Cast -->
+                    <div class="module-card" data-module="auto_cast">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Auto Cast</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Automatically casts your fishing rod with configurable power</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Cast Power</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="0" max="100" value="95" data-key="power">
+                                    <span class="setting-value" data-display="power">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Shake -->
+                    <div class="module-card" data-module="auto_shake">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Auto Shake</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Detects and responds to shake prompts automatically</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Style</span>
+                                <select class="setting-select" data-key="style">
+                                    <option value="click">Click</option>
+                                    <option value="nav_key" selected>Nav Key</option>
+                                </select>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Nav Key</span>
+                                <input class="setting-input" type="text" value="\" data-key="nav_key" style="width:60px;text-align:center">
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Tolerance</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="0" max="50" value="10" data-key="tolerance">
+                                    <span class="setting-value" data-display="tolerance">10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Reel -->
+                    <div class="module-card" data-module="auto_reel">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Auto Reel</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">PD-controlled reeling with tunable parameters for minigame solving</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">KP</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="1" max="20" value="8" data-key="kp" data-scale="0.1">
+                                    <span class="setting-value" data-display="kp">0.8</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">KD</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="0" max="10" value="1" data-key="kd" data-scale="0.1">
+                                    <span class="setting-value" data-display="kd">0.1</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Bar Ratio</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="1" max="10" value="5" data-key="bar_ratio" data-scale="0.1">
+                                    <span class="setting-value" data-display="bar_ratio">0.5</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Deadzone</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="5" max="30" value="15" data-key="deadzone">
+                                    <span class="setting-value" data-display="deadzone">15</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Appraise -->
+                    <div class="module-card" data-module="auto_appraise">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Auto Appraise</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Automatically appraises caught fish for mutations and value</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Stop on Mutation</span>
+                                <div class="setting-toggle" data-on="true" data-key="stop_on_mutation"></div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Auto Sell</span>
+                                <div class="setting-toggle" data-on="false" data-key="auto_sell"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Totem -->
+                    <div class="module-card" data-module="auto_totem">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Auto Totem</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Periodically places totems to boost fishing luck</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Interval (min)</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="1" max="30" value="13" data-key="interval">
+                                    <span class="setting-value" data-display="interval">13</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Totem Type</span>
+                                <select class="setting-select" data-key="totem_type">
+                                    <option value="lucky" selected>Lucky</option>
+                                    <option value="mythical">Mythical</option>
+                                    <option value="celestial">Celestial</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discord Webhook -->
+                    <div class="module-card" data-module="discord_webhook">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Discord Webhook</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Send notifications to a Discord channel via webhook</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:4px">
+                                <span class="setting-label">Webhook URL</span>
+                                <input class="setting-input wide" type="text" placeholder="https://discord.com/api/webhooks/..." data-key="url" spellcheck="false">
+                            </div>
+                            <div style="margin-top:10px">
+                                <span class="setting-label" style="display:block;margin-bottom:8px">Triggers</span>
+                                <div class="setting-row"><span class="setting-label" style="color:#666">Rare Catch</span><div class="setting-toggle" data-on="true" data-key="trigger_rare"></div></div>
+                                <div class="setting-row"><span class="setting-label" style="color:#666">Mutation</span><div class="setting-toggle" data-on="true" data-key="trigger_mutation"></div></div>
+                                <div class="setting-row"><span class="setting-label" style="color:#666">Error</span><div class="setting-toggle" data-on="false" data-key="trigger_error"></div></div>
+                                <div class="setting-row"><span class="setting-label" style="color:#666">Stats</span><div class="setting-toggle" data-on="false" data-key="trigger_stats"></div></div>
+                            </div>
+                            <div class="setting-row" style="margin-top:4px">
+                                <span class="setting-label">Screenshot</span>
+                                <div class="setting-toggle" data-on="true" data-key="screenshot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Anti-AFK -->
+                    <div class="module-card" data-module="anti_afk">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Anti-AFK</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Prevents idle disconnection with periodic micro-movements</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Interval (min)</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="1" max="10" value="5" data-key="interval">
+                                    <span class="setting-value" data-display="interval">5</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Movement</span>
+                                <select class="setting-select" data-key="movement_type">
+                                    <option value="mouse_jitter" selected>Mouse Jitter</option>
+                                    <option value="camera_rotate">Camera Rotate</option>
+                                    <option value="character_wiggle">Char Wiggle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Server Hop -->
+                    <div class="module-card" data-module="server_hop">
+                        <div class="module-header">
+                            <div class="module-info">
+                                <span class="module-icon">::</span>
+                                <span class="module-name">Server Hop</span>
+                                <span class="module-tooltip-trigger">ℹ️
+                                    <div class="module-tooltip">Automatically switches servers based on trigger conditions</div>
+                                </span>
+                            </div>
+                            <div class="module-toggle" data-enabled="false"></div>
+                        </div>
+                        <div class="module-settings">
+                            <div class="setting-row">
+                                <span class="setting-label">Trigger</span>
+                                <select class="setting-select" data-key="trigger">
+                                    <option value="timer" selected>Timer</option>
+                                    <option value="fish_count">Fish Count</option>
+                                    <option value="error">Error</option>
+                                </select>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Interval (min)</span>
+                                <div class="slider-wrap">
+                                    <input type="range" min="5" max="120" value="30" data-key="interval">
+                                    <span class="setting-value" data-display="interval">30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ WIDGET SCREEN ═══ -->
+    <div class="screen hidden" id="screen-widget">
+        <div class="widget-bar">
+            <div class="widget-dot"></div>
+            <div class="widget-text" id="widget-text"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
