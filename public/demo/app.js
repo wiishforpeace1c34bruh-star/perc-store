@@ -96,24 +96,9 @@
     authKey.addEventListener('keydown', e => { if (e.key === 'Enter') authenticate(); });
 
     function authenticate() {
-        const key = authKey.value.trim();
-        authError.textContent = '';
-
-        if (!/^PERC-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/.test(key)) {
-            showAuthError('INVALID KEY FORMAT');
-            return;
-        }
-
-        licenseKey = key;
-        authBtn.textContent = 'VERIFYING...';
-        authBtn.style.pointerEvents = 'none';
-
-        // Try C# first; if no webview, simulate
-        if (window.chrome && window.chrome.webview) {
-            sendToHost('AUTHENTICATE', { key, hwid });
-        } else {
-            setTimeout(() => runLoadingSequence(), 600);
-        }
+        // [DEMO MODE BYPASS]
+        licenseKey = 'PERC-DEMO-KEY';
+        document.getElementById('profile-key').textContent = licenseKey;
     }
 
     function showAuthError(msg) {

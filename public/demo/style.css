@@ -369,7 +369,6 @@ input[type="text"], .input {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transition: border-color 0.2s ease;
-    overflow: hidden;
 }
 .module-card:hover { border-color: rgba(236,72,153,0.3); }
 .module-card.active { border-color: rgba(236,72,153,0.2); }
