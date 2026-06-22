@@ -470,34 +470,24 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 }
 
 /* ══════════════════════════════════════════════════════
-   VISUAL EFFECTS (Holographic, Animated Text, Hover)
+   VISUAL EFFECTS (Holographic Hover)
    ══════════════════════════════════════════════════════ */
-.animated-text {
-  background: linear-gradient(90deg, #fff 0%, #ec4899 50%, #fff 100%);
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: shine 4s linear infinite;
-}
-@keyframes shine {
-  to { background-position: 200% center; }
-}
-
 /* 3D Tilting Cards */
 .product-card.tilt {
   transform-style: preserve-3d;
   position: relative;
   overflow: hidden;
   will-change: transform;
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 .product-card.tilt::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(236,72,153,0.3) 0%, transparent 60%);
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(236,72,153,0.15) 0%, transparent 50%);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: 10;
   mix-blend-mode: screen;
@@ -508,20 +498,11 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 
 /* TOS Text Hover */
 .article-content p {
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 .article-content p:hover {
   color: #fff !important;
   transform: translateX(4px);
-}
-
-/* Snow Canvas */
-#snow-canvas {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 1;
 }
 
 /* ══════════════════════════════════════════════════════

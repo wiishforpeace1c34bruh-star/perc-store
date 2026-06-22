@@ -28,69 +28,7 @@ if (document.readyState === 'loading') {
 }
 
 /* ══════════════════════════════════════════════════════
-   HIGH-FPS PINK SNOW EFFECT
-   ══════════════════════════════════════════════════════ */
-function initSnowEffect() {
-  const canvas = document.createElement('canvas');
-  canvas.id = 'snow-canvas';
-  document.body.prepend(canvas);
-  
-  const ctx = canvas.getContext('2d', { alpha: true });
-  let width, height;
-  
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  const particles = [];
-  for (let i = 0; i < 150; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 1.5 + 0.5,
-      d: Math.random() * 150,
-      speedY: Math.random() * 1 + 0.5,
-      speedX: Math.random() * 1 - 0.5
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = 'rgba(236, 72, 153, 0.4)'; // Brand pink
-    ctx.beginPath();
-    for (let i = 0; i < particles.length; i++) {
-      let p = particles[i];
-      ctx.moveTo(p.x, p.y);
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-    }
-    ctx.fill();
-    update();
-    requestAnimationFrame(draw);
-  }
-
-  function update() {
-    for (let i = 0; i < particles.length; i++) {
-      let p = particles[i];
-      p.y += p.speedY;
-      p.x += p.speedX;
-      
-      if (p.y > height) {
-        particles[i] = { x: Math.random() * width, y: 0, r: p.r, d: p.d, speedY: p.speedY, speedX: p.speedX };
-      }
-      if (p.x > width) p.x = 0;
-      if (p.x < 0) p.x = width;
-    }
-  }
-  draw();
-}
-
-/* ══════════════════════════════════════════════════════
-   HOLOGRAPHIC 3D TILT EFFECT
+   PREMIUM 3D TILT EFFECT
    ══════════════════════════════════════════════════════ */
 function initTiltEffect() {
   const cards = document.querySelectorAll('.product-card');
@@ -105,22 +43,21 @@ function initTiltEffect() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
+      const rotateX = ((y - centerY) / centerY) * -2; // Subdued rotation
+      const rotateY = ((x - centerX) / centerX) * 2;  // Subdued rotation
       
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
       card.style.setProperty('--mouse-x', `${x}px`);
       card.style.setProperty('--mouse-y', `${y}px`);
     });
     
     card.addEventListener('mouseleave', () => {
-      card.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+      card.style.transform = `perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
     });
   });
 }
 
 // Ensure effects run after init
 document.addEventListener('DOMContentLoaded', () => {
-  initSnowEffect();
   initTiltEffect();
 });
