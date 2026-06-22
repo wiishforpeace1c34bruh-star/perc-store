@@ -363,14 +363,19 @@ input[type="text"], .input {
 
 /* ── Module Card ─────────────────────────────────────── */
 .module-card {
+    position: relative;
+    z-index: 1;
     background: rgba(10,10,10,0.5);
     border: 1px solid #111;
     border-radius: 6px;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, z-index 0s;
 }
-.module-card:hover { border-color: rgba(236,72,153,0.3); }
+.module-card:hover { 
+    border-color: rgba(236,72,153,0.3); 
+    z-index: 10;
+}
 .module-card.active { border-color: rgba(236,72,153,0.2); }
 
 .module-header {
