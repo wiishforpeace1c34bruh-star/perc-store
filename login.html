@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — perc.store</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 8rem auto 0 auto;
+      padding: 2.5rem;
+      background: rgba(10, 10, 10, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .input-group input {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-group input:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="navbar-logo font-mono">perc<span class="accent">.store</span></a>
+      <div class="navbar-links font-mono">
+        <a href="/">Store</a>
+        <a href="#">Discord</a>
+        <a href="/status.html">Status</a>
+        <a href="/media.html">Media</a>
+      </div>
+      <div class="navbar-actions">
+        <a href="/login.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="/purchase.html" class="btn btn-primary btn-sm">Get Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content" style="padding-top: 4rem;">
+    <div class="container">
+      <div class="login-container text-center">
+        <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Welcome back</h1>
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 2rem;">Log in to view your license and download the software.</p>
+
+        <form action="/dashboard.html" method="GET" style="text-align: left;">
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 2.5rem;">Continue with Email</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

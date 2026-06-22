@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — perc.store</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .license-box {
+      background: rgba(219, 39, 119, 0.05);
+      border: 1px dashed rgba(219, 39, 119, 0.3);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .key-text {
+      font-family: 'Geist Mono', monospace;
+      font-size: 1.25rem;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="navbar-logo font-mono">perc<span class="accent">.store</span></a>
+      <div class="navbar-links font-mono">
+        <a href="/">Store</a>
+        <a href="#">Discord</a>
+        <a href="/status.html">Status</a>
+        <a href="/media.html">Media</a>
+      </div>
+      <div class="navbar-actions">
+        <span style="font-size: 0.875rem; color: var(--text-secondary); margin-right: 1rem;">user@example.com</span>
+        <a href="/" class="btn btn-outline btn-sm">Log out</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <section class="container" style="max-width: 800px; padding-top: 4rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+        <div>
+          <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Overview</h1>
+          <p>Manage your active licenses and download the latest software build.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+              Fisch Macro Engine
+              <span style="font-size: 0.7rem; background: rgba(34,197,94,0.1); color: #22c55e; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;">Active</span>
+            </h3>
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">Lifetime Access ($20/once)</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="alert('Downloading perc-setup.exe...')">Download v2.1.4</button>
+        </div>
+        
+        <div class="license-box">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 0.25rem;">Your License Key</div>
+            <div class="key-text" id="license-key">PERC-X7B2-9F4A-M2L1</div>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="navigator.clipboard.writeText('PERC-X7B2-9F4A-M2L1'); alert('Copied to clipboard!')">Copy Key</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size: 1.125rem; margin-bottom: 1rem;">Installation Instructions</h3>
+        <ol style="color: var(--text-secondary); font-size: 0.9rem; margin-left: 1.5rem; line-height: 1.8;">
+          <li style="margin-bottom: 0.5rem;">Download the latest version of the macro engine using the button above.</li>
+          <li style="margin-bottom: 0.5rem;">Extract the `.zip` file to your Desktop or a dedicated folder.</li>
+          <li style="margin-bottom: 0.5rem;">Run <code style="background: rgba(255,255,255,0.1); padding: 2px 4px; border-radius: 4px;">perc.exe</code> as Administrator.</li>
+          <li style="margin-bottom: 0.5rem;">When prompted, paste your License Key shown above to authenticate.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="margin-bottom: 1rem;"><a href="/" class="font-mono" style="font-weight:700; color:#fff;">perc<span class="accent">.store</span></a></div>
+      <p>&copy; 2026 perc.store. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

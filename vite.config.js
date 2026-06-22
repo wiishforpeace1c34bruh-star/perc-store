@@ -8,6 +8,8 @@ export default defineConfig({
       input: {
         main: './index.html',
         purchase: './purchase.html',
+        login: './login.html',
+        dashboard: './dashboard.html',
         status: './status.html',
         media: './media.html',
         tos: './tos.html'

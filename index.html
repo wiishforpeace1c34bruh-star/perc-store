@@ -21,6 +21,7 @@
         <a href="/media.html">Media</a>
       </div>
       <div class="navbar-actions">
+        <a href="/login.html" class="btn btn-outline btn-sm">Login</a>
         <a href="/purchase.html" class="btn btn-primary btn-sm">Get Access</a>
       </div>
     </div>
@@ -28,72 +29,49 @@
 
   <main class="main-content">
     <!-- Hero -->
-    <section class="hero" style="max-width: 1000px; padding: 6rem 0;">
-      <div class="container" style="display: flex; align-items: center; justify-content: space-between; text-align: left; gap: 4rem;">
+    <section class="hero" style="padding: 6rem 0; text-align: center;">
+      <div class="container" style="display: flex; flex-direction: column; align-items: center;">
         
-        <!-- Left Column: Copy -->
-        <div style="flex: 1;">
-          <div style="display:inline-flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.05); border:1px solid var(--border-color); padding:0.5rem 1rem; border-radius:999px; font-size:0.875rem; font-weight:500; margin-bottom:2rem;">
-            <div style="display:flex; align-items:center; gap:0.5rem; color:#22c55e;">
-              <span class="status-dot"></span>
-              Undetected
-            </div>
-            <span style="color:var(--text-secondary);">|</span>
-            <span style="color:var(--text-secondary);"><strong style="color:#fff;">842</strong> Users Online</span>
+        <div style="display:inline-flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.05); border:1px solid var(--border-color); padding:0.5rem 1rem; border-radius:999px; font-size:0.875rem; font-weight:500; margin-bottom:2rem;">
+          <div style="display:flex; align-items:center; gap:0.5rem; color:#22c55e;">
+            <span class="status-dot"></span>
+            Undetected
           </div>
-          
-          <h1 style="font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.05em;">
-            Press start.<br>
-            <span class="accent">Catch fish.</span>
-          </h1>
-          <p style="font-size: 1.125rem; color: #888; max-width: 400px; margin-bottom: 2.5rem; margin-left: 0;">
-            The cleanest, safest, and most powerful macro for Roblox Fisch. No complex setup. Just run it.
-          </p>
-          
-          <div style="display: flex; gap: 1rem;">
-            <a href="/purchase.html" class="btn btn-primary btn-lg">Get Access</a>
-            <a href="#features" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.1);">View Features</a>
-          </div>
+          <span style="color:var(--text-secondary);">|</span>
+          <span style="color:var(--text-secondary);"><strong id="active-users-count" style="color:#fff;">112</strong> Active Users</span>
         </div>
-
-        <!-- Right Column: Live Widget -->
-        <div style="flex: 1; max-width: 400px;">
-          <div class="card" style="padding: 1.5rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(16px); border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(219,39,119,0.1);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-              <h3 style="font-size: 1rem; color: #fff;">Live Feed</h3>
-              <span style="font-size: 0.75rem; background: rgba(219,39,119,0.1); color: var(--accent); padding: 2px 8px; border-radius: 99px; font-weight: 600;">COMMUNITY</span>
-            </div>
-            
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-              <div style="display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(139, 92, 246, 0.1); color: #8b5cf6; display: flex; align-items: center; justify-content: center; font-size: 1rem;">🦈</div>
-                <div>
-                  <div style="font-size: 0.875rem; color: #fff; font-weight: 500;">Mythical Great White</div>
-                  <div style="font-size: 0.75rem; color: #666;">Caught 1m ago in Moosewood</div>
-                </div>
-              </div>
-              <div style="height: 1px; background: rgba(255,255,255,0.05);"></div>
-              <div style="display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(234, 179, 8, 0.1); color: #eab308; display: flex; align-items: center; justify-content: center; font-size: 1rem;">🐡</div>
-                <div>
-                  <div style="font-size: 0.875rem; color: #fff; font-weight: 500;">Legendary Puffer</div>
-                  <div style="font-size: 0.75rem; color: #666;">Caught 4m ago in Roslit</div>
-                </div>
-              </div>
-              <div style="height: 1px; background: rgba(255,255,255,0.05);"></div>
-              <div style="display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(34, 197, 94, 0.1); color: #22c55e; display: flex; align-items: center; justify-content: center; font-size: 1rem;">🐟</div>
-                <div>
-                  <div style="font-size: 0.875rem; color: #fff; font-weight: 500;">Mutated Salmon</div>
-                  <div style="font-size: 0.75rem; color: #666;">Caught 12m ago in Snowcap</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
+        <h1 style="font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.05em; max-width: 600px;">
+          Press start.<br>
+          <span class="accent">Catch fish.</span>
+        </h1>
+        <p style="font-size: 1.125rem; color: #888; max-width: 500px; margin-bottom: 2.5rem;">
+          The cleanest, safest, and most powerful macro for Roblox Fisch. No complex setup. Just run it.
+        </p>
+        
+        <div style="display: flex; gap: 1rem;">
+          <a href="/purchase.html" class="btn btn-primary btn-lg">Get Access</a>
+          <a href="#features" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.1);">View Features</a>
         </div>
-
       </div>
     </section>
+
+    <!-- User Counter Script -->
+    <script>
+      (function() {
+        const counterEl = document.getElementById('active-users-count');
+        if (!counterEl) return;
+        let count = 112;
+        setInterval(() => {
+          const change = Math.random() > 0.5 ? 1 : -1;
+          const amt = Math.floor(Math.random() * 3);
+          count += (change * amt);
+          if (count < 105) count += 5;
+          if (count > 130) count -= 5;
+          counterEl.textContent = count;
+        }, 4000);
+      })();
+    </script>
 
     <!-- Features -->
     <section id="features" class="container mb-16" style="padding-top: 4rem; border-top: 1px solid rgba(255,255,255,0.05);">
