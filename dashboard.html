@@ -38,8 +38,8 @@
         <a href="/media.html">Media</a>
       </div>
       <div class="navbar-actions">
-        <span style="font-size: 0.875rem; color: var(--text-secondary); margin-right: 1rem;">user@example.com</span>
-        <a href="/" class="btn btn-outline btn-sm">Log out</a>
+        <span id="nav-email" style="font-size: 0.875rem; color: var(--text-secondary); margin-right: 1rem;">user@example.com</span>
+        <a href="#" id="btn-logout" class="btn btn-outline btn-sm">Log out</a>
       </div>
     </div>
   </nav>
@@ -62,7 +62,6 @@
             </h3>
             <p style="font-size: 0.875rem; color: var(--text-secondary);">Lifetime Access ($20/once)</p>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="alert('Downloading perc-setup.exe...')">Download v2.1.4</button>
         </div>
         
         <div class="license-box" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
@@ -95,7 +94,25 @@
       <div style="margin-bottom: 1rem;"><a href="/" class="font-mono" style="font-weight:700; color:#fff;">perc<span class="accent">.store</span></a></div>
       <p>&copy; 2026 perc.store. All rights reserved.</p>
     </div>
-  </footer>
+  <script type="module">
+    import { supabase, requireAuth } from '/auth.js';
 
+    async function initDashboard() {
+      const session = await requireAuth();
+      if (!session) return;
+
+      // Update UI with user info
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      // Handle Logout
+      document.getElementById('btn-logout').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await supabase.auth.signOut();
+        window.location.href = '/login.html';
+      });
+    }
+
+    initDashboard();
+  </script>
 </body>
 </html>

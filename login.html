@@ -103,14 +103,75 @@
     </div>
   </main>
 
-  <script>
-    function switchTab(tab) {
+  <script type="module">
+    import { supabase, requireGuest } from '/auth.js';
+
+    // Prevent logged-in users from seeing login page
+    requireGuest();
+
+    window.switchTab = function(tab) {
       document.getElementById('form-login').style.display = tab === 'login' ? 'block' : 'none';
       document.getElementById('form-signup').style.display = tab === 'signup' ? 'block' : 'none';
       
       document.getElementById('tab-login').style.color = tab === 'login' ? '#fff' : 'var(--text-secondary)';
       document.getElementById('tab-signup').style.color = tab === 'signup' ? '#fff' : 'var(--text-secondary)';
     }
+
+    // Handle Login
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      const btn = e.target.querySelector('button');
+      const originalText = btn.textContent;
+      btn.textContent = 'Authenticating...';
+      btn.disabled = true;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        alert(error.message);
+        btn.textContent = originalText;
+        btn.disabled = false;
+      } else {
+        window.location.href = '/dashboard.html';
+      }
+    });
+
+    // Handle Sign Up
+    document.getElementById('form-signup').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('signup-user').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      
+      const btn = e.target.querySelector('button');
+      const originalText = btn.textContent;
+      btn.textContent = 'Creating Account...';
+      btn.disabled = true;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            username: username
+          }
+        }
+      });
+      
+      if (error) {
+        alert(error.message);
+        btn.textContent = originalText;
+        btn.disabled = false;
+      } else {
+        alert("Account created! You can now sign in.");
+        switchTab('login');
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
   </script>
 
 </body>
