@@ -64,27 +64,54 @@
 
   <main class="main-content" style="padding-top: 4rem;">
     <div class="container">
-      <div class="login-container text-center">
-        <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Welcome back</h1>
-        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 2rem;">Log in to view your license and download the software.</p>
+      <div class="login-container">
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+          <button id="tab-login" class="tab-btn active" onclick="switchTab('login')" style="flex: 1; background: transparent; border: none; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer;">Sign In</button>
+          <button id="tab-signup" class="tab-btn" onclick="switchTab('signup')" style="flex: 1; background: transparent; border: none; color: var(--text-secondary); font-size: 1rem; font-weight: 600; cursor: pointer;">Sign Up</button>
+        </div>
 
-        <form action="/dashboard.html" method="GET" style="text-align: left;">
+        <!-- Login Form -->
+        <form id="form-login" action="/dashboard.html" method="GET" style="text-align: left;">
           <div class="input-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="you@example.com" required>
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" placeholder="you@example.com" required>
           </div>
           <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="••••••••" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; height: 2.5rem; margin-bottom: 1rem;">Sign In</button>
-          <div style="text-align: center; font-size: 0.875rem; color: var(--text-secondary);">
-            Don't have an account? <a href="/purchase.html" style="color: var(--accent); text-decoration: none;">Purchase Access</a>
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 2.5rem; margin-top: 1rem;">Sign In</button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="form-signup" action="/dashboard.html" method="GET" style="text-align: left; display: none;">
+          <div class="input-group">
+            <label for="signup-user">Username</label>
+            <input type="text" id="signup-user" placeholder="Investigator" required>
           </div>
+          <div class="input-group">
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 2.5rem; margin-top: 1rem;">Create Account</button>
         </form>
       </div>
     </div>
   </main>
+
+  <script>
+    function switchTab(tab) {
+      document.getElementById('form-login').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('form-signup').style.display = tab === 'signup' ? 'block' : 'none';
+      
+      document.getElementById('tab-login').style.color = tab === 'login' ? '#fff' : 'var(--text-secondary)';
+      document.getElementById('tab-signup').style.color = tab === 'signup' ? '#fff' : 'var(--text-secondary)';
+    }
+  </script>
 
 </body>
 </html>

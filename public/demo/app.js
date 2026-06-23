@@ -81,33 +81,11 @@
     }
 
     /* ═══════════════════════════════════════════════════════
-       AUTH
+       AUTH (Handled by Loader)
        ═══════════════════════════════════════════════════════ */
-    const authKey   = document.getElementById('auth-key');
-    const authBtn   = document.getElementById('auth-btn');
-    const authError = document.getElementById('auth-error');
-    const authHwid  = document.getElementById('auth-hwid');
-
-    // Generate HWID placeholder
-    const hwid = Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
-    authHwid.textContent = `HWID: ${hwid.slice(0, 4)}...${hwid.slice(4)}`;
-
-    authBtn.addEventListener('click', authenticate);
-    authKey.addEventListener('keydown', e => { if (e.key === 'Enter') authenticate(); });
-
-    function authenticate() {
-        // [DEMO MODE BYPASS]
-        licenseKey = 'PERC-DEMO-KEY';
-        document.getElementById('profile-key').textContent = licenseKey;
-    }
-
-    function showAuthError(msg) {
-        authError.textContent = msg;
-        authKey.style.borderColor = 'rgba(239,68,68,0.5)';
-        setTimeout(() => { authKey.style.borderColor = ''; }, 2000);
-        authBtn.textContent = 'AUTHENTICATE';
-        authBtn.style.pointerEvents = '';
-    }
+    setTimeout(() => {
+        runLoadingSequence();
+    }, 500);
 
     /* ═══════════════════════════════════════════════════════
        LOADING SEQUENCE
@@ -144,10 +122,10 @@
        DASHBOARD
        ═══════════════════════════════════════════════════════ */
     function setupDashboard() {
-        // Profile
-        const name = licenseKey ? licenseKey.split('-')[1] || 'U' : 'U';
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('user') || 'Investigator';
         document.getElementById('profile-avatar').textContent = name.charAt(0).toUpperCase();
-        document.getElementById('profile-name').textContent = licenseKey ? licenseKey.split('-').slice(1).join('-') : 'User';
+        document.getElementById('profile-name').textContent = name;
         document.getElementById('profile-key').textContent = licenseKey || 'PERC-····-····-····';
 
         applySettingsToUI();
