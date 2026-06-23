@@ -64,15 +64,18 @@
           </div>
         </div>
         
-        <div class="license-box" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+        <div class="license-box" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); position: relative;">
           <div style="font-size: 0.875rem; color: var(--text-secondary);">
-            <strong style="color: #fff;">Status:</strong> Active &mdash; Lifetime Access
+            <strong style="color: #fff;">Status:</strong> <span id="status-text">Checking Access...</span>
           </div>
-          <div style="font-size: 0.875rem; color: var(--text-secondary);">
-            <strong style="color: #fff;">Purchased:</strong> June 22, 2026
+          <div style="font-size: 0.875rem; color: var(--text-secondary); width: 100%;">
+            <strong style="color: #fff;">License Key:</strong>
+            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+              <code id="key-display" style="background: rgba(236,72,153,0.1); color: #ec4899; padding: 0.5rem 1rem; border-radius: 4px; border: 1px dashed rgba(236,72,153,0.4); font-family: monospace; font-size: 1.1rem; flex-grow: 1; text-align: center;">Loading...</code>
+            </div>
           </div>
-          <div style="font-size: 0.875rem; color: var(--text-secondary);">
-            <strong style="color: #fff;">Delivery:</strong> Check your inbox for the License Key & Instructions.
+          <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+            <button id="btn-reset-hwid" class="btn btn-outline btn-sm" style="font-size: 0.75rem; display: none;">Reset HWID Link</button>
           </div>
         </div>
       </div>
@@ -101,10 +104,65 @@
       const session = await requireAuth();
       if (!session) return;
 
-      // Update UI with user info
       document.getElementById('nav-email').textContent = session.user.email;
 
-      // Handle Logout
+      // Fetch Profile
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('has_access')
+        .eq('id', session.user.id)
+        .single();
+
+      const statusText = document.getElementById('status-text');
+      const keyDisplay = document.getElementById('key-display');
+      const resetBtn = document.getElementById('btn-reset-hwid');
+
+      if (profile && profile.has_access) {
+        statusText.innerHTML = 'Active &mdash; Lifetime Access';
+        statusText.style.color = '#10b981';
+
+        // Fetch License Key
+        const { data: licenseData } = await supabase
+          .from('license_keys')
+          .select('*')
+          .eq('user_email', session.user.email)
+          .single();
+
+        if (licenseData) {
+          keyDisplay.textContent = licenseData.license_key;
+          if (licenseData.hwid) {
+            resetBtn.style.display = 'inline-block';
+          }
+        } else {
+          keyDisplay.textContent = "Error: Key not found. Contact Support.";
+        }
+
+      } else {
+        statusText.innerHTML = 'Inactive &mdash; <a href="/purchase.html" style="color:var(--accent); text-decoration:underline;">Purchase Access</a>';
+        statusText.style.color = '#ef4444';
+        keyDisplay.textContent = "N/A";
+      }
+
+      // Handle HWID Reset
+      resetBtn.addEventListener('click', async () => {
+        resetBtn.textContent = 'Resetting...';
+        resetBtn.disabled = true;
+        
+        const { error } = await supabase
+          .from('license_keys')
+          .update({ hwid: null })
+          .eq('user_email', session.user.email);
+
+        if (!error) {
+          alert('HWID Successfully Reset! You can now log into the macro on a new computer.');
+          resetBtn.style.display = 'none';
+        } else {
+          alert('Failed to reset HWID: ' + error.message);
+          resetBtn.textContent = 'Reset HWID Link';
+          resetBtn.disabled = false;
+        }
+      });
+
       document.getElementById('btn-logout').addEventListener('click', async (e) => {
         e.preventDefault();
         await supabase.auth.signOut();
