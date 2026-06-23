@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 
 // TODO: Replace 'YOUR_SUPABASE_ANON_KEY' with your actual Anon key from your Supabase Dashboard -> Project Settings -> API
 const supabaseUrl = 'https://knlydfmovffoxtnynevy.supabase.co';
-const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtubHlkZm1vdmZmb3h0bnluZXZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzNjQ1NDMsImV4cCI6MjA5NTk0MDU0M30.Z24Xmcs0aEQD6l_jNJfpOWAixZ0L7oOoDvgGZlUfEHc';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
